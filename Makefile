@@ -1,7 +1,8 @@
 NAME				= minishell
 
 INCLUDES			= $(addprefix includes/, minishell.h libft.h)
-SRCS				= $(addprefix srcs/, main.c)
+SRCS				= $(addprefix srcs/, main.c error.c initializer.c \
+						)
 
 OBJS				= ${SRCS:.c=.o}
 

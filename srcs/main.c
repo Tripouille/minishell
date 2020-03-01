@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/29 14:47:40 by jgambard          #+#    #+#             */
-/*   Updated: 2020/02/29 15:31:04 by jgambard         ###   ########.fr       */
+/*   Created: 2020/03/01 18:52:41 by jgambard          #+#    #+#             */
+/*   Updated: 2020/03/01 19:33:57 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,24 @@
 
 int		main(void)
 {
-	t_bool		running;
+	t_bool		waiting_for_command;
 	char		buffer[BUFFER_SIZE];
 	int			read_ret;
+	t_builtin	builtins[10];
 
-	running = 1;
-	while (running)
+	errno = 0;
+	initialize_builtins(builtins);
+	waiting_for_command = 1;
+	while (waiting_for_command)
 	{
 		write(1, PROMPT, slen(PROMPT));
 		if ((read_ret = read(0, buffer, BUFFER_SIZE)) == -1)
-			exit(EXIT_FAILURE); //ecrire erreur
+			error_exit("Read error: ");
 		buffer[read_ret] = 0;
 		if (strcmp(buffer, "exit\n") == 0)
-			running = 0;
+			waiting_for_command = 0;
 		write(1, buffer, read_ret);
 	}
+	builtins[0].function((char**)0);
 	return(0);
 }
