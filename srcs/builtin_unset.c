@@ -1,31 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/03 01:06:39 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/03 04:47:30 by jgambard         ###   ########.fr       */
+/*   Created: 2020/03/03 02:26:52 by jgambard          #+#    #+#             */
+/*   Updated: 2020/03/03 04:38:43 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void		builtin_env(__attribute__((unused)) char **args)
+void	unset_variable(char *name)
 {
-	t_shell_variable		*variable;
+	t_shell_variable	*variable;
+	t_shell_variable	**pointer_on_pointer_on_variable;
 
 	variable = shell_variables;
-	while (variable)
+	pointer_on_pointer_on_variable = &shell_variables;
+	while (variable && ft_strcmp(name, variable->name))
 	{
-		if (variable->exported)
-		{
-			write(1, variable->name, slen(variable->name));
-			write(1, "=", 1);
-			write(1, variable->value, slen(variable->value));
-			write(1, "\n", 1);
-		}
+		pointer_on_pointer_on_variable = &variable->next;
 		variable = variable->next;
 	}
+	if (variable)
+	{
+		*pointer_on_pointer_on_variable = variable->next;
+		free(variable->name);
+		free(variable->value);
+		free(variable);
+	}
+}
+
+
+void		builtin_unset(char **args)
+{
+	while (*++args)
+		unset_variable(*args);
 }

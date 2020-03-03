@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:26:08 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/03 02:02:37 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/03 04:37:37 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,7 @@ void		initialize_builtins(t_builtin builtins[])
 	builtins[2].function = builtin_env;
 	builtins[3].name = "export";
 	builtins[3].function = builtin_export;
-	builtins[4].name = 0;
+	builtins[4].name = "unset";
+	builtins[4].function = builtin_unset;
+	builtins[5].name = 0;
 }

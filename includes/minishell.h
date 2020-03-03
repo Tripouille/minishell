@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/03 02:15:07 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/03 04:37:56 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void				builtin_echo(char **args);
 void				builtin_exit(char **args);
 void				builtin_env(__attribute__((unused)) char **args);
 void				builtin_export(char **args);
+void				builtin_unset(char **args);
 
 void				parse_buffer(char *buffer, t_builtin builtins[]);
 
