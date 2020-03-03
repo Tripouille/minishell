@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:01:34 by jgambard          #+#    #+#             */
-/*   Updated: 2020/02/29 16:01:42 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/03 01:52:35 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ int					ft_atoi(const char *str);
 void				*ft_calloc(size_t count, size_t size);
 char				*ft_strdup(const char *s1);
 double				square(double x);
+int					cinstr(char c, char *str);
 
 #endif

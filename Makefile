@@ -2,11 +2,13 @@ NAME				= minishell
 
 INCLUDES			= $(addprefix includes/, minishell.h libft.h)
 SRCS				= $(addprefix srcs/, main.c error.c initializer.c \
-						builtin_echo.c command.c parse_command.c builtin_exit.c)
+						builtin_echo.c command.c parse_command.c \
+						builtin_exit.c builtin_env.c shell_variable.c \
+						builtin_export.c)
 
 OBJS				= ${SRCS:.c=.o}
 
-CFLAGS				= -g3 -Wall -Wextra -Werror -I includes -fsanitize=address
+CFLAGS				= -g3 -Wall -Wextra -Werror -I includes #-fsanitize=address
 
 test:				all
 					./${NAME}

@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_echo.c                                     :+:      :+:    :+:   */
+/*   cinstr.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/01 19:41:59 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/03 01:10:36 by jgambard         ###   ########.fr       */
+/*   Created: 2020/03/03 01:50:43 by jgambard          #+#    #+#             */
+/*   Updated: 2020/03/03 01:52:20 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-void		builtin_echo(char **args)
+int		cinstr(char c, char *str)
 {
-	while (*++args)
-	{
-		write(1, *args, slen(*args));
-		write(1, " ", 1);
-	}
-	write(1, "\n", 1);
+	int		i;
+
+	i = 0;
+	while (str[i] && str[i] != c)
+		i++;
+	return (str[i] == c ? i : -1);
 }

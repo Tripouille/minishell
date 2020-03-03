@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:58:16 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/01 21:53:28 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/02 23:56:59 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ void	run_command(char **command_args, t_builtin builtins[])
 		builtins[i_builtins].function(command_args);
 	else
 	{
-		write(2, command_args[0], slen(command_args[0]));
+		write(2, "Minishell: ", slen("Minishell: "));
 		write(2, COMMAND_NOT_FOUND, slen(COMMAND_NOT_FOUND));
+		write(2, command_args[0], slen(command_args[0]));
+		write(2, "\n", 1);
 	}
 }
 
