@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 20:41:50 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/03 06:30:43 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/03 23:26:24 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int		command_len(char *buffer, char delimitor)
 	int		len;
 
 	len = 0;
-	while (buffer[len] && buffer[len] != delimitor)
+	while (buffer[len] && buffer[len] != delimitor
+	&& (delimitor != ' ' || (buffer[len] != '\'' && buffer[len] != '"')))
 		len++;
 	return (len);
 }
@@ -42,8 +43,7 @@ void	fill_command_args(char **buffer, char **command_args)
 	delimitor = ' ';
 	while (**buffer)
 	{
-		while (**buffer == ' ')
-			++*buffer;
+		skip_spaces(buffer, 0);
 		if (**buffer == '\'' || **buffer == '"')
 			delimitor = *(*buffer)++;
 		if (**buffer && !(command_args[i_args] =
@@ -53,7 +53,9 @@ void	fill_command_args(char **buffer, char **command_args)
 			error_exit("Malloc fail");
 		}
 		i_copy = 0;
-		while (**buffer && **buffer != delimitor)
+		while (**buffer
+		&& **buffer != delimitor
+		&& (delimitor != ' ' || (**buffer != '\'' && **buffer != '"')))
 			command_args[i_args][i_copy++] = *(*buffer)++;
 		if (**buffer == delimitor)
 		{
@@ -64,37 +66,11 @@ void	fill_command_args(char **buffer, char **command_args)
 	}
 }
 
-/*int		count_args(char *buffer)
-{
-	int		count;
-	char	delimitor;
-
-	count = 0;
-	delimitor = ' ';
-	while (*buffer)
-	{
-		while (delimitor == ' ' && *buffer == ' ')
-			buffer++;
-		if (*buffer)
-			count++;
-		while (*buffer && *buffer != delimitor)
-			buffer++;
-
-	}
-	return (count);
-}*/
-
 char	*wait_for_rest(char *buffer, char delimitor)
 {
 	ask_for_command(delimitor == '\'' ? "PROMPT_QUOTE" : "PROMPT_DQUOTE",
 						buffer + slen(buffer));
 	return (buffer);
-}
-
-void	skip_spaces(char *buffer, int *i)
-{
-	while (buffer[*i] == ' ')
-		++*i;
 }
 
 int		count_args(char *buffer)
@@ -113,7 +89,9 @@ int		count_args(char *buffer)
 			delimitor = buffer[i++];
 		if (buffer[i])
 			count++;
-		while (buffer[i] && buffer[i] != delimitor)
+		while (buffer[i]
+		&& buffer[i] != delimitor
+		&& (delimitor != ' ' || (buffer[i] != '\'' && buffer[i] != '"')))
 			i++;
 		if (buffer[i] == delimitor)
 		{

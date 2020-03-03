@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:40 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/03 01:52:41 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/03 23:21:32 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ void				*ft_calloc(size_t count, size_t size);
 char				*ft_strdup(const char *s1);
 double				square(double x);
 int					cinstr(char c, char *str);
+void				skip_spaces(void *buffer, int *i);
 
 #endif
