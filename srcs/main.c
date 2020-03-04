@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:52:41 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/03 06:28:25 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/04 02:44:55 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		main(void)
 	t_builtin			builtins[10];
 
 	errno = 0;
-	signal(2, SIG_IGN);
+	//signal(2, SIG_IGN);
 	initialize_builtins(builtins);
 	initialize_shell_variables();
 	waiting_for_command = 1;

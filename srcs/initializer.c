@@ -6,11 +6,15 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:26:08 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/03 05:57:25 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/04 03:12:14 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** Initialize shell variables with prompts.
+*/
 
 void		initialize_shell_variables(void)
 {
@@ -19,6 +23,10 @@ void		initialize_shell_variables(void)
 	add_variable(ft_strdup("PROMPT_QUOTE"), ft_strdup("quote> "), NOT_EXPORTED);
 	add_variable(ft_strdup("PROMPT_DQUOTE"), ft_strdup("dquote> "), NOT_EXPORTED);
 }
+
+/*
+** Initialize array of builtin names and functions.
+*/
 
 void		initialize_builtins(t_builtin builtins[])
 {

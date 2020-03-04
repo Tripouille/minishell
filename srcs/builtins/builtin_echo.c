@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/03 01:06:39 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/03 04:47:30 by jgambard         ###   ########.fr       */
+/*   Created: 2020/03/01 19:41:59 by jgambard          #+#    #+#             */
+/*   Updated: 2020/03/04 03:21:41 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void		builtin_env(__attribute__((unused)) char **args)
+void		builtin_echo(char **args)
 {
-	t_shell_variable		*variable;
+	int		newline;
 
-	variable = shell_variables;
-	while (variable)
+	args++;
+	newline = *args && ft_strcmp("-n", *args);
+	if (!newline)
+		args++;
+	while (*args)
 	{
-		if (variable->exported)
-		{
-			write(1, variable->name, slen(variable->name));
-			write(1, "=", 1);
-			write(1, variable->value, slen(variable->value));
-			write(1, "\n", 1);
-		}
-		variable = variable->next;
+		write(1, *args, slen(*args));
+		args++;
+		if (*args)
+			write(1, " ", 1);
 	}
+	if (newline)
+		write(1, "\n", 1);
 }

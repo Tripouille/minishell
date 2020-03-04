@@ -6,11 +6,15 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:58:16 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/03 23:59:01 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/04 03:10:12 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** Display prompt matching prompt_name and write/append next command in buffer.
+*/
 
 void	ask_for_command(char *prompt_name, char *buffer)
 {
@@ -25,6 +29,10 @@ void	ask_for_command(char *prompt_name, char *buffer)
 		read_ret--;
 	buffer[read_ret] = 0;
 }
+
+/*
+** Search for the command in the list of builtins or write error message.
+*/
 
 void	run_command(char **command_args, t_builtin builtins[])
 {
@@ -45,13 +53,19 @@ void	run_command(char **command_args, t_builtin builtins[])
 	}
 }
 
+/*
+** Calloc and fill command array, run then free for each command in the buffer.
+*/
+
 void	parse_buffer(char *buffer, t_builtin builtins[])
 {
 	char	**command_args;
 
 	while (*buffer)
 	{
-		parse_command(&buffer, &command_args);
+		if (!(command_args = ft_calloc(sizeof(char*), count_args(buffer) + 1)))
+			error_exit("Malloc fail");
+		fill_command_args(&buffer, command_args);
 		run_command(command_args, builtins);
 		free_command(command_args);
 	}

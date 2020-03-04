@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/03 23:21:43 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/04 03:06:36 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,15 @@ void				builtin_env(__attribute__((unused)) char **args);
 void				builtin_export(char **args);
 void				builtin_unset(char **args);
 
-void	ask_for_command(char *prompt_name, char *buffer);
+void				ask_for_command(char *prompt_name, char *buffer);
 void				parse_buffer(char *buffer, t_builtin builtins[]);
 
-void				parse_command(char **buffer, char ***command_args);
+int					count_args(char *buffer);
+void				fill_command_args(char **buffer, char **command_args);
+
 void				free_command(char **command_args);
+char				*wait_for_rest(char *buffer, char quote);
+int					arg_len(char *buffer);
 
 char				*get_variable_value(char *name);
 void				add_variable(char *name, char *value, t_bool exported);
