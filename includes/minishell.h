@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/04 04:10:57 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/04 04:23:54 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@
 # define NOT_EXPORTED 0
 # define EXPORTED 1
 # define COMMAND_NOT_FOUND "command not found: "
-# define UNKNOWN_PARAMETER "Unknown parameter"
+# define UNKNOWN_PARAMETER "unknown parameter"
+# define TOO_MANY_ARGUMENTS "too many arguments"
 # define BUFFER_SIZE 10000
 
 typedef char		t_bool;
@@ -57,6 +58,7 @@ void				builtin_exit(char **args);
 void				builtin_env(char **args);
 void				builtin_export(char **args);
 void				builtin_unset(char **args);
+void				builtin_pwd(char **args);
 
 void				ask_for_command(char *prompt_name, char *buffer);
 void				parse_buffer(char *buffer, t_builtin builtins[]);
