@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/04 03:06:36 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/04 04:10:57 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define NOT_EXPORTED 0
 # define EXPORTED 1
 # define COMMAND_NOT_FOUND "command not found: "
+# define UNKNOWN_PARAMETER "Unknown parameter"
 # define BUFFER_SIZE 10000
 
 typedef char		t_bool;
@@ -53,7 +54,7 @@ void				initialize_shell_variables(void);
 
 void				builtin_echo(char **args);
 void				builtin_exit(char **args);
-void				builtin_env(__attribute__((unused)) char **args);
+void				builtin_env(char **args);
 void				builtin_export(char **args);
 void				builtin_unset(char **args);
 

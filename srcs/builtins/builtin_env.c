@@ -6,17 +6,26 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 01:06:39 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/04 01:23:29 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/04 04:11:27 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void		builtin_env(
-						 __attribute__((unused))char **args)
+void		builtin_env(char **args)
 {
 	t_shell_variable		*variable;
 
+	if (args[1])
+	{
+		write(2, args[0], slen(args[0]));
+		write(2, ": ", 2);
+		write(2, args[1], slen(args[1]));
+		write(2, ": ", 2);
+		write(2, UNKNOWN_PARAMETER, slen(UNKNOWN_PARAMETER));
+		write(2, "\n", 1);
+		return ;
+	}
 	variable = shell_variables;
 	while (variable)
 	{
