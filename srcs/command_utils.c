@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 02:52:18 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/04 03:06:36 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/05 00:00:38 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,11 @@ int		arg_len(char *buffer)
 
 char	*wait_for_rest(char *buffer, char quote)
 {
+	int		len;
+
+	len = slen(buffer);
+	buffer[len++] = '\n';
 	ask_for_command(quote == '\'' ? "PROMPT_QUOTE" : "PROMPT_DQUOTE",
-						buffer + slen(buffer));
+						buffer + len);
 	return (buffer);
 }

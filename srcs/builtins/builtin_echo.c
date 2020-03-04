@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:41:59 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/04 03:23:34 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/05 00:02:54 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,12 @@ void		builtin_echo(char **args)
 	int		newline;
 
 	args++;
-	newline = *args && ft_strcmp("-n", *args);
+	if (!*args)
+	{
+		write(1, "\n", 1);
+		return ;
+	}
+	newline = ft_strcmp("-n", *args);
 	if (!newline)
 		args++;
 	while (*args)
