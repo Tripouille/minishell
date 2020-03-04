@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:26:08 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/04 04:21:04 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/04 04:32:19 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,7 @@ void		initialize_builtins(t_builtin builtins[])
 	builtins[4].function = builtin_unset;
 	builtins[5].name = "pwd";
 	builtins[5].function = builtin_pwd;
-	builtins[6].name = 0;
+	builtins[6].name = "cd";
+	builtins[6].function = builtin_cd;
+	builtins[7].name = 0;
 }
