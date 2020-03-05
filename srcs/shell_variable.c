@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 00:06:44 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/03 02:16:32 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/05 01:56:42 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,15 @@ t_shell_variable	*get_variable(char *name)
 	return (variable);
 }
 
-char				*get_variable_value(char *name)
+char				*get_variable_value(char *name, size_t len)
 {
 	t_shell_variable	*variable;
 
 	variable = shell_variables;
-	while (variable && ft_strcmp(name, variable->name))
+	while (variable && (len != slen(variable->name)
+	|| ft_strncmp(name, variable->name, len)))
 		variable = variable->next;
-	return (variable ? variable->value : 0);
+	return (variable ? variable->value : "");
 }
 
 void				add_variable(char *name, char *value, t_bool exported)

@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:58:16 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/04 03:10:12 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/05 01:46:40 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ask_for_command(char *prompt_name, char *buffer)
 	char				*prompt_value;
 	int					read_ret;
 
-	if ((prompt_value = get_variable_value(prompt_name)))
+	if ((prompt_value = get_variable_value(prompt_name, slen(prompt_name))))
 		write(1, prompt_value, slen(prompt_value));
 	if ((read_ret = read(0, buffer, BUFFER_SIZE)) == -1)
 		error_exit("Read error");

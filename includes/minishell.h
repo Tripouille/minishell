@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/04 04:37:17 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/05 01:57:10 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,11 @@ void				free_command(char **command_args);
 char				*wait_for_rest(char *buffer, char quote);
 int					arg_len(char *buffer);
 
-char				*get_variable_value(char *name);
+char				*get_variable_value(char *name, size_t len);
 void				add_variable(char *name, char *value, t_bool exported);
 void				del_all_variables(void);
 t_shell_variable	*get_variable(char *name);
+
+int		variable_name_len(char *buffer);
 
 #endif

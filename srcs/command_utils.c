@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 02:52:18 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/05 00:00:38 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/05 01:42:41 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int		arg_len(char *buffer)
 {
 	int		len;
 	char	quote;
+	int		name_len;
 
 	len = 0;
 	quote = 0;
@@ -43,6 +44,12 @@ int		arg_len(char *buffer)
 			quote = 0;
 		else if (!quote && (*buffer == '\'' || *buffer == '"'))
 			quote = *buffer;
+		else if (quote != '\'' && *buffer == '$')
+		{
+			name_len = variable_name_len(buffer + 1);
+			len += slen(get_variable_value(buffer + 1, name_len));
+			buffer += name_len;
+		}
 		else
 			len++;
 		buffer++;
