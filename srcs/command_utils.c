@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 02:52:18 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/06 04:09:32 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/06 07:06:01 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,6 @@ void	free_command(char **command_args)
 }
 
 /*
-** Return length of name of variable after a $ in the buffer,
-** until space or quote.
-*/
-
-//int		variable_name_len(char *buffer)
-//{
-	//int		len;
-//
-	//len = 0;
-	//while (buffer[len] && buffer[len] != ' '
-	//&& buffer[len] != '\'' && buffer[len] != '"')
-		//len++;
-	//return (len);
-//}
-
-/*
 ** Replace name of variable with its value after a $ in a command.
 */
 
@@ -50,9 +34,16 @@ void	replace_variable(char **buffer, char *arg, int *i_copy)
 {
 	int		name_len;
 	char	*variable_value;
+	char	*variable_name;
 
-	name_len = variable_name_len(*buffer + 1);
-	variable_value = get_variable_value(*buffer + 1, name_len);
+	name_len = 0;
+	while ((*buffer + 1)[name_len] && (*buffer + 1)[name_len] != ' '
+	&& (*buffer + 1)[name_len] != '\'' && (*buffer + 1)[name_len] != '"')
+		name_len++;
+	if (!(variable_name = ft_strndup(*buffer + 1, name_len)))
+		error_exit("Malloc fail");
+	variable_value = get_variable_value(variable_name);
+	free(variable_name);
 	while (*variable_value)
 		arg[(*i_copy)++] = *variable_value++;
 	*buffer += name_len;
@@ -79,7 +70,7 @@ int		arg_len(char *buffer)
 		else if (quote != '\'' && *buffer == '$')
 		{
 			name_len = variable_name_len(buffer + 1);
-			len += slen(get_variable_value(buffer + 1, name_len));
+			len += slen(get_variable_value(buffer + 1));
 			buffer += name_len;
 		}
 		else

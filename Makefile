@@ -2,8 +2,8 @@ NAME				= minishell
 
 INCLUDES			= $(addprefix includes/, minishell.h libft.h)
 SRCS				= $(addprefix srcs/, main.c error.c initializer.c \
-						command.c parse_command.c shell_variable.c \
-						command_utils.c env.c)
+						command.c parse_command.c variable.c \
+						command_utils.c env.c utils.c)
 SRCS				+= $(addprefix srcs/builtins/, builtin_echo.c \
 						builtin_exit.c builtin_env.c builtin_export.c \
 						builtin_unset.c builtin_pwd.c builtin_cd.c)

@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_unset.c                                    :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/03 02:26:52 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/06 07:29:45 by jgambard         ###   ########.fr       */
+/*   Created: 2020/03/06 04:22:32 by jgambard          #+#    #+#             */
+/*   Updated: 2020/03/06 04:28:51 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void		builtin_unset(char **args)
+int			tab_size(char **tab)
 {
-	while (*++args)
-		del_variable(*args);
+	int		size;
+
+	size = 0;
+	while (tab[size])
+		size++;
+	return (size);
 }

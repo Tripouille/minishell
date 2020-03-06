@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_unset.c                                    :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/03 02:26:52 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/06 07:29:45 by jgambard         ###   ########.fr       */
+/*   Created: 2020/03/06 04:44:50 by jgambard          #+#    #+#             */
+/*   Updated: 2020/03/06 04:48:18 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include <stdlib.h>
 
-void		builtin_unset(char **args)
+char	*ft_strndup(const char *s1, size_t n)
 {
-	while (*++args)
-		del_variable(*args);
+	char	*dup;
+
+	dup = malloc(sizeof(*dup) * (n + 1));
+	if (!dup)
+		return (0);
+	dup[n] = 0;
+	while (n--)
+		dup[n] = s1[n];
+	return (dup);
 }

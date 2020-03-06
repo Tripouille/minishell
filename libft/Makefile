@@ -2,7 +2,8 @@ NAME				= libft.a
 INCLUDE				= libft.h
 SRCS				= $(addprefix srcs/, slen.c ft_isdigit.c ft_strncmp.c \
 					ft_strlcpy.c ft_strlcat.c cinstr.c skip_spaces.c \
-					ft_atoi.c ft_calloc.c ft_strdup.c square.c ft_strcmp.c)
+					ft_atoi.c ft_calloc.c ft_strdup.c square.c ft_strcmp.c \
+					ft_strndup.c)
 OBJS				= ${SRCS:.c=.o}
 CFLAGS				= -Wall -Wextra -Werror
 

@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/06 04:05:50 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/06 07:37:25 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ extern char					**env;
 void				error_exit(char *error_msg);
 
 void				initialize_builtins(t_builtin builtins[]);
-void				initialize_shell_variables(void);
+void				initialize_env(void);
 
 void				builtin_echo(char **args);
 void				builtin_exit(char **args);
@@ -76,14 +76,14 @@ int					arg_len(char *buffer);
 void				replace_variable(char **buffer, char *arg, int *i_copy);
 int					variable_name_len(char *buffer);
 
-char				*get_variable_value(char *name, size_t len);
-//void				add_variable(char *name, char *value, t_bool exported);
-void				del_all_variables(void);
-t_shell_variable	*get_variable(char *name);
-
 void				copy_environment(void);
 void				free_env(void);
+
 void				del_variable(char *variable_name);
 void				add_variable(char *variable);
+void				set_variable(char *variable);
+char				*get_variable_value(char *variable_name);
+
+int					tab_size(char **tab);
 
 #endif

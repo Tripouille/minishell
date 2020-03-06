@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:12:36 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/06 03:05:11 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/06 04:24:55 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,5 @@ void		error_exit(char *error_msg)
 	}
 	write(2, "\n", 1);
 	free_env();
-	del_all_variables();
 	exit(EXIT_FAILURE);
 }

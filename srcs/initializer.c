@@ -6,22 +6,18 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:26:08 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/06 04:06:28 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/06 06:52:28 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-** Initialize shell variables with prompts.
-*/
-
-void		initialize_shell_variables(void)
+void		initialize_env(void)
 {
-	shell_variables = 0;
-	//add_variable(ft_strdup("PROMPT"), ft_strdup("YOLO: "), NOT_EXPORTED);
-	//add_variable(ft_strdup("PROMPT_QUOTE"), ft_strdup("quote> "), NOT_EXPORTED);
-	//add_variable(ft_strdup("PROMPT_DQUOTE"), ft_strdup("dquote> "), NOT_EXPORTED);
+	copy_environment();
+	add_variable(ft_strdup("PROMPT=Kernel "));
+	add_variable(ft_strdup("PROMPT_QUOTE=quote> "));
+	add_variable(ft_strdup("PROMPT_DQUOTE=dquote> "));
 }
 
 /*
