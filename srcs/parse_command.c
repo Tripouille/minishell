@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 20:41:50 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/05 01:45:27 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/05 02:20:16 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,31 +57,6 @@ void	calloc_arg(char **command_args, int i_args, int size)
 	}
 }
 
-int		variable_name_len(char *buffer)
-{
-	int		len;
-
-	len = 0;
-	while (buffer[len] && buffer[len] != ' '
-	&& buffer[len] != '\'' && buffer[len] != '"')
-		len++;
-	return (len);
-}
-
-void	replace_variable(char **buffer, char *arg, int *i_copy)
-{
-	int		name_len;
-	char	*variable_value;
-
-	//++*buffer;
-	name_len = variable_name_len(*buffer + 1);
-	//(*buffer)[name_len] = 0;
-	variable_value = get_variable_value(*buffer + 1, name_len);
-	while (*variable_value)
-		arg[(*i_copy)++] = *variable_value++;
-	*buffer += name_len;
-}
-
 /*
 ** Fill the array of command arguments.
 */
@@ -110,8 +85,7 @@ void	fill_command_args(char **buffer, char **command_args)
 				replace_variable(buffer, command_args[i_args], &i_copy);
 			else
 				command_args[i_args][i_copy++] = **buffer;
-			//if (**buffer)
-				++*buffer;
+			++*buffer;
 		}
 		i_args++;
 	}

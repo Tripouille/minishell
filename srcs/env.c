@@ -1,34 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/01 19:12:36 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/06 03:05:11 by jgambard         ###   ########.fr       */
+/*   Created: 2020/03/06 00:33:40 by jgambard          #+#    #+#             */
+/*   Updated: 2020/03/06 03:05:25 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-** Write error message, eventually errno message, free variables and exit.
-*/
-
-void		error_exit(char *error_msg)
+void		free_env(void)
 {
-	char		*strerror_msg;
+	int		i;
 
-	write(2, error_msg, slen(error_msg));
-	if (errno)
-	{
-		strerror_msg = strerror(errno);
-		write(2, ": ", 2);
-		write(2, strerror_msg, slen(strerror_msg));
-	}
-	write(2, "\n", 1);
-	free_env();
-	del_all_variables();
-	exit(EXIT_FAILURE);
+	if (!env)
+		return ;
+	i = -1;
+	while (env[++i])
+		free(env[i]);
+	free(env);
+}
+
+void		copy_environment(void)
+{
+	int		env_count;
+	int		i;
+
+	env_count = 0;
+	while (environ[env_count])
+		env_count++;
+	if (!(env = ft_calloc(sizeof(char*), env_count + 1)))
+		error_exit("Malloc fail");
+	i = -1;
+	while (++i < env_count)
+		if (!(env[i] = ft_strdup(environ[i])))
+			error_exit("Malloc fail");
 }

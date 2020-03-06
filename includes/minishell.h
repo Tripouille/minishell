@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/05 01:57:10 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/06 03:05:50 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ typedef struct		s_shell_variable
 }					t_shell_variable;
 
 extern t_shell_variable		*shell_variables;
+extern char					**environ;
+extern char					**env;
 
 void				error_exit(char *error_msg);
 
@@ -71,12 +73,15 @@ void				fill_command_args(char **buffer, char **command_args);
 void				free_command(char **command_args);
 char				*wait_for_rest(char *buffer, char quote);
 int					arg_len(char *buffer);
+void				replace_variable(char **buffer, char *arg, int *i_copy);
+int					variable_name_len(char *buffer);
 
 char				*get_variable_value(char *name, size_t len);
 void				add_variable(char *name, char *value, t_bool exported);
 void				del_all_variables(void);
 t_shell_variable	*get_variable(char *name);
 
-int		variable_name_len(char *buffer);
+void				copy_environment(void);
+void				free_env(void);
 
 #endif
