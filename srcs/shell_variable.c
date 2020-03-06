@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 00:06:44 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/05 01:56:42 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/06 04:05:50 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,15 @@ char				*get_variable_value(char *name, size_t len)
 	return (variable ? variable->value : "");
 }
 
-void				add_variable(char *name, char *value, t_bool exported)
-{
-	t_shell_variable	*new_variable;
-
-	if (!(new_variable = malloc(sizeof(t_shell_variable))))
-		error_exit("Malloc fail");
-	new_variable->name = name;
-	new_variable->value = value;
-	new_variable->exported = exported;
-	new_variable->next = shell_variables;
-	shell_variables = new_variable;
-}
+//void				add_variable(char *name, char *value, t_bool exported)
+//{
+	//t_shell_variable	*new_variable;
+//
+	//if (!name || !value || !(new_variable = malloc(sizeof(t_shell_variable))))
+		//error_exit("Malloc fail");
+	//new_variable->name = name;
+	//new_variable->value = value;
+	//new_variable->exported = exported;
+	//new_variable->next = shell_variables;
+	//shell_variables = new_variable;
+//}

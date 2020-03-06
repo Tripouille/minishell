@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 02:52:18 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/05 02:21:35 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/06 04:09:32 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,16 @@ void	free_command(char **command_args)
 ** until space or quote.
 */
 
-int		variable_name_len(char *buffer)
-{
-	int		len;
-
-	len = 0;
-	while (buffer[len] && buffer[len] != ' '
-	&& buffer[len] != '\'' && buffer[len] != '"')
-		len++;
-	return (len);
-}
+//int		variable_name_len(char *buffer)
+//{
+	//int		len;
+//
+	//len = 0;
+	//while (buffer[len] && buffer[len] != ' '
+	//&& buffer[len] != '\'' && buffer[len] != '"')
+		//len++;
+	//return (len);
+//}
 
 /*
 ** Replace name of variable with its value after a $ in a command.

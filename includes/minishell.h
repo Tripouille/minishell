@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/06 03:05:50 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/06 04:05:50 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,13 @@ void				replace_variable(char **buffer, char *arg, int *i_copy);
 int					variable_name_len(char *buffer);
 
 char				*get_variable_value(char *name, size_t len);
-void				add_variable(char *name, char *value, t_bool exported);
+//void				add_variable(char *name, char *value, t_bool exported);
 void				del_all_variables(void);
 t_shell_variable	*get_variable(char *name);
 
 void				copy_environment(void);
 void				free_env(void);
+void				del_variable(char *variable_name);
+void				add_variable(char *variable);
 
 #endif

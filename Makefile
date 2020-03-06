@@ -10,7 +10,11 @@ SRCS				+= $(addprefix srcs/builtins/, builtin_echo.c \
 
 OBJS				= ${SRCS:.c=.o}
 
+ifdef san
 CFLAGS				= -g3 -Wall -Wextra -Werror -I includes -fsanitize=address
+else
+CFLAGS				= -g3 -Wall -Wextra -Werror -I includes
+endif
 
 test:				all
 					./${NAME}

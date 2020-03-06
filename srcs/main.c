@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:52:41 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/06 03:06:36 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/06 04:18:12 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ int		main(void)
 
 	errno = 0;
 	copy_environment();
+	char	*test[2];
+	test[1] = 0;
+	//add_variable(ft_strdup("pouet=prout"));
+	//del_variable("LC_ALL");
+	builtin_env(test);
 	//signal(2, SIG_IGN);
 	//initialize_builtins(builtins);
 	//initialize_shell_variables();
@@ -32,5 +37,8 @@ int		main(void)
 		//ask_for_command("PROMPT", buffer);
 		//parse_buffer(buffer, builtins);
 	//}
+	free_env();
+	env = 0;
+	system("leaks minishell");
 	return(0);
 }

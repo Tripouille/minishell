@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 01:06:39 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/04 04:11:27 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/06 03:18:17 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		builtin_env(char **args)
 {
-	t_shell_variable		*variable;
+	char		**variable;
 
 	if (args[1])
 	{
@@ -26,16 +26,11 @@ void		builtin_env(char **args)
 		write(2, "\n", 1);
 		return ;
 	}
-	variable = shell_variables;
-	while (variable)
+	variable = env;
+	while (*variable)
 	{
-		if (variable->exported)
-		{
-			write(1, variable->name, slen(variable->name));
-			write(1, "=", 1);
-			write(1, variable->value, slen(variable->value));
-			write(1, "\n", 1);
-		}
-		variable = variable->next;
+		write(1, *variable, slen(*variable));
+		write(1, "\n", 1);
+		variable++;
 	}
 }

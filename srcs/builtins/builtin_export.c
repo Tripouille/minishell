@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 01:26:25 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/03 02:34:57 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/06 04:08:29 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	assign_variable(char *arg)
 		variable->value = ft_strdup(arg + i + 1);
 	}
 	else
-		add_variable(ft_strdup(arg), ft_strdup(arg + i + 1), NOT_EXPORTED);
+		//add_variable(ft_strdup(arg), ft_strdup(arg + i + 1), NOT_EXPORTED);
+		;
 }
 
 void	export_variable(char *name)

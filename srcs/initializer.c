@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:26:08 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/04 04:32:19 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/06 04:06:28 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 void		initialize_shell_variables(void)
 {
 	shell_variables = 0;
-	add_variable(ft_strdup("PROMPT"), ft_strdup("YOLO: "), NOT_EXPORTED);
-	add_variable(ft_strdup("PROMPT_QUOTE"), ft_strdup("quote> "), NOT_EXPORTED);
-	add_variable(ft_strdup("PROMPT_DQUOTE"), ft_strdup("dquote> "), NOT_EXPORTED);
+	//add_variable(ft_strdup("PROMPT"), ft_strdup("YOLO: "), NOT_EXPORTED);
+	//add_variable(ft_strdup("PROMPT_QUOTE"), ft_strdup("quote> "), NOT_EXPORTED);
+	//add_variable(ft_strdup("PROMPT_DQUOTE"), ft_strdup("dquote> "), NOT_EXPORTED);
 }
 
 /*
