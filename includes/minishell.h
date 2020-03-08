@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/07 23:51:40 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/08 04:36:35 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define PROMPT "Minishell: "
 # define NOT_EXPORTED 0
 # define EXPORTED 1
-# define COMMAND_NOT_FOUND "command not found: "
+# define COMMAND_NOT_FOUND "command not found"
 # define UNKNOWN_PARAMETER "unknown parameter"
 # define TOO_MANY_ARGUMENTS "too many arguments"
 # define MISSING_ARGUMENT "missing argument"
@@ -43,6 +43,7 @@ extern char					**environ;
 extern char					**env;
 
 void				error_exit(char *error_msg);
+void				minishell_error(char *error_msg, char *command);
 
 void				initialize_builtins(t_builtin builtins[]);
 void				initialize_env(void);

@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:58:16 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/08 01:40:34 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/08 04:37:24 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,13 @@ void	run_command(char **command_args, t_builtin builtins[])
 		if (child_pid)
 			waitpid(child_pid, 0, 0);
 		if (!child_pid && execve(command_args[0], command_args + 1, env) == -1)
-			error_exit("fork fail");
+		{
+			minishell_error(strerror(errno), command_args[0]);
+			exit(EXIT_FAILURE);
+		}
 	}
 	else
-	{
-		write(2, "Minishell: ", slen("Minishell: "));
-		write(2, COMMAND_NOT_FOUND, slen(COMMAND_NOT_FOUND));
-		write(2, command_args[0], slen(command_args[0]));
-		write(2, "\n", 1);
-	}
+		minishell_error(COMMAND_NOT_FOUND, command_args[0]);
 }
 
 /*
