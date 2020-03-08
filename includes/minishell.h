@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/06 07:37:25 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/07 23:51:40 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,6 @@ typedef struct		s_builtin
 	t_function		function;
 }					t_builtin;
 
-typedef struct		s_shell_variable
-{
-	char						*name;
-	char						*value;
-	t_bool						exported;
-	struct s_shell_variable		*next;
-}					t_shell_variable;
-
-extern t_shell_variable		*shell_variables;
 extern char					**environ;
 extern char					**env;
 
@@ -74,7 +65,6 @@ void				free_command(char **command_args);
 char				*wait_for_rest(char *buffer, char quote);
 int					arg_len(char *buffer);
 void				replace_variable(char **buffer, char *arg, int *i_copy);
-int					variable_name_len(char *buffer);
 
 void				copy_environment(void);
 void				free_env(void);
@@ -82,7 +72,10 @@ void				free_env(void);
 void				del_variable(char *variable_name);
 void				add_variable(char *variable);
 void				set_variable(char *variable);
+
 char				*get_variable_value(char *variable_name);
+int					variable_name_len(char *buffer);
+int					get_variable_pos(char *variable_name);
 
 int					tab_size(char **tab);
 

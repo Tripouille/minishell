@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:58:16 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/06 06:34:12 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/08 01:40:34 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	ask_for_command(char *prompt_name, char *buffer)
 void	run_command(char **command_args, t_builtin builtins[])
 {
 	int		i_builtins;
+	int		child_pid;
 
 	i_builtins = 0;
 	while (builtins[i_builtins].name
@@ -44,6 +45,14 @@ void	run_command(char **command_args, t_builtin builtins[])
 		i_builtins++;
 	if (builtins[i_builtins].name)
 		builtins[i_builtins].function(command_args);
+	else if (command_args[0][0] == '.')
+	{
+		child_pid = fork();
+		if (child_pid)
+			waitpid(child_pid, 0, 0);
+		if (!child_pid && execve(command_args[0], command_args + 1, env) == -1)
+			error_exit("fork fail");
+	}
 	else
 	{
 		write(2, "Minishell: ", slen("Minishell: "));
@@ -60,10 +69,13 @@ void	run_command(char **command_args, t_builtin builtins[])
 void	parse_buffer(char *buffer, t_builtin builtins[])
 {
 	char	**command_args;
+	int		arg_nb;
 
+	if (!(arg_nb = count_args(buffer)))
+		return ;
 	while (*buffer)
 	{
-		if (!(command_args = ft_calloc(sizeof(char*), count_args(buffer) + 1)))
+		if (!(command_args = ft_calloc(sizeof(char*), arg_nb + 1)))
 			error_exit("Malloc fail");
 		fill_command_args(&buffer, command_args);
 		run_command(command_args, builtins);
