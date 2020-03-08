@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:58:16 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/08 04:37:24 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/08 04:47:23 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	ask_for_command(char *prompt_name, char *buffer)
 void	run_command(char **command_args, t_builtin builtins[])
 {
 	int		i_builtins;
-	int		child_pid;
 
 	i_builtins = 0;
 	while (builtins[i_builtins].name
@@ -45,18 +44,7 @@ void	run_command(char **command_args, t_builtin builtins[])
 		i_builtins++;
 	if (builtins[i_builtins].name)
 		builtins[i_builtins].function(command_args);
-	else if (command_args[0][0] == '.')
-	{
-		child_pid = fork();
-		if (child_pid)
-			waitpid(child_pid, 0, 0);
-		if (!child_pid && execve(command_args[0], command_args + 1, env) == -1)
-		{
-			minishell_error(strerror(errno), command_args[0]);
-			exit(EXIT_FAILURE);
-		}
-	}
-	else
+	else if (!launch_executable(command_args))
 		minishell_error(COMMAND_NOT_FOUND, command_args[0]);
 }
 

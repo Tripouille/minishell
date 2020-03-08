@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/08 04:36:35 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/08 04:46:05 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,7 @@ int					variable_name_len(char *buffer);
 int					get_variable_pos(char *variable_name);
 
 int					tab_size(char **tab);
+
+int		launch_executable(char **command_args);
 
 #endif
