@@ -1,40 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   free_str_array.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/06 00:33:40 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/09 05:05:25 by jgambard         ###   ########.fr       */
+/*   Created: 2020/03/09 05:00:18 by jgambard          #+#    #+#             */
+/*   Updated: 2020/03/09 05:01:05 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void		free_env(void)
+void	free_str_array(char **array)
 {
 	int		i;
 
-	if (!env)
-		return ;
 	i = -1;
-	while (env[++i])
-		free(env[i]);
-	free(env);
-	env = 0;
-}
-
-void		copy_environment(void)
-{
-	int		size;
-	int		i;
-
-	size = str_array_size(environ);
-	if (!(env = ft_calloc(sizeof(char*), size + 1)))
-		error_exit("Malloc fail");
-	i = -1;
-	while (++i < size)
-		if (!(env[i] = ft_strdup(environ[i])))
-			error_exit("Malloc fail");
+	while (array[++i])
+		free(array[i]);
+	free(array);
 }

@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:01:34 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/09 04:38:07 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/09 05:01:51 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,7 @@ int					cinstr(char c, char *str);
 void				skip_spaces(void *buffer, int *i);
 char				**ft_split(char *s, char c);
 char				*ft_strjoin(char *s1, char *s2);
+void				free_str_array(char **array);
+int					str_array_size(char **array);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/09 04:30:58 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/09 05:04:34 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <unistd.h>
 # include <signal.h>
 # include <sysexits.h>
+# include <sys/stat.h>
 # include "libft.h"
 
 # define PROMPT "Minishell: "

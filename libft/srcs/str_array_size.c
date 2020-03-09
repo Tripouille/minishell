@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   str_array_size.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/06 04:22:32 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/06 04:28:51 by jgambard         ###   ########.fr       */
+/*   Created: 2020/03/09 04:59:50 by jgambard          #+#    #+#             */
+/*   Updated: 2020/03/09 05:00:05 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-int			tab_size(char **tab)
+int			str_array_size(char **array)
 {
 	int		size;
 
 	size = 0;
-	while (tab[size])
+	while (array[size])
 		size++;
 	return (size);
 }

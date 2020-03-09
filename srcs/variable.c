@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 04:21:42 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/07 23:50:28 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/09 05:05:19 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void		add_variable(char *variable)
 	char		**new_env;
 	int			size;
 
-	size = tab_size(env);
+	size = str_array_size(env);
 	new_env = 0;
 	if (!variable || !(new_env = ft_calloc(sizeof(char*), size + 2)))
 		error_exit("Malloc fail");
