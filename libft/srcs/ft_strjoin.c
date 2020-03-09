@@ -6,23 +6,43 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 04:32:51 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/09 04:37:29 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/09 06:49:42 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strjoin(char *s1, char *s2)
+static void		copy_strings(char *join, char **strings, int nb)
 {
-	char	*join;
 	int		i;
+	int		c;
 
-	if (!(join = ft_calloc(sizeof(char), slen(s1) + slen(s2) + 1)))
+	i = -1;
+	c = 0;
+	while (++i < nb)
+		while (*strings[i])
+			join[c++] = *strings[i]++;
+}
+
+char			*ft_strjoin(int nb, ...)
+{
+	va_list		va;
+	char		*join;
+	char		*strings[nb];
+	int			size;
+	int			i;
+
+	va_start(va, nb);
+	size = 1;
+	i = -1;
+	while (++i < nb)
+	{
+		strings[i] = va_arg(va, char *);
+		size += slen(strings[i]);
+	}
+	va_end(va);
+	if (!(join = ft_calloc(sizeof(char), size)))
 		return (0);
-	i = 0;
-	while (*s1)
-		join[i++] = *s1++;
-	while (*s2)
-		join[i++] = *s2++;
+	copy_strings(join, strings, nb);
 	return (join);
 }

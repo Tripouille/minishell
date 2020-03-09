@@ -6,9 +6,11 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 04:59:50 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/09 05:00:05 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/09 07:04:00 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 int			str_array_size(char **array)
 {

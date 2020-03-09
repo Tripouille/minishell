@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 21:49:09 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/06 04:25:16 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/09 06:21:40 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,6 @@ void		builtin_exit(char **args)
 {
 	free_command(args);
 	free_env();
+	system("leaks minishell");
 	exit(EXIT_SUCCESS);
 }

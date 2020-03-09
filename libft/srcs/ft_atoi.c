@@ -5,10 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/15 12:57:04 by jgambard          #+#    #+#             */
-/*   Updated: 2020/02/15 12:57:10 by jgambard         ###   ########lyon.fr   */
+/*   Created: 2020/03/09 06:58:56 by jgambard          #+#    #+#             */
+/*   Updated: 2020/03/09 06:58:58 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 int					ft_atoi(const char *str)
 {

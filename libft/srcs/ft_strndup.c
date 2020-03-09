@@ -6,11 +6,11 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 04:44:50 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/06 04:48:18 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/09 07:03:18 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
 char	*ft_strndup(const char *s1, size_t n)
 {

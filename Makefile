@@ -1,6 +1,6 @@
 NAME				= minishell
 
-INCLUDES			= $(addprefix includes/, minishell.h libft.h)
+INCLUDES			= includes/minishell.h libft/libft.h
 SRCS				= $(addprefix srcs/, main.c error.c initializer.c \
 						command.c parse_command.c variable.c \
 						command_utils.c env.c variable_utils.c \
@@ -12,9 +12,9 @@ SRCS				+= $(addprefix srcs/builtins/, builtin_echo.c \
 OBJS				= ${SRCS:.c=.o}
 
 ifdef san
-CFLAGS				= -g3 -Wall -Wextra -Werror -I includes -fsanitize=address
+CFLAGS				= -g3 -Wall -Wextra -Werror -I includes/ -I libft/ -fsanitize=address
 else
-CFLAGS				= -g3 -Wall -Wextra -Werror -I includes
+CFLAGS				= -g3 -Wall -Wextra -Werror -I includes/ -I libft/
 endif
 
 test:				all

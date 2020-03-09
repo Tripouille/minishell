@@ -6,11 +6,11 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 16:04:08 by jgambard          #+#    #+#             */
-/*   Updated: 2020/02/29 16:04:09 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/09 07:03:37 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include "libft.h"
 
 size_t	slen(const char *s)
 {

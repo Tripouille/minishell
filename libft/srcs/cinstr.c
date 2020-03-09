@@ -6,9 +6,11 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 01:50:43 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/03 01:52:20 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/09 06:57:09 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 int		cinstr(char c, char *str)
 {

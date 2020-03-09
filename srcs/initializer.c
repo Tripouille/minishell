@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:26:08 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/06 07:42:22 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/09 06:21:09 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void		initialize_env(void)
 {
 	copy_environment();
-	add_variable(ft_strdup("PROMPT=Kernel "));
-	add_variable(ft_strdup("PROMPT_QUOTE=quote> "));
-	add_variable(ft_strdup("PROMPT_DQUOTE=dquote> "));
+	set_variable("PROMPT=Kernel ");
+	set_variable("PROMPT_QUOTE=quote> ");
+	set_variable("PROMPT_DQUOTE=dquote> ");
 }
 
 /*

@@ -6,11 +6,11 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 13:00:02 by jgambard          #+#    #+#             */
-/*   Updated: 2020/02/15 13:00:29 by jgambard         ###   ########lyon.fr   */
+/*   Updated: 2020/03/09 06:57:42 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
 void	*ft_calloc(size_t count, size_t size)
 {

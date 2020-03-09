@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 04:40:57 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/09 05:07:28 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/09 06:41:15 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*get_valid_path(char *command)
 	i = 0;
 	while (split[i])
 	{
-		if (!(path = ft_strjoin(split[i], command)))
+		if (!(path = ft_strjoin(3, split[i], "/", command)))
 		{
 			free_str_array(split);
 			error_exit("Malloc fail");
@@ -34,6 +34,7 @@ char	*get_valid_path(char *command)
 			free_str_array(split);
 			return (path);
 		}
+		free(path);
 		i++;
 	}
 	free_str_array(split);
@@ -42,20 +43,19 @@ char	*get_valid_path(char *command)
 
 int		launch_executable_in_path(char **command_args)
 {
-	//int		child_pid;
-	//int		status;
-//
-	//child_pid = fork();
-	//if (child_pid)
-		//waitpid(child_pid, &status, 0);
-	//if (!child_pid && execve(command_args[0], command_args, env) == -1)
-	//{
-		//minishell_error(strerror(errno), command_args[0]);
-		//exit(EX_USAGE);
-	//}
-	//return (WEXITSTATUS(status) == EX_USAGE ? 0 : 1);
-	printf("%s\n", get_valid_path(command_args[0]));
-	return (0);
+	int		child_pid;
+	int		status;
+	char	*path;
+
+	if (!(path = get_valid_path(command_args[0])))
+		return (0);
+	child_pid = fork();
+	if (child_pid)
+		waitpid(child_pid, &status, 0);
+	if (!child_pid && execve(path, command_args, env) == -1)
+		exit(EX_USAGE);
+	free(path);
+	return (WEXITSTATUS(status) == EX_USAGE ? 0 : 1);
 }
 
 int		launch_executable(char **command_args)

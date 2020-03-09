@@ -6,9 +6,11 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 23:21:03 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/03 23:21:06 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/09 07:03:28 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 void	skip_spaces(void *buffer, int *i)
 {
