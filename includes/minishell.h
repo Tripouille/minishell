@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/08 04:46:05 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/09 04:30:58 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <signal.h>
+# include <sysexits.h>
 # include "libft.h"
 
 # define PROMPT "Minishell: "
@@ -80,6 +81,7 @@ int					get_variable_pos(char *variable_name);
 
 int					tab_size(char **tab);
 
-int		launch_executable(char **command_args);
+int				launch_executable(char **command_args);
+int				launch_executable_in_path(char **command_args);
 
 #endif
