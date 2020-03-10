@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 23:50:09 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/07 23:50:28 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/10 02:33:49 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,18 @@ int			get_variable_pos(char *variable_name)
 	return (-1);
 }
 
+/*
+** Variable name is without $.
+*/
+
 char		*get_variable_value(char *variable_name)
 {
-	int		pos;
+	int				pos;
+	static char		buffer[11];
 
-	if ((pos = get_variable_pos(variable_name)) == -1)
+	if (variable_name[0] == '?')
+		return (ft_itoa_copy(buffer, status));
+	else if ((pos = get_variable_pos(variable_name)) == -1)
 		return ("");
 	return (env[pos] + variable_name_len(env[pos]) + 1);
 }

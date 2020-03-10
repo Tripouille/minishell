@@ -6,13 +6,14 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:52:41 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/09 07:37:05 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/10 02:18:38 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 char				**env;
+int					status;
 
 int		main(void)
 {
@@ -21,6 +22,7 @@ int		main(void)
 	t_builtin			builtins[10];
 
 	errno = 0;
+	status = 0;
 	//signal(2, SIG_IGN);
 	initialize_env();
 	initialize_builtins(builtins);

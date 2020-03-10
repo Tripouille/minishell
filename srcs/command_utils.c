@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 02:52:18 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/09 07:24:23 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/10 02:01:27 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	replace_variable(char **buffer, char *arg, int *i_copy)
 	name_len = 0;
 	while ((*buffer + 1)[name_len]
 	&& cinstr((*buffer + 1)[name_len], " '\"?") == -1)
+		name_len++;
+	if ((*buffer + 1)[name_len] == '?')
 		name_len++;
 	if (!(variable_name = ft_strndup(*buffer + 1, name_len)))
 		error_exit("Malloc fail");

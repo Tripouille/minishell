@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/09 05:04:34 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/10 02:18:15 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <signal.h>
+# include <limits.h>
 # include <sysexits.h>
 # include <sys/stat.h>
 # include "libft.h"
@@ -26,6 +27,8 @@
 # define PROMPT "Minishell: "
 # define NOT_EXPORTED 0
 # define EXPORTED 1
+# define SUCCESS_STATUS 0
+# define ERROR_STATUS 1
 # define COMMAND_NOT_FOUND "command not found"
 # define UNKNOWN_PARAMETER "unknown parameter"
 # define TOO_MANY_ARGUMENTS "too many arguments"
@@ -43,6 +46,7 @@ typedef struct		s_builtin
 
 extern char					**environ;
 extern char					**env;
+extern int					status;
 
 void				error_exit(char *error_msg);
 void				minishell_error(char *error_msg, char *command);
