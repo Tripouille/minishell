@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 02:52:18 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/10 02:01:27 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/10 04:32:08 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int		arg_len(char *buffer)
 
 	len = 0;
 	quote = 0;
-	while (*buffer && (quote || *buffer != ' '))
+	while (*buffer && (quote || cinstr(*buffer, " ;") == -1))
 	{
 		if (*buffer == quote)
 			quote = 0;

@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:58:16 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/10 04:16:36 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/10 04:42:24 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,20 @@ void	parse_buffer(char *buffer, t_builtin builtins[])
 	char	**command_args;
 	int		arg_nb;
 
-	if (!(arg_nb = count_args(buffer)))
-		return ;
 	while (*buffer)
 	{
-		if (!(command_args = ft_calloc(sizeof(char*), arg_nb + 1)))
-			error_exit("Malloc fail");
-		fill_command_args(&buffer, command_args);
-		run_command(command_args, builtins);
-		free_command(command_args);
+		arg_nb = count_args(buffer);
+		if (arg_nb)
+		{
+			if (!(command_args = ft_calloc(sizeof(char*), arg_nb + 1)))
+				error_exit("Malloc fail");
+			fill_command_args(&buffer, command_args);
+			run_command(command_args, builtins);
+			free_command(command_args);
+		}
+		else
+			buffer++;
+		if (*buffer == ';')
+			buffer++;
 	}
 }

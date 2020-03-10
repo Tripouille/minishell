@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 20:41:50 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/05 02:20:16 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/10 05:40:29 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ int		count_args(char *buffer)
 	count = 0;
 	quote = 0;
 	i = 0;
-	while (buffer[i])
+	while (buffer[i] && (quote || buffer[i] != ';'))
 	{
 		skip_spaces(buffer, &i);
-		if (buffer[i])
+		if (buffer[i] && buffer[i] != ';')
 			count++;
-		while (buffer[i] && (quote || buffer[i] != ' '))
+		while (buffer[i] && (quote || cinstr(buffer[i], " ;") == -1))
 		{
 			if (buffer[i] == quote)
 				quote = 0;
@@ -69,13 +69,13 @@ void	fill_command_args(char **buffer, char **command_args)
 
 	i_args = 0;
 	quote = 0;
-	while (**buffer)
+	while (**buffer && (quote || **buffer != ';'))
 	{
 		skip_spaces(buffer, 0);
-		if (**buffer)
+		if (**buffer && **buffer != ';')
 			calloc_arg(command_args, i_args, arg_len(*buffer) + 1);
 		i_copy = 0;
-		while (**buffer && (quote || **buffer != ' '))
+		while (**buffer && (quote || cinstr(**buffer, " ;") == -1))
 		{
 			if (**buffer == quote)
 				quote = 0;
