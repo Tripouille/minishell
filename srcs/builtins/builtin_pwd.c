@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 04:20:02 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/04 04:29:46 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/10 03:46:23 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,12 @@ void		builtin_pwd(char **args)
 		write(2, ": ", 2);
 		write(2, TOO_MANY_ARGUMENTS, slen(TOO_MANY_ARGUMENTS));
 		write(2, "\n", 1);
+		status = ERROR_STATUS;
 		return ;
 	}
 	pwd = getwd(0);
 	write(1, pwd, slen(pwd));
 	write(1, "\n", 1);
 	free(pwd);
+	status = SUCCESS_STATUS;
 }

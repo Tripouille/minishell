@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:41:59 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/05 00:02:54 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/10 03:44:12 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,5 @@ void		builtin_echo(char **args)
 	}
 	if (newline)
 		write(1, "\n", 1);
+	status = SUCCESS_STATUS;
 }

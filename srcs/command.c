@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:58:16 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/09 04:48:22 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/10 04:16:36 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,16 @@ void	run_command(char **command_args, t_builtin builtins[])
 {
 	int		i_builtins;
 
-	if (command_args[0][0] == '.')
+	i_builtins = 0;
+	while (builtins[i_builtins].name
+	&& ft_strcmp(builtins[i_builtins].name, command_args[0]))
+		i_builtins++;
+	if (builtins[i_builtins].name)
+		builtins[i_builtins].function(command_args);
+	else if (command_args[0][0] == '.')
 		launch_executable(command_args);
 	else if (!launch_executable_in_path(command_args))
-	{
-		i_builtins = 0;
-		while (builtins[i_builtins].name
-		&& ft_strcmp(builtins[i_builtins].name, command_args[0]))
-			i_builtins++;
-		if (builtins[i_builtins].name)
-			builtins[i_builtins].function(command_args);
-		else
-			minishell_error(COMMAND_NOT_FOUND, command_args[0]);
-	}
+		minishell_error(COMMAND_NOT_FOUND, command_args[0]);
 }
 
 /*

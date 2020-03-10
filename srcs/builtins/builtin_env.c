@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 01:06:39 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/06 03:18:17 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/10 03:44:36 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void		builtin_env(char **args)
 		write(2, ": ", 2);
 		write(2, UNKNOWN_PARAMETER, slen(UNKNOWN_PARAMETER));
 		write(2, "\n", 1);
+		status = ERROR_STATUS;
 		return ;
 	}
 	variable = env;
@@ -33,4 +34,5 @@ void		builtin_env(char **args)
 		write(1, "\n", 1);
 		variable++;
 	}
+	status = SUCCESS_STATUS;
 }
