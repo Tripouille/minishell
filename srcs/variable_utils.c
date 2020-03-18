@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 23:50:09 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/10 02:33:49 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/18 19:55:26 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int			get_variable_pos(char *variable_name)
 	int		i;
 	int		arg_len;
 
-	arg_len = slen(variable_name);
+	arg_len = ft_strlen(variable_name);
 	i = -1;
 	while (env[++i])
 		if (arg_len == variable_name_len(env[i])

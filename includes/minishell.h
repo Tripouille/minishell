@@ -6,12 +6,17 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/10 02:18:15 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/18 20:11:23 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+//LINUX
+#include <sys/types.h>
+#include <sys/wait.h>
+//LINUX
 
 # include <stdio.h>
 # include <errno.h>

@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:41:59 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/10 03:44:12 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/18 20:05:32 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void		builtin_echo(char **args)
 		args++;
 	while (*args)
 	{
-		write(1, *args, slen(*args));
+		write(1, *args, ft_strlen(*args));
 		args++;
 		if (*args)
 			write(1, " ", 1);

@@ -14,7 +14,8 @@ OBJS				= ${SRCS:.c=.o}
 ifdef san
 CFLAGS				= -g3 -Wall -Wextra -Werror -I includes/ -I libft/ -fsanitize=address
 else
-CFLAGS				= -g3 -Wall -Wextra -Werror -I includes/ -I libft/
+#CFLAGS				= -g3 -Wall -Wextra -Werror -I includes/ -I libft/
+CFLAGS				= -g3 -Wall -Wextra -I includes/ -I libft/
 endif
 
 test:				all
@@ -31,7 +32,8 @@ lib:
 					make -C libft/
 
 $(NAME):			lib ${INCLUDES} ${OBJS}
-					gcc ${CFLAGS} -Llibft -lft ${OBJS} -o ${NAME}
+					#gcc ${CFLAGS} -Llibft -lft ${OBJS} -o ${NAME}
+					gcc ${CFLAGS} ${OBJS} -Llibft -lft -o ${NAME}
 
 bonus:				all
 

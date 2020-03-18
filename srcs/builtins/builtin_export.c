@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 01:26:25 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/10 03:45:22 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/18 20:06:50 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	builtin_export(char **args)
 		return (builtin_env(args));
 	while (*++args)
 	{
-		if (cinstr('=', *args) != -1)
+		if (cinstr(*args, '=') != -1)
 			set_variable(*args);
 	}
 	status = SUCCESS_STATUS;

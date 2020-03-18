@@ -6,7 +6,7 @@
 /*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 02:52:18 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/10 04:32:08 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/03/18 19:55:02 by jgambard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	replace_variable(char **buffer, char *arg, int *i_copy)
 
 	name_len = 0;
 	while ((*buffer + 1)[name_len]
-	&& cinstr((*buffer + 1)[name_len], " '\"?") == -1)
+	&& cinstr(" '\"?", (*buffer + 1)[name_len]) == -1)
 		name_len++;
 	if ((*buffer + 1)[name_len] == '?')
 		name_len++;
@@ -63,7 +63,7 @@ int		arg_len(char *buffer)
 
 	len = 0;
 	quote = 0;
-	while (*buffer && (quote || cinstr(*buffer, " ;") == -1))
+	while (*buffer && (quote || cinstr(" ;", *buffer) == -1))
 	{
 		if (*buffer == quote)
 			quote = 0;
@@ -72,7 +72,7 @@ int		arg_len(char *buffer)
 		else if (quote != '\'' && *buffer == '$')
 		{
 			name_len = variable_name_len(buffer + 1);
-			len += slen(get_variable_value(buffer + 1));
+			len += ft_strlen(get_variable_value(buffer + 1));
 			buffer += name_len;
 		}
 		else
@@ -90,7 +90,7 @@ char	*wait_for_rest(char *buffer, char quote)
 {
 	int		len;
 
-	len = slen(buffer);
+	len = ft_strlen(buffer);
 	buffer[len++] = '\n';
 	ask_for_command(quote == '\'' ? "PROMPT_QUOTE" : "PROMPT_DQUOTE",
 						buffer + len);
