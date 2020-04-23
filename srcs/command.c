@@ -3,17 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:58:16 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/18 19:52:27 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/04/23 17:36:06 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-** Display prompt matching prompt_name and write/append next command in buffer.
+** Display prompt matching prompt_name and write/append next command in buffer
+** (can be an already filled buffer).
+** Ends the command with a \0 and removes the \n if necessary.
 */
 
 void	ask_for_command(char *prompt_name, char *buffer)

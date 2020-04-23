@@ -19,7 +19,7 @@ CFLAGS				= -g3 -Wall -Wextra -I includes/ -I libft/
 endif
 
 test:				all
-					./${NAME}
+					valgrind ./${NAME}
 
 all:				${NAME}
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variable_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 23:50:09 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/18 19:55:26 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/04/23 19:01:04 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,25 @@ int			variable_name_len(char *variable_name)
 	return (len);
 }
 
+int			variable_comp(char *s1, char *s2)
+{
+	int		i;
+
+	i = 0;
+	while (s1[i] && s1[i] != '=' && s1[i] == s2[i])
+		i++;
+	if ((!s1[i] && s2[i] == '=') || (s1[i] == '=' && !s2[i]))
+		return (0);
+	return (s1[i] - s2[i]);
+}
+
 int			get_variable_pos(char *variable_name)
 {
 	int		i;
-	int		arg_len;
 
-	arg_len = ft_strlen(variable_name);
 	i = -1;
 	while (env[++i])
-		if (arg_len == variable_name_len(env[i])
-		&& !ft_strncmp(variable_name, env[i], arg_len))
+		if (!variable_comp(variable_name, env[i]))
 			return (i);
 	return (-1);
 }

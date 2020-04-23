@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executable.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 04:40:57 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/09 06:41:15 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/04/23 17:50:41 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,11 @@ char	*get_valid_path(char *command)
 	return (0);
 }
 
+/*
+** Return 0 to display "command not found"
+** if path is not valid or execve failed.
+*/
+
 int		launch_executable_in_path(char **command_args)
 {
 	int		child_pid;
@@ -58,7 +63,7 @@ int		launch_executable_in_path(char **command_args)
 	return (WEXITSTATUS(status) == EX_USAGE ? 0 : 1);
 }
 
-int		launch_executable(char **command_args)
+void	launch_executable(char **command_args)
 {
 	int		child_pid;
 	int		status;
@@ -71,5 +76,4 @@ int		launch_executable(char **command_args)
 		minishell_error(strerror(errno), command_args[0]);
 		exit(EX_USAGE);
 	}
-	return (WEXITSTATUS(status) == EX_USAGE ? 0 : 1);
 }

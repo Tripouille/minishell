@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgambard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/03/18 20:11:23 by jgambard         ###   ########.fr       */
+/*   Updated: 2020/04/23 19:00:18 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,12 @@ void				set_variable(char *variable);
 
 char				*get_variable_value(char *variable_name);
 int					variable_name_len(char *buffer);
+int					variable_comp(char *s1, char *s2);
 int					get_variable_pos(char *variable_name);
 
 int					tab_size(char **tab);
 
-int				launch_executable(char **command_args);
-int				launch_executable_in_path(char **command_args);
+void				launch_executable(char **command_args);
+int					launch_executable_in_path(char **command_args);
 
 #endif

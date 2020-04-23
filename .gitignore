@@ -1,3 +1,4 @@
 minishell
 .*.sw*
 */.*.sw*
+.vscode
