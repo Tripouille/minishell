@@ -20,6 +20,7 @@ endif
 
 test:				all
 					valgrind ./${NAME}
+					make fclean
 
 all:				${NAME}
 

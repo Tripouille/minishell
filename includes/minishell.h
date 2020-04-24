@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/04/23 19:00:18 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/04/24 15:44:11 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ char				*get_variable_value(char *variable_name);
 int					variable_name_len(char *buffer);
 int					variable_comp(char *s1, char *s2);
 int					get_variable_pos(char *variable_name);
+void				usage_error(char *command, char *error_msg, char *input);
 
 int					tab_size(char **tab);
 

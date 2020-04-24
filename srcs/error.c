@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:12:36 by jgambard          #+#    #+#             */
-/*   Updated: 2020/04/23 18:37:55 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/04/24 15:42:49 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,15 @@ void		minishell_error(char *error_msg, char *command)
 {
 	write(2, "Minishell: ", ft_strlen("Minishell: "));
 	write(2, error_msg, ft_strlen(error_msg));
-	write(2, ": ", 2);
-	write(2, command, ft_strlen(command));
+	if (*command)
+	{
+		write(2, ": ", 2);
+		write(2, command, ft_strlen(command));
+	}
 	write(2, "\n", 1);
+}
+
+void		usage_error(char *command, char *error_msg, char *input)
+{
+	ft_dprintf(2, "%s: %s: %s\n", command, error_msg, input);
 }

@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 01:06:39 by jgambard          #+#    #+#             */
-/*   Updated: 2020/04/23 18:37:55 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/04/24 13:17:23 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,12 @@ void		builtin_env(char **args)
 
 	if (args[1])
 	{
-		write(2, args[0], ft_strlen(args[0]));
-		write(2, ": ", 2);
-		write(2, args[1], ft_strlen(args[1]));
-		write(2, ": ", 2);
-		write(2, UNKNOWN_PARAMETER, ft_strlen(UNKNOWN_PARAMETER));
-		write(2, "\n", 1);
+		ft_dprintf(2, "%s: %s: %s\n", args[0], args[1], UNKNOWN_PARAMETER);
 		status = ERROR_STATUS;
 		return ;
 	}
 	variable = env;
 	while (*variable)
-	{
-		write(1, *variable, ft_strlen(*variable));
-		write(1, "\n", 1);
-		variable++;
-	}
+		ft_printf("%s\n", *variable++);
 	status = SUCCESS_STATUS;
 }
