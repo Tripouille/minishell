@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/04/24 15:44:11 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/04/28 18:41:16 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <signal.h>
-# include <limits.h>
+# include <linux/limits.h>
 # include <sysexits.h>
 # include <sys/stat.h>
 # include "libft.h"
@@ -43,6 +43,13 @@
 typedef char		t_bool;
 typedef void		(*t_function)(char **av);
 
+typedef struct		s_cmd_infos
+{
+	t_lst					*args;
+	int						pipefd[2];
+	struct s_cmd_infos		*next;
+}					t_cmd_infos;
+
 typedef struct		s_builtin
 {
 	char			*name;
@@ -52,6 +59,7 @@ typedef struct		s_builtin
 extern char					**environ;
 extern char					**env;
 extern int					status;
+extern t_lst*				commands;
 
 void				error_exit(char *error_msg);
 void				minishell_error(char *error_msg, char *command);
@@ -85,6 +93,7 @@ void				del_variable(char *variable_name);
 void				add_variable(char *variable);
 void				set_variable(char *variable);
 
+int					is_identifier(char *str);
 char				*get_variable_value(char *variable_name);
 int					variable_name_len(char *buffer);
 int					variable_comp(char *s1, char *s2);

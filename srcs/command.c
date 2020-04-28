@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:58:16 by jgambard          #+#    #+#             */
-/*   Updated: 2020/04/23 17:36:06 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/04/28 20:34:07 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,29 +52,51 @@ void	run_command(char **command_args, t_builtin builtins[])
 		minishell_error(COMMAND_NOT_FOUND, command_args[0]);
 }
 
+void	format_arg(char *buffer, char *arg, int arg_length)
+{
+	int		quote;
+
+	quote = 0;
+	while (arg_length)
+	{
+		if (*buffer == quote)
+			quote = 0;
+		else if (!quote && (*buffer == '\'' || *buffer == '"'))
+			quote = *buffer;
+		else if (quote != '\'' && *buffer == '$')
+			replace_variable(&buffer, &arg);
+		else
+			*arg++ = *buffer;
+		buffer++;
+	}
+}
+
 /*
-** Calloc and fill command array, run then free for each command in the buffer.
+** 
 */
 
-void	parse_buffer(char *buffer, t_builtin builtins[])
+void	parse_buffer(char *buffer)
 {
-	char	**command_args;
-	int		arg_nb;
-
+	t_lst			*command;
+	t_cmd_infos		*cmd_infos;
+	char			*arg;
+	int				arg_length;
+	
 	while (*buffer)
 	{
-		arg_nb = count_args(buffer);
-		if (arg_nb)
+		if (!(cmd_infos = malloc(sizeof(cmd_infos))))
+			error_exit("Malloc fail");
+		if (!(command = ft_lst_addback(&commands, ft_lst_new(cmd_infos))))
+			error_exit("Malloc fail");
+		while (cinstr(";|", *buffer) == -1)
 		{
-			if (!(command_args = ft_calloc(sizeof(char*), arg_nb + 1)))
+			arg_length = arg_len(buffer);
+			if (!(arg = malloc(sizeof(char) * arg_length)))
 				error_exit("Malloc fail");
-			fill_command_args(&buffer, command_args);
-			run_command(command_args, builtins);
-			free_command(command_args);
+			if (!ft_lst_addback(&(cmd_infos->args), ft_lst_new(arg)))
+				error_exit("Malloc fail");
+			format_arg(buffer, arg, arg_length);
+			buffer += arg_length;
 		}
-		else
-			buffer++;
-		if (*buffer == ';')
-			buffer++;
 	}
 }

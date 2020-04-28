@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 23:50:09 by jgambard          #+#    #+#             */
-/*   Updated: 2020/04/24 15:33:24 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/04/28 20:24:46 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int			variable_name_len(char *variable_name)
 	int		len;
 
 	len = 0;
-	while (variable_name[len] && variable_name[len] != '=')
+	while (ft_isalphanum(variable_name[len]) || variable_name[len] == '_')
 		len++;
 	return (len);
 }
@@ -38,9 +38,10 @@ int			variable_comp(char *s1, char *s2)
 	int		i;
 
 	i = 0;
-	while (s1[i] && s1[i] != '=' && s1[i] == s2[i])
+	while ((ft_isalphanum(s1[i]) || s1[i] == '_') && s1[i] == s2[i])
 		i++;
-	if ((!s1[i] && s2[i] == '=') || (s1[i] == '=' && !s2[i]))
+	if (!(ft_isalphanum(s1[i]) || s1[i] == '_')
+	&& !(ft_isalphanum(s2[i]) || s2[i] == '_'))
 		return (0);
 	return (s1[i] - s2[i]);
 }

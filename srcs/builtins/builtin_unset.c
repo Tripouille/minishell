@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 02:26:52 by jgambard          #+#    #+#             */
-/*   Updated: 2020/04/23 18:37:55 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/04/24 17:19:34 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,7 @@ void		builtin_unset(char **args)
 {
 	if (!args[1])
 	{
-		write(2, args[0], ft_strlen(args[0]));
-		write(2, ": ", 2);
-		write(2, MISSING_ARGUMENT, ft_strlen(MISSING_ARGUMENT));
-		write(2, "\n", 1);
+		usage_error(args[0], MISSING_ARGUMENT, "");
 		status = ERROR_STATUS;
 		return ;
 	}

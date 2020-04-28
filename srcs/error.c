@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:12:36 by jgambard          #+#    #+#             */
-/*   Updated: 2020/04/24 15:42:49 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/04/24 16:10:59 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,8 @@ void		minishell_error(char *error_msg, char *command)
 
 void		usage_error(char *command, char *error_msg, char *input)
 {
-	ft_dprintf(2, "%s: %s: %s\n", command, error_msg, input);
+	ft_dprintf(2, "%s: %s", command, error_msg);
+	if (*input)
+		ft_dprintf(2, ": %s\n", input);
+	write(2, "\n", 1);
 }

@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 02:52:18 by jgambard          #+#    #+#             */
-/*   Updated: 2020/04/23 18:37:55 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/04/28 20:31:40 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,29 +30,20 @@ void	free_command(char **command_args)
 ** Replace name of variable with its value after a $ in a command.
 */
 
-void	replace_variable(char **buffer, char *arg, int *i_copy)
+void	replace_variable(char **buffer, char **arg)
 {
-	int		name_len;
 	char	*variable_value;
-	char	*variable_name;
 
-	name_len = 0;
-	while ((*buffer + 1)[name_len]
-	&& cinstr(" '\"?", (*buffer + 1)[name_len]) == -1)
-		name_len++;
-	if ((*buffer + 1)[name_len] == '?')
-		name_len++;
-	if (!(variable_name = ft_strndup(*buffer + 1, name_len)))
-		error_exit("Malloc fail");
-	variable_value = get_variable_value(variable_name);
-	free(variable_name);
+	++*buffer;
+	variable_value = get_variable_value(*buffer);
 	while (*variable_value)
-		arg[(*i_copy)++] = *variable_value++;
-	*buffer += name_len;
+		*((*arg)++) = *variable_value++;
+	*buffer += variable_name_len(*buffer) - 1;
 }
 
 /*
 ** Count length of command argument, excluding quotes.
+** quote = what kind of quote is open, 0 if none
 */
 
 int		arg_len(char *buffer)
@@ -63,7 +54,7 @@ int		arg_len(char *buffer)
 
 	len = 0;
 	quote = 0;
-	while (*buffer && (quote || cinstr(" ;", *buffer) == -1))
+	while (*buffer && (quote || cinstr(" ;|", *buffer) == -1))
 	{
 		if (*buffer == quote)
 			quote = 0;
