@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:26:08 by jgambard          #+#    #+#             */
-/*   Updated: 2020/04/23 18:37:55 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/04/30 18:05:25 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void		initialize_env(void)
 {
 	copy_environment();
-	set_variable("PROMPT=Kernel ");
+	set_variable("PROMPT_COLOR=\033[0;31m");
+	set_variable("PROMPT=Noyau ");
 	set_variable("PROMPT_QUOTE=quote> ");
 	set_variable("PROMPT_DQUOTE=dquote> ");
 }

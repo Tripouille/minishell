@@ -6,38 +6,30 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 02:52:18 by jgambard          #+#    #+#             */
-/*   Updated: 2020/04/28 20:31:40 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/04/30 18:25:05 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-** Free the array of command arguments.
-*/
-
-void	free_command(char **command_args)
+void	purge_cmd(void *cmd_infos)
 {
-	int		i_args;
-
-	i_args = 0;
-	while (command_args[i_args])
-		free(command_args[i_args++]);
-	free(command_args);
+	ft_lst_purge(&(((t_cmd_infos*)cmd_infos)->args), free);
+	free(cmd_infos);
 }
 
 /*
 ** Replace name of variable with its value after a $ in a command.
 */
 
-void	replace_variable(char **buffer, char **arg)
+void	replace_variable(char **buffer, char *arg, int *i)
 {
 	char	*variable_value;
 
 	++*buffer;
 	variable_value = get_variable_value(*buffer);
 	while (*variable_value)
-		*((*arg)++) = *variable_value++;
+		arg[(*i)++] = *variable_value++;
 	*buffer += variable_name_len(*buffer) - 1;
 }
 
@@ -56,6 +48,7 @@ int		arg_len(char *buffer)
 	quote = 0;
 	while (*buffer && (quote || cinstr(" ;|", *buffer) == -1))
 	{
+		printf("arg len %c\n", *buffer);
 		if (*buffer == quote)
 			quote = 0;
 		else if (!quote && (*buffer == '\'' || *buffer == '"'))

@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/04/28 18:41:16 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/04/30 18:19:24 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@
 # define TOO_MANY_ARGUMENTS "too many arguments"
 # define MISSING_ARGUMENT "missing argument"
 # define BUFFER_SIZE 10000
+
+# define RESET "\033[0m"
+# define RED "\033[0;31m"
+# define GREEN "\033[0;32m"
+# define YELLOW "\033[0;33m"
 
 typedef char		t_bool;
 typedef void		(*t_function)(char **av);
@@ -76,15 +81,15 @@ void				builtin_pwd(char **args);
 void				builtin_cd(char **args);
 
 void				ask_for_command(char *prompt_name, char *buffer);
-void				parse_buffer(char *buffer, t_builtin builtins[]);
+void				parse_buffer(char *buffer);
 
 int					count_args(char *buffer);
 void				fill_command_args(char **buffer, char **command_args);
 
-void				free_command(char **command_args);
+void				purge_cmd(void *cmd_infos);
 char				*wait_for_rest(char *buffer, char quote);
 int					arg_len(char *buffer);
-void				replace_variable(char **buffer, char *arg, int *i_copy);
+void				replace_variable(char **buffer, char *arg, int *i);
 
 void				copy_environment(void);
 void				free_env(void);

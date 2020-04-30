@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:52:41 by jgambard          #+#    #+#             */
-/*   Updated: 2020/04/28 18:26:29 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/04/30 18:25:42 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,17 @@
 char				**env;
 int					status;
 t_lst				*commands;
+
+void	print_args(void *arg)
+{
+	printf("[%s] / ", (char*)arg);
+}
+
+void	print_command(void *content)
+{
+	ft_lst_iter(((t_cmd_infos*)content)->args, print_args);
+	printf("\npipefd read : %d - write : %d\n\n", ((t_cmd_infos*)content)->pipefd[0], ((t_cmd_infos*)content)->pipefd[1]);
+}
 
 int		main(void)
 {
@@ -35,15 +46,16 @@ int		main(void)
 	errno = 0;
 	status = 0;
 	commands = 0;
+	*buffer = 0;
 	initialize_env();
 	initialize_builtins(builtins);
 	while (1)
 	{
 		ask_for_command("PROMPT", buffer);
-		//parse_buffer(buffer, builtins); //découper en commandes et arguments, demander les guillemets manquants
 		parse_buffer(buffer);
+		ft_lst_iter(commands, print_command);
 		//run_commands();
-		//ft_lst_purge(&commands, 0); //free_command = lst_purge(..., free) en 2nd parametre
+		ft_lst_purge(&commands, purge_cmd);
 	}
 	return(0);
 }

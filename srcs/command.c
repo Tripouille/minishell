@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:58:16 by jgambard          #+#    #+#             */
-/*   Updated: 2020/04/28 20:34:07 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/04/30 18:04:59 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,14 @@
 void	ask_for_command(char *prompt_name, char *buffer)
 {
 	char				*prompt_value;
+	char				*prompt_color;
 	int					read_ret;
 
-	if ((prompt_value = get_variable_value(prompt_name)))
-		write(1, prompt_value, ft_strlen(prompt_value));
+	prompt_value = get_variable_value(prompt_name);
+	prompt_color = get_variable_value("PROMPT_COLOR");
+	write(1, prompt_color, ft_strlen(prompt_color));
+	write(1, prompt_value, ft_strlen(prompt_value));
+	write(1, RESET, ft_strlen(RESET));
 	if ((read_ret = read(0, buffer, BUFFER_SIZE)) == -1)
 		error_exit("Read error");
 	if (read_ret && buffer[read_ret - 1] == '\n')
@@ -52,23 +56,28 @@ void	run_command(char **command_args, t_builtin builtins[])
 		minishell_error(COMMAND_NOT_FOUND, command_args[0]);
 }
 
-void	format_arg(char *buffer, char *arg, int arg_length)
+void	format_arg(char **buffer, char *arg, int arg_length)
 {
 	int		quote;
+	int		i;
 
 	quote = 0;
-	while (arg_length)
+	i = 0;
+	while (i < arg_length)
 	{
-		if (*buffer == quote)
+		if (**buffer == quote)
 			quote = 0;
-		else if (!quote && (*buffer == '\'' || *buffer == '"'))
-			quote = *buffer;
-		else if (quote != '\'' && *buffer == '$')
-			replace_variable(&buffer, &arg);
+		else if (!quote && (**buffer == '\'' || **buffer == '"'))
+			quote = **buffer;
+		else if (quote != '\'' && **buffer == '$')
+			replace_variable(buffer, arg, &i);
 		else
-			*arg++ = *buffer;
-		buffer++;
+			arg[i++] = **buffer;
+		(*buffer)++;
 	}
+	if (quote)
+		(*buffer)++;
+	arg[i] = 0;
 }
 
 /*
@@ -84,19 +93,25 @@ void	parse_buffer(char *buffer)
 	
 	while (*buffer)
 	{
-		if (!(cmd_infos = malloc(sizeof(cmd_infos))))
+		if (cinstr(";|\n", *buffer) != -1)
+			buffer++;
+		if (!(cmd_infos = ft_calloc(1, sizeof(cmd_infos))))
 			error_exit("Malloc fail");
 		if (!(command = ft_lst_addback(&commands, ft_lst_new(cmd_infos))))
 			error_exit("Malloc fail");
 		while (cinstr(";|", *buffer) == -1)
 		{
+			skip_spaces(&buffer, 0);
 			arg_length = arg_len(buffer);
+			printf("arg length = %d - parse buffer %c\n", arg_length, *buffer);
 			if (!(arg = malloc(sizeof(char) * arg_length)))
 				error_exit("Malloc fail");
+			format_arg(&buffer, arg, arg_length);
 			if (!ft_lst_addback(&(cmd_infos->args), ft_lst_new(arg)))
 				error_exit("Malloc fail");
-			format_arg(buffer, arg, arg_length);
-			buffer += arg_length;
+			skip_spaces(&buffer, 0);
 		}
+		cmd_infos->pipefd[0] = 0;
+		cmd_infos->pipefd[1] = 1;
 	}
 }
