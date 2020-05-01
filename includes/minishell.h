@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/04/30 18:19:24 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/01 19:34:16 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 # define YELLOW "\033[0;33m"
 
 typedef char		t_bool;
-typedef void		(*t_function)(char **av);
+typedef void		(*t_function)(t_lst *args);
 
 typedef struct		s_cmd_infos
 {
@@ -72,20 +72,22 @@ void				minishell_error(char *error_msg, char *command);
 void				initialize_builtins(t_builtin builtins[]);
 void				initialize_env(void);
 
-void				builtin_echo(char **args);
-void				builtin_exit(char **args);
-void				builtin_env(char **args);
-void				builtin_export(char **args);
-void				builtin_unset(char **args);
-void				builtin_pwd(char **args);
-void				builtin_cd(char **args);
+void				builtin_echo(t_lst *args);
+void				builtin_exit(t_lst *args);
+void				builtin_env(t_lst *args);
+void				builtin_export(t_lst *args);
+void				builtin_unset(t_lst *args);
+void				builtin_pwd(t_lst *args);
+void				builtin_cd(t_lst *args);
 
 void				ask_for_command(char *prompt_name, char *buffer);
+void				run_command(t_cmd_infos *cmd_infos, t_builtin builtins[]);
 void				parse_buffer(char *buffer);
 
 int					count_args(char *buffer);
 void				fill_command_args(char **buffer, char **command_args);
 
+char				*get_argc(t_lst *args, int pos);
 void				purge_cmd(void *cmd_infos);
 char				*wait_for_rest(char *buffer, char quote);
 int					arg_len(char *buffer);
@@ -107,7 +109,7 @@ void				usage_error(char *command, char *error_msg, char *input);
 
 int					tab_size(char **tab);
 
-void				launch_executable(char **command_args);
-int					launch_executable_in_path(char **command_args);
+void				launch_executable(t_lst *args);
+int					launch_executable_in_path(t_lst *args);
 
 #endif

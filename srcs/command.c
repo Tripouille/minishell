@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:58:16 by jgambard          #+#    #+#             */
-/*   Updated: 2020/04/30 18:04:59 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/01 19:18:44 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,20 @@ void	ask_for_command(char *prompt_name, char *buffer)
 ** Search for the command in the list of builtins or write error message.
 */
 
-void	run_command(char **command_args, t_builtin builtins[])
+void	run_command(t_cmd_infos *cmd_infos, t_builtin builtins[])
 {
 	int		i_builtins;
 
 	i_builtins = 0;
 	while (builtins[i_builtins].name
-	&& ft_strcmp(builtins[i_builtins].name, command_args[0]))
+	&& ft_strcmp(builtins[i_builtins].name, cmd_infos->args->content))
 		i_builtins++;
 	if (builtins[i_builtins].name)
-		builtins[i_builtins].function(command_args);
-	else if (command_args[0][0] == '.')
-		launch_executable(command_args);
-	else if (!launch_executable_in_path(command_args))
-		minishell_error(COMMAND_NOT_FOUND, command_args[0]);
+		builtins[i_builtins].function(cmd_infos->args);
+	else if (((char*)(cmd_infos->args->content))[0] == '.')
+		launch_executable(cmd_infos->args);
+	else if (!launch_executable_in_path(cmd_infos->args))
+		minishell_error(COMMAND_NOT_FOUND, cmd_infos->args->content);
 }
 
 void	format_arg(char **buffer, char *arg, int arg_length)
@@ -104,7 +104,7 @@ void	parse_buffer(char *buffer)
 			skip_spaces(&buffer, 0);
 			arg_length = arg_len(buffer);
 			printf("arg length = %d - parse buffer %c\n", arg_length, *buffer);
-			if (!(arg = malloc(sizeof(char) * arg_length)))
+			if (!(arg = ft_calloc(arg_length, sizeof(char))))
 				error_exit("Malloc fail");
 			format_arg(&buffer, arg, arg_length);
 			if (!ft_lst_addback(&(cmd_infos->args), ft_lst_new(arg)))

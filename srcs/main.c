@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:52:41 by jgambard          #+#    #+#             */
-/*   Updated: 2020/04/30 18:25:42 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/01 19:33:55 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int		main(void)
 	
 	char				buffer[BUFFER_SIZE];
 	t_builtin			builtins[10];
+	t_lst				*tmp_cmd;
 
 	errno = 0;
 	status = 0;
@@ -54,7 +55,12 @@ int		main(void)
 		ask_for_command("PROMPT", buffer);
 		parse_buffer(buffer);
 		ft_lst_iter(commands, print_command);
-		//run_commands();
+		tmp_cmd = commands;
+		while (tmp_cmd)
+		{
+			run_command(tmp_cmd->content, builtins);
+			tmp_cmd = tmp_cmd->next;
+		}
 		ft_lst_purge(&commands, purge_cmd);
 	}
 	return(0);

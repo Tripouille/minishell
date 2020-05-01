@@ -6,11 +6,25 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 04:40:57 by jgambard          #+#    #+#             */
-/*   Updated: 2020/04/23 17:50:41 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/01 19:32:42 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	fill_args_tab(char ***args_tab, t_lst *args)
+{
+	int		i;
+	
+	if (!(*args_tab = ft_calloc(ft_lst_size(args) + 1, sizeof(char*))))
+		error_exit("Malloc fail");
+	i = 0;
+	while (args)
+	{
+		(*args_tab)[i++] = args->content;	
+		args = args->next;
+	}
+}
 
 char	*get_valid_path(char *command)
 {
@@ -46,34 +60,40 @@ char	*get_valid_path(char *command)
 ** if path is not valid or execve failed.
 */
 
-int		launch_executable_in_path(char **command_args)
+int		launch_executable_in_path(t_lst *args)
 {
 	int		child_pid;
 	int		status;
 	char	*path;
+	char	**args_tab;
 
-	if (!(path = get_valid_path(command_args[0])))
+	if (!(path = get_valid_path(get_argc(args, 0))))
 		return (0);
+	fill_args_tab(&args_tab, args);
 	child_pid = fork();
 	if (child_pid)
 		waitpid(child_pid, &status, 0);
-	if (!child_pid && execve(path, command_args, env) == -1)
+	if (!child_pid && execve(path, args_tab, env) == -1)
 		exit(EX_USAGE);
 	free(path);
+	free(args_tab);
 	return (WEXITSTATUS(status) == EX_USAGE ? 0 : 1);
 }
 
-void	launch_executable(char **command_args)
+void	launch_executable(t_lst *args)
 {
 	int		child_pid;
 	int		status;
+	char	**args_tab;
 
+	fill_args_tab(&args_tab, args);
 	child_pid = fork();
 	if (child_pid)
 		waitpid(child_pid, &status, 0);
-	if (!child_pid && execve(command_args[0], command_args, env) == -1)
+	if (!child_pid && execve(get_argc(args, 0), args_tab, env) == -1)
 	{
-		minishell_error(strerror(errno), command_args[0]);
+		minishell_error(strerror(errno), get_argc(args, 0));
 		exit(EX_USAGE);
 	}
+	free(args_tab);
 }

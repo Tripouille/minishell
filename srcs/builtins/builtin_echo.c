@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:41:59 by jgambard          #+#    #+#             */
-/*   Updated: 2020/04/24 12:49:03 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/01 18:58:28 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,21 @@
 ** with newline at the end or not.
 */
 
-void		builtin_echo(char **args)
+void		builtin_echo(t_lst *args)
 {
 	int		newline;
 
-	args++;
+	args = args->next;
 	newline = 1;
-	if (*args)
-		newline = ft_strcmp("-n", *args);
+	if (args)
+		newline = ft_strcmp("-n", get_argc(args, 0));
 	if (!newline)
-		args++;
-	while (*args)
+		args = args->next;
+	while (args)
 	{
-		write(1, *args, ft_strlen(*args));
-		if (*++args)
+		write(1, get_argc(args, 0), ft_strlen(get_argc(args, 0)));
+		args = args->next;
+		if (args)
 			write(1, " ", 1);
 	}
 	if (newline)

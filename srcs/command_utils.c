@@ -6,11 +6,18 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 02:52:18 by jgambard          #+#    #+#             */
-/*   Updated: 2020/04/30 18:25:05 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/01 18:57:37 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*get_argc(t_lst *args, int pos)
+{
+	while (pos-- && args)
+		args = args->next;
+	return (args ? args->content : 0);
+}
 
 void	purge_cmd(void *cmd_infos)
 {

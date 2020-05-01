@@ -6,19 +6,19 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 04:20:02 by jgambard          #+#    #+#             */
-/*   Updated: 2020/04/24 17:11:55 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/01 19:06:46 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void		builtin_pwd(char **args)
+void		builtin_pwd(t_lst *args)
 {
 	char		pwd[PATH_MAX];
 
-	if (args[1])
+	if (args->next)
 	{
-		usage_error(args[0], TOO_MANY_ARGUMENTS, "");
+		usage_error(get_argc(args, 0), TOO_MANY_ARGUMENTS, "");
 		status = ERROR_STATUS;
 		return ;
 	}
