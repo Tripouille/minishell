@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:52:41 by jgambard          #+#    #+#             */
-/*   Updated: 2020/05/01 19:33:55 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/02 20:01:39 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	print_args(void *arg)
 void	print_command(void *content)
 {
 	ft_lst_iter(((t_cmd_infos*)content)->args, print_args);
-	printf("\npipefd read : %d - write : %d\n\n", ((t_cmd_infos*)content)->pipefd[0], ((t_cmd_infos*)content)->pipefd[1]);
+	printf("\npipefd read : %d - write : %d\n\n", ((t_cmd_infos*)content)->fd[0], ((t_cmd_infos*)content)->fd[1]);
 }
 
 int		main(void)

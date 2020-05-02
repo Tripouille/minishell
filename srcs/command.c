@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:58:16 by jgambard          #+#    #+#             */
-/*   Updated: 2020/05/01 19:18:44 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/02 19:55:43 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,38 +80,46 @@ void	format_arg(char **buffer, char *arg, int arg_length)
 	arg[i] = 0;
 }
 
-/*
-** 
-*/
+void	fill_args(char **buffer, t_lst **args)
+{
+	char			*arg;
+	int				arg_length;
+	
+	while (cinstr(";|", **buffer) == -1)
+	{
+		skip_spaces(buffer, 0);
+		arg_length = arg_len(*buffer);
+		printf("arg length = %d - parse buffer %c\n", arg_length, **buffer);
+		if (!(arg = ft_calloc(arg_length, sizeof(char))))
+			error_exit("Malloc fail");
+		format_arg(buffer, arg, arg_length);
+		if (!ft_lst_addback(args, ft_lst_new(arg)))
+			error_exit("Malloc fail");
+		skip_spaces(buffer, 0);
+	}
+}
 
 void	parse_buffer(char *buffer)
 {
 	t_lst			*command;
 	t_cmd_infos		*cmd_infos;
-	char			*arg;
-	int				arg_length;
+	int				pipefd[2];
 	
+	pipefd[IN] = STDIN_FILENO;
 	while (*buffer)
 	{
-		if (cinstr(";|\n", *buffer) != -1)
+		if (cinstr(";|", *buffer) != -1)
 			buffer++;
 		if (!(cmd_infos = ft_calloc(1, sizeof(cmd_infos))))
 			error_exit("Malloc fail");
 		if (!(command = ft_lst_addback(&commands, ft_lst_new(cmd_infos))))
 			error_exit("Malloc fail");
-		while (cinstr(";|", *buffer) == -1)
-		{
-			skip_spaces(&buffer, 0);
-			arg_length = arg_len(buffer);
-			printf("arg length = %d - parse buffer %c\n", arg_length, *buffer);
-			if (!(arg = ft_calloc(arg_length, sizeof(char))))
-				error_exit("Malloc fail");
-			format_arg(&buffer, arg, arg_length);
-			if (!ft_lst_addback(&(cmd_infos->args), ft_lst_new(arg)))
-				error_exit("Malloc fail");
-			skip_spaces(&buffer, 0);
-		}
-		cmd_infos->pipefd[0] = 0;
-		cmd_infos->pipefd[1] = 1;
+		fill_args(&buffer, &(cmd_infos->args));
+		cmd_infos->fd[IN] = pipefd[IN];
+		pipefd[IN] = STDIN_FILENO;
+		pipefd[OUT] = STDOUT_FILENO;
+		if (*buffer == '|')
+			pipe(pipefd);
+		cmd_infos->fd[OUT] = pipefd[OUT];
 	}
 }

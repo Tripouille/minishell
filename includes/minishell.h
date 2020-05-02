@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/05/01 19:34:16 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/02 19:48:29 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,16 @@
 # define GREEN "\033[0;32m"
 # define YELLOW "\033[0;33m"
 
+#define IN 0
+#define OUT 1
+
 typedef char		t_bool;
 typedef void		(*t_function)(t_lst *args);
 
 typedef struct		s_cmd_infos
 {
 	t_lst					*args;
-	int						pipefd[2];
+	int						fd[2];
 	struct s_cmd_infos		*next;
 }					t_cmd_infos;
 
