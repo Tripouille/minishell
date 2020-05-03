@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:52:41 by jgambard          #+#    #+#             */
-/*   Updated: 2020/05/02 20:01:39 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/03 20:36:40 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,38 +27,34 @@ void	print_command(void *content)
 	printf("\npipefd read : %d - write : %d\n\n", ((t_cmd_infos*)content)->fd[0], ((t_cmd_infos*)content)->fd[1]);
 }
 
-int		main(void)
+void	initialize(t_builtin builtins[], int fd_save[])
 {
-	/*int		pipefd[2];
-	char	b[100];
-
-	pipe(pipefd);
-	int save = dup(STDOUT_FILENO);
-	dup2(pipefd[1], STDOUT_FILENO);
-	write(1, "lol", 3);
-	close(pipefd[1]);
-	dup2(save, STDOUT_FILENO);
-	write(1, "abc", 3);*/
-	
-	char				buffer[BUFFER_SIZE];
-	t_builtin			builtins[10];
-	t_lst				*tmp_cmd;
-
 	errno = 0;
 	status = 0;
 	commands = 0;
-	*buffer = 0;
 	initialize_env();
 	initialize_builtins(builtins);
+	fd_save[IN] = dup(STDIN_FILENO);
+	fd_save[OUT] = dup(STDOUT_FILENO);
+}
+
+int		main(void)
+{
+	char				buffer[BUFFER_SIZE];
+	t_builtin			builtins[10];
+	t_lst				*tmp_cmd;
+	int					fd_save[2];
+
+	initialize(builtins, fd_save);
 	while (1)
 	{
 		ask_for_command("PROMPT", buffer);
 		parse_buffer(buffer);
-		ft_lst_iter(commands, print_command);
+		//ft_lst_iter(commands, print_command);
 		tmp_cmd = commands;
 		while (tmp_cmd)
 		{
-			run_command(tmp_cmd->content, builtins);
+			run_command(tmp_cmd->content, builtins, fd_save);
 			tmp_cmd = tmp_cmd->next;
 		}
 		ft_lst_purge(&commands, purge_cmd);

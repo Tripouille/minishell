@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:26:08 by jgambard          #+#    #+#             */
-/*   Updated: 2020/04/30 18:05:25 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/03 20:59:34 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,5 @@ void		initialize_builtins(t_builtin builtins[])
 	builtins[6].name = "cd";
 	builtins[6].function = builtin_cd;
 	builtins[7].name = 0;
+	builtins[7].function = 0;
 }

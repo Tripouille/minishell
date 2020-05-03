@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/05/02 19:48:29 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/03 21:04:16 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ void				builtin_pwd(t_lst *args);
 void				builtin_cd(t_lst *args);
 
 void				ask_for_command(char *prompt_name, char *buffer);
-void				run_command(t_cmd_infos *cmd_infos, t_builtin builtins[]);
+void				run_command(t_cmd_infos *cmd_infos, t_builtin builtins[],
+									int fd_save[]);
 void				parse_buffer(char *buffer);
 
 int					count_args(char *buffer);
@@ -114,5 +115,8 @@ int					tab_size(char **tab);
 
 void				launch_executable(t_lst *args);
 int					launch_executable_in_path(t_lst *args);
+
+void				synchronize_fd(t_cmd_infos *cmd_infos);
+void				restore_fd(t_cmd_infos *cmd_infos, int fd_save[]);
 
 #endif

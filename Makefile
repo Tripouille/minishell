@@ -2,7 +2,7 @@ NAME				= minishell
 
 INCLUDES			= includes/minishell.h libft/libft.h
 SRCS				= $(addprefix srcs/, main.c error.c initializer.c \
-						command.c variable.c \
+						command.c manage_fd.c variable.c \
 						command_utils.c env.c variable_utils.c \
 						executable.c)
 SRCS				+= $(addprefix srcs/builtins/, builtin_echo.c \

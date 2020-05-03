@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:58:16 by jgambard          #+#    #+#             */
-/*   Updated: 2020/05/02 19:55:43 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/03 21:19:07 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,24 +36,33 @@ void	ask_for_command(char *prompt_name, char *buffer)
 	buffer[read_ret] = 0;
 }
 
+t_function		get_builtins_fct(t_builtin builtins[], char *cmd_name)
+{
+	int				i;
+
+	i = 0;
+	while (builtins[i].name	&& ft_strcmp(builtins[i].name, cmd_name))
+		i++;
+	return (builtins[i].function);
+}
+
 /*
 ** Search for the command in the list of builtins or write error message.
 */
 
-void	run_command(t_cmd_infos *cmd_infos, t_builtin builtins[])
+void	run_command(t_cmd_infos *cmd_infos, t_builtin builtins[], int fd_save[])
 {
-	int		i_builtins;
+	t_function		builtin;
 
-	i_builtins = 0;
-	while (builtins[i_builtins].name
-	&& ft_strcmp(builtins[i_builtins].name, cmd_infos->args->content))
-		i_builtins++;
-	if (builtins[i_builtins].name)
-		builtins[i_builtins].function(cmd_infos->args);
+	synchronize_fd(cmd_infos);
+	builtin = get_builtins_fct(builtins, cmd_infos->args->content);
+	if (builtin)
+		builtin(cmd_infos->args);
 	else if (((char*)(cmd_infos->args->content))[0] == '.')
 		launch_executable(cmd_infos->args);
 	else if (!launch_executable_in_path(cmd_infos->args))
 		minishell_error(COMMAND_NOT_FOUND, cmd_infos->args->content);
+	restore_fd(cmd_infos, fd_save);
 }
 
 void	format_arg(char **buffer, char *arg, int arg_length)
@@ -89,7 +98,6 @@ void	fill_args(char **buffer, t_lst **args)
 	{
 		skip_spaces(buffer, 0);
 		arg_length = arg_len(*buffer);
-		printf("arg length = %d - parse buffer %c\n", arg_length, **buffer);
 		if (!(arg = ft_calloc(arg_length, sizeof(char))))
 			error_exit("Malloc fail");
 		format_arg(buffer, arg, arg_length);
@@ -110,6 +118,9 @@ void	parse_buffer(char *buffer)
 	{
 		if (cinstr(";|", *buffer) != -1)
 			buffer++;
+		skip_spaces(&buffer, 0);
+		if (!*buffer)
+			return ;
 		if (!(cmd_infos = ft_calloc(1, sizeof(cmd_infos))))
 			error_exit("Malloc fail");
 		if (!(command = ft_lst_addback(&commands, ft_lst_new(cmd_infos))))

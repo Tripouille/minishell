@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 02:52:18 by jgambard          #+#    #+#             */
-/*   Updated: 2020/05/01 18:57:37 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/03 20:10:35 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		arg_len(char *buffer)
 	quote = 0;
 	while (*buffer && (quote || cinstr(" ;|", *buffer) == -1))
 	{
-		printf("arg len %c\n", *buffer);
+		//printf("arg len %c\n", *buffer);
 		if (*buffer == quote)
 			quote = 0;
 		else if (!quote && (*buffer == '\'' || *buffer == '"'))
