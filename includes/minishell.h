@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/05/03 21:04:16 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/04 20:52:15 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,17 +83,19 @@ void				builtin_unset(t_lst *args);
 void				builtin_pwd(t_lst *args);
 void				builtin_cd(t_lst *args);
 
-void				ask_for_command(char *prompt_name, char *buffer);
+void				ask_for_command(char *prompt_name, char *buffer, int pos);
+void				check_buffer(char *buffer);
+
+t_function			get_builtins_fct(t_builtin builtins[], char *cmd_name);
 void				run_command(t_cmd_infos *cmd_infos, t_builtin builtins[],
 									int fd_save[]);
+									
 void				parse_buffer(char *buffer);
-
-int					count_args(char *buffer);
-void				fill_command_args(char **buffer, char **command_args);
+void				fill_args(char **buffer, t_lst **args);
+void				format_arg(char **buffer, char *arg, int arg_length);
 
 char				*get_argc(t_lst *args, int pos);
 void				purge_cmd(void *cmd_infos);
-char				*wait_for_rest(char *buffer, char quote);
 int					arg_len(char *buffer);
 void				replace_variable(char **buffer, char *arg, int *i);
 

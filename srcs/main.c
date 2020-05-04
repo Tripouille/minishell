@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:52:41 by jgambard          #+#    #+#             */
-/*   Updated: 2020/05/03 20:36:40 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/04 20:14:03 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		main(void)
 	initialize(builtins, fd_save);
 	while (1)
 	{
-		ask_for_command("PROMPT", buffer);
+		ask_for_command("PROMPT", buffer, 0);
 		parse_buffer(buffer);
 		//ft_lst_iter(commands, print_command);
 		tmp_cmd = commands;

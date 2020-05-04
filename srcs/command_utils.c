@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 02:52:18 by jgambard          #+#    #+#             */
-/*   Updated: 2020/05/03 20:10:35 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/04 19:38:48 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,4 @@ int		arg_len(char *buffer)
 		buffer++;
 	}
 	return (len);
-}
-
-/*
-** If there's an odd number of quotes, ask for the missing one.
-*/
-
-char	*wait_for_rest(char *buffer, char quote)
-{
-	int		len;
-
-	len = ft_strlen(buffer);
-	buffer[len++] = '\n';
-	ask_for_command(quote == '\'' ? "PROMPT_QUOTE" : "PROMPT_DQUOTE",
-						buffer + len);
-	return (buffer);
 }
