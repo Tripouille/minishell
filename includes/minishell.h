@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/05/04 20:52:15 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/17 08:06:22 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <linux/limits.h>
 # include <sysexits.h>
 # include <sys/stat.h>
+# include <fcntl.h>
 # include "libft.h"
 
 # define PROMPT "Minishell: "
@@ -55,7 +56,6 @@ typedef struct		s_cmd_infos
 {
 	t_lst					*args;
 	int						fd[2];
-	struct s_cmd_infos		*next;
 }					t_cmd_infos;
 
 typedef struct		s_builtin
@@ -90,7 +90,7 @@ t_function			get_builtins_fct(t_builtin builtins[], char *cmd_name);
 void				run_command(t_cmd_infos *cmd_infos, t_builtin builtins[],
 									int fd_save[]);
 									
-void				parse_buffer(char *buffer);
+int					parse_buffer(char *buffer);
 void				fill_args(char **buffer, t_lst **args);
 void				format_arg(char **buffer, char *arg, int arg_length);
 
@@ -121,4 +121,5 @@ int					launch_executable_in_path(t_lst *args);
 void				synchronize_fd(t_cmd_infos *cmd_infos);
 void				restore_fd(t_cmd_infos *cmd_infos, int fd_save[]);
 
+int					handle_redirections(t_cmd_infos *cmd_infos);
 #endif

@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 19:09:51 by aalleman          #+#    #+#             */
-/*   Updated: 2020/05/04 21:01:36 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/16 22:46:53 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	check_buffer(char *buffer)
 			quote = buffer[i];
 		if (buffer[i] == '|' && last_char == '|' && !quote)
 		{
-			minishell_error("parse error near '|'", "");
+			minishell_error("parse error", "");
 			return (ask_for_command("PROMPT", buffer, 0));
 		}
 		if (!ft_isspace(buffer[i]) && buffer[i] != ';')

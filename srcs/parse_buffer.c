@@ -6,13 +6,13 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 19:13:16 by aalleman          #+#    #+#             */
-/*   Updated: 2020/05/04 20:12:17 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/17 03:00:41 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	parse_buffer(char *buffer)
+int		parse_buffer(char *buffer)
 {
 	t_lst			*command;
 	t_cmd_infos		*cmd_infos;
@@ -21,11 +21,17 @@ void	parse_buffer(char *buffer)
 	pipefd[IN] = STDIN_FILENO;
 	while (*buffer)
 	{
+		skip_spaces(&buffer, 0);
 		if (cinstr(";|", *buffer) != -1)
 			buffer++;
+		if (cinstr(";|", *buffer) != -1 && *buffer)
+		{
+			minishell_error("parse error", "");
+			return (-1);
+		}
 		skip_spaces(&buffer, 0);
 		if (!*buffer)
-			return ;
+			return (0);
 		if (!(cmd_infos = ft_calloc(1, sizeof(cmd_infos))))
 			error_exit("Malloc fail");
 		if (!(command = ft_lst_addback(&commands, ft_lst_new(cmd_infos))))
@@ -38,6 +44,7 @@ void	parse_buffer(char *buffer)
 			pipe(pipefd);
 		cmd_infos->fd[OUT] = pipefd[OUT];
 	}
+	return (0);
 }
 
 void	fill_args(char **buffer, t_lst **args)

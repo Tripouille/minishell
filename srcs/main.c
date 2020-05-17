@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:52:41 by jgambard          #+#    #+#             */
-/*   Updated: 2020/05/04 20:14:03 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/17 07:40:51 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,16 @@ int		main(void)
 	while (1)
 	{
 		ask_for_command("PROMPT", buffer, 0);
-		parse_buffer(buffer);
-		//ft_lst_iter(commands, print_command);
-		tmp_cmd = commands;
-		while (tmp_cmd)
+		if (parse_buffer(buffer) == 0)
 		{
-			run_command(tmp_cmd->content, builtins, fd_save);
-			tmp_cmd = tmp_cmd->next;
+			//ft_lst_iter(commands, print_command);
+			tmp_cmd = commands;
+			while (tmp_cmd)
+			{
+				if (handle_redirections(tmp_cmd->content) != -1)
+					run_command(tmp_cmd->content, builtins, fd_save);
+				tmp_cmd = tmp_cmd->next;
+			}
 		}
 		ft_lst_purge(&commands, purge_cmd);
 	}
