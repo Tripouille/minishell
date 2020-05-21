@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/05/17 08:06:22 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/21 12:52:35 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,16 @@
 #define IN 0
 #define OUT 1
 
+enum {FALSE, TRUE};
+
 typedef char		t_bool;
 typedef void		(*t_function)(t_lst *args);
+
+typedef struct		s_argument
+{
+	char			*s;
+	t_bool			quoted;
+}					t_argument;
 
 typedef struct		s_cmd_infos
 {
@@ -89,6 +97,8 @@ void				check_buffer(char *buffer);
 t_function			get_builtins_fct(t_builtin builtins[], char *cmd_name);
 void				run_command(t_cmd_infos *cmd_infos, t_builtin builtins[],
 									int fd_save[]);
+char				*get_cmd_name(t_cmd_infos *cmd_infos);
+void				destroy_arg(void *arg);
 									
 int					parse_buffer(char *buffer);
 void				fill_args(char **buffer, t_lst **args);

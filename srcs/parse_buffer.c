@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 19:13:16 by aalleman          #+#    #+#             */
-/*   Updated: 2020/05/17 03:00:41 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/21 12:41:22 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,20 @@ int		parse_buffer(char *buffer)
 
 void	fill_args(char **buffer, t_lst **args)
 {
-	char			*arg;
+	t_argument		*arg;
 	int				arg_length;
 	
 	while (cinstr(";|", **buffer) == -1)
 	{
 		skip_spaces(buffer, 0);
-		arg_length = arg_len(*buffer);
-		if (!(arg = ft_calloc(arg_length, sizeof(char))))
+		if (!(arg = ft_calloc(1, sizeof(*arg))))
 			error_exit("Malloc fail");
-		format_arg(buffer, arg, arg_length);
+		arg_length = arg_len(*buffer);
+		if (!(arg->s = ft_calloc(arg_length, sizeof(*(arg->s)))))
+			error_exit("Malloc fail");
+		if (**buffer == '\'' || **buffer == '"')
+			arg->quoted = TRUE;
+		format_arg(buffer, arg->s, arg_length);
 		if (!ft_lst_addback(args, ft_lst_new(arg)))
 			error_exit("Malloc fail");
 		skip_spaces(buffer, 0);

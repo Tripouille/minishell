@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 02:52:18 by jgambard          #+#    #+#             */
-/*   Updated: 2020/05/04 19:38:48 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/21 12:27:11 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,15 @@ char	*get_argc(t_lst *args, int pos)
 	return (args ? args->content : 0);
 }
 
+void	destroy_arg(void *arg)
+{
+	free(((t_argument*)arg)->s);
+	free(arg);
+}
+
 void	purge_cmd(void *cmd_infos)
 {
-	ft_lst_purge(&(((t_cmd_infos*)cmd_infos)->args), free);
+	ft_lst_purge(&(((t_cmd_infos*)cmd_infos)->args), destroy_arg);
 	free(cmd_infos);
 }
 

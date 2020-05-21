@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:58:16 by jgambard          #+#    #+#             */
-/*   Updated: 2020/05/04 20:12:46 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/21 12:26:06 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,23 @@
 void	run_command(t_cmd_infos *cmd_infos, t_builtin builtins[], int fd_save[])
 {
 	t_function		builtin;
+	char			*cmd_name;
 
 	synchronize_fd(cmd_infos);
-	builtin = get_builtins_fct(builtins, cmd_infos->args->content);
+	cmd_name = get_cmd_name(cmd_infos);
+	builtin = get_builtins_fct(builtins, cmd_name);
 	if (builtin)
 		builtin(cmd_infos->args);
-	else if (((char*)(cmd_infos->args->content))[0] == '.')
+	else if (cmd_name[0] == '.')
 		launch_executable(cmd_infos->args);
 	else if (!launch_executable_in_path(cmd_infos->args))
-		minishell_error(COMMAND_NOT_FOUND, cmd_infos->args->content);
+		minishell_error(COMMAND_NOT_FOUND, cmd_name);
 	restore_fd(cmd_infos, fd_save);
+}
+
+char			*get_cmd_name(t_cmd_infos *cmd_infos)
+{
+	return (((t_argument*)cmd_infos->args->content)->s);
 }
 
 t_function		get_builtins_fct(t_builtin builtins[], char *cmd_name)
