@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:41:59 by jgambard          #+#    #+#             */
-/*   Updated: 2020/05/01 18:58:28 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/22 15:41:12 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ void		builtin_echo(t_lst *args)
 	args = args->next;
 	newline = 1;
 	if (args)
-		newline = ft_strcmp("-n", get_argc(args, 0));
+		newline = ft_strcmp("-n", get_arg_value(args, 0));
 	if (!newline)
 		args = args->next;
 	while (args)
 	{
-		write(1, get_argc(args, 0), ft_strlen(get_argc(args, 0)));
+		write(1, get_arg_value(args, 0), ft_strlen(get_arg_value(args, 0)));
 		args = args->next;
 		if (args)
 			write(1, " ", 1);

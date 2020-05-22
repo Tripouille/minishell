@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/05/21 12:52:35 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/22 15:39:05 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int					parse_buffer(char *buffer);
 void				fill_args(char **buffer, t_lst **args);
 void				format_arg(char **buffer, char *arg, int arg_length);
 
-char				*get_argc(t_lst *args, int pos);
+char				*get_arg_value(t_lst *args, int pos);
 void				purge_cmd(void *cmd_infos);
 int					arg_len(char *buffer);
 void				replace_variable(char **buffer, char *arg, int *i);

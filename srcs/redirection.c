@@ -6,26 +6,21 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 05:41:57 by aalleman          #+#    #+#             */
-/*   Updated: 2020/05/21 12:51:58 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/22 15:53:11 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_arg_value(t_lst *arg)
-{
-	return (((t_argument*)arg->content)->s);
-}
-
 int		set_file_name_and_move_arg(char *file_name, t_lst **arg, t_lst **head, int offset)
 {
 	t_lst		*next;
 	
-	if (get_arg_value(*arg)[offset])
-		ft_strlcpy(file_name, get_arg_value(*arg) + offset, PATH_MAX + 1);
+	if (get_arg_value(*arg, 0)[offset])
+		ft_strlcpy(file_name, get_arg_value(*arg, 0) + offset, PATH_MAX + 1);
 	else if ((*arg)->next)
 	{
-		ft_strlcpy(file_name, get_arg_value((*arg)->next), PATH_MAX + 1);
+		ft_strlcpy(file_name, get_arg_value(*arg, 1), PATH_MAX + 1);
 		ft_lst_remove(head, (*arg)->next, free);
 	}
 	else
@@ -99,17 +94,17 @@ int		handle_redirections(t_cmd_infos *cmd_infos)
 	{
 		if (((t_argument*)arg->content)->quoted)
 			arg = arg->next;
-		else if (ft_strncmp(">>", get_arg_value(arg), 2) == 0)
+		else if (ft_strncmp(">>", get_arg_value(arg, 0), 2) == 0)
 		{
 			if (append_redirection(cmd_infos, &arg) == -1)
 				return (-1);
 		}
-		else if (get_arg_value(arg)[0] == '>')
+		else if (get_arg_value(arg, 0)[0] == '>')
 		{
 			if (replace_redirection(cmd_infos, &arg) == -1)
 				return (-1);
 		}
-		else if (get_arg_value(arg)[0] == '<')
+		else if (get_arg_value(arg, 0)[0] == '<')
 		{
 			if (read_redirection(cmd_infos, &arg) == -1)
 				return (-1);

@@ -6,17 +6,17 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 02:52:18 by jgambard          #+#    #+#             */
-/*   Updated: 2020/05/21 12:27:11 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/22 15:38:50 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_argc(t_lst *args, int pos)
+char	*get_arg_value(t_lst *args, int pos)
 {
 	while (pos-- && args)
 		args = args->next;
-	return (args ? args->content : 0);
+	return (args ? ((t_argument*)args->content)->s : 0);
 }
 
 void	destroy_arg(void *arg)

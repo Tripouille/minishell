@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 04:20:02 by jgambard          #+#    #+#             */
-/*   Updated: 2020/05/01 19:06:46 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/22 15:41:38 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void		builtin_pwd(t_lst *args)
 
 	if (args->next)
 	{
-		usage_error(get_argc(args, 0), TOO_MANY_ARGUMENTS, "");
+		usage_error(get_arg_value(args, 0), TOO_MANY_ARGUMENTS, "");
 		status = ERROR_STATUS;
 		return ;
 	}

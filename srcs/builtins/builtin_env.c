@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 01:06:39 by jgambard          #+#    #+#             */
-/*   Updated: 2020/05/01 19:53:39 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/22 15:41:20 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void		builtin_env(t_lst *args)
 
 	if (args->next)
 	{
-		ft_dprintf(2, "%s: %s: %s\n", get_argc(args, 0), get_argc(args, 1),
+		ft_dprintf(2, "%s: %s: %s\n", get_arg_value(args, 0), get_arg_value(args, 1),
 					UNKNOWN_PARAMETER);
 		status = ERROR_STATUS;
 		return ;
