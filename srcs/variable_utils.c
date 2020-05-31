@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 23:50:09 by jgambard          #+#    #+#             */
-/*   Updated: 2020/04/28 20:24:46 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/31 16:34:27 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ int			get_variable_pos(char *variable_name)
 	int		i;
 
 	i = -1;
-	while (env[++i])
-		if (!variable_comp(variable_name, env[i]))
+	while (g_env[++i])
+		if (!variable_comp(variable_name, g_env[i]))
 			return (i);
 	return (-1);
 }
@@ -66,9 +66,11 @@ char		*get_variable_value(char *variable_name)
 	int				pos;
 	static char		buffer[11];
 
-	if (variable_name[0] == '?')
-		return (ft_itoa_copy(buffer, status));
+	if (cinstr(" ;|$", *variable_name) != -1)
+		return ("$");
+	else if (variable_name[0] == '?')
+		return (ft_itoa_copy(buffer, g_status));
 	else if ((pos = get_variable_pos(variable_name)) == -1)
 		return ("");
-	return (env[pos] + variable_name_len(env[pos]) + 1);
+	return (g_env[pos] + variable_name_len(g_env[pos]) + 1);
 }

@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 04:20:02 by jgambard          #+#    #+#             */
-/*   Updated: 2020/05/22 15:41:38 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/31 13:40:46 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void		builtin_pwd(t_lst *args)
 	if (args->next)
 	{
 		usage_error(get_arg_value(args, 0), TOO_MANY_ARGUMENTS, "");
-		status = ERROR_STATUS;
+		g_status = ERROR_STATUS;
 		return ;
 	}
 	getcwd(pwd, PATH_MAX);
 	ft_printf("%s\n", pwd);
-	status = SUCCESS_STATUS;
+	g_status = SUCCESS_STATUS;
 }

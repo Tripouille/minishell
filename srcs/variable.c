@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 04:21:42 by jgambard          #+#    #+#             */
-/*   Updated: 2020/04/24 12:28:01 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/31 13:34:31 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void		del_variable(char *variable_name)
 
 	if ((pos = get_variable_pos(variable_name)) == -1)
 		return ;
-	free(env[pos]);
-	while (env[++pos])
-		env[pos - 1] = env[pos];
-	env[pos - 1] = env[pos];
+	free(g_env[pos]);
+	while (g_env[++pos])
+		g_env[pos - 1] = g_env[pos];
+	g_env[pos - 1] = g_env[pos];
 }
 
 /*
@@ -36,8 +36,8 @@ void		set_variable(char *variable)
 		add_variable(ft_strdup(variable));
 	else
 	{
-		free(env[pos]);
-		if (!(env[pos] = ft_strdup(variable)))
+		free(g_env[pos]);
+		if (!(g_env[pos] = ft_strdup(variable)))
 			error_exit("Malloc fail");
 	}
 }
@@ -47,13 +47,13 @@ void		add_variable(char *variable)
 	char		**new_env;
 	int			size;
 
-	size = str_array_size(env);
+	size = str_array_size(g_env);
 	new_env = 0;
 	if (!variable || !(new_env = ft_calloc(sizeof(char*), size + 2)))
 		error_exit("Malloc fail");
 	new_env[size] = variable;
 	while (size--)
-		new_env[size] = env[size];
-	free(env);
-	env = new_env;
+		new_env[size] = g_env[size];
+	free(g_env);
+	g_env = new_env;
 }

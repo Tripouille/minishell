@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 04:40:57 by jgambard          #+#    #+#             */
-/*   Updated: 2020/05/22 15:45:59 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/31 16:18:49 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 void	fill_args_tab(char ***args_tab, t_lst *args)
 {
 	int		i;
-	
+
 	if (!(*args_tab = ft_calloc(ft_lst_size(args) + 1, sizeof(char*))))
 		error_exit("Malloc fail");
 	i = 0;
 	while (args)
 	{
-		(*args_tab)[i++] = get_arg_value(args, 0);	
+		(*args_tab)[i++] = get_arg_value(args, 0);
 		args = args->next;
 	}
 }
@@ -73,7 +73,7 @@ int		launch_executable_in_path(t_lst *args)
 	child_pid = fork();
 	if (child_pid)
 		waitpid(child_pid, &status, 0);
-	if (!child_pid && execve(path, args_tab, env) == -1)
+	if (!child_pid && execve(path, args_tab, g_env) == -1)
 		exit(EX_USAGE);
 	free(path);
 	free(args_tab);
@@ -90,7 +90,7 @@ void	launch_executable(t_lst *args)
 	child_pid = fork();
 	if (child_pid)
 		waitpid(child_pid, &status, 0);
-	if (!child_pid && execve(get_arg_value(args, 0), args_tab, env) == -1)
+	if (!child_pid && execve(get_arg_value(args, 0), args_tab, g_env) == -1)
 	{
 		minishell_error(strerror(errno), get_arg_value(args, 0));
 		exit(EX_USAGE);

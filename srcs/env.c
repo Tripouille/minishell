@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 00:33:40 by jgambard          #+#    #+#             */
-/*   Updated: 2020/04/23 18:37:55 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/31 13:44:34 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,25 @@ void		free_env(void)
 {
 	int		i;
 
-	if (!env)
+	if (!g_env)
 		return ;
 	i = -1;
-	while (env[++i])
-		free(env[i]);
-	free(env);
-	env = 0;
+	while (g_env[++i])
+		free(g_env[i]);
+	free(g_env);
+	g_env = 0;
 }
 
-void		copy_environment(void)
+void		copy_environment(char **envp)
 {
 	int		size;
 	int		i;
 
-	size = str_array_size(environ);
-	if (!(env = ft_calloc(sizeof(char*), size + 1)))
+	size = str_array_size(envp);
+	if (!(g_env = ft_calloc(sizeof(char*), size + 1)))
 		error_exit("Malloc fail");
 	i = -1;
 	while (++i < size)
-		if (!(env[i] = ft_strdup(environ[i])))
+		if (!(g_env[i] = ft_strdup(envp[i])))
 			error_exit("Malloc fail");
 }

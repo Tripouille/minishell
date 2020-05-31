@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:41:59 by jgambard          #+#    #+#             */
-/*   Updated: 2020/05/22 15:41:12 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/31 13:40:22 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,5 @@ void		builtin_echo(t_lst *args)
 	}
 	if (newline)
 		write(1, "\n", 1);
-	status = SUCCESS_STATUS;
+	g_status = SUCCESS_STATUS;
 }

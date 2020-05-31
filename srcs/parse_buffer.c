@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 19:13:16 by aalleman          #+#    #+#             */
-/*   Updated: 2020/05/21 12:41:22 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/31 16:31:18 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,15 @@
 
 int		parse_buffer(char *buffer)
 {
+	int				pipefd[2];
 	t_lst			*command;
 	t_cmd_infos		*cmd_infos;
-	int				pipefd[2];
-	
+
 	pipefd[IN] = STDIN_FILENO;
 	while (*buffer)
 	{
-		skip_spaces(&buffer, 0);
-		if (cinstr(";|", *buffer) != -1)
-			buffer++;
-		if (cinstr(";|", *buffer) != -1 && *buffer)
-		{
-			minishell_error("parse error", "");
+		if (handle_command(&buffer, &command, &cmd_infos) == -1)
 			return (-1);
-		}
-		skip_spaces(&buffer, 0);
-		if (!*buffer)
-			return (0);
-		if (!(cmd_infos = ft_calloc(1, sizeof(cmd_infos))))
-			error_exit("Malloc fail");
-		if (!(command = ft_lst_addback(&commands, ft_lst_new(cmd_infos))))
-			error_exit("Malloc fail");
-		fill_args(&buffer, &(cmd_infos->args));
 		cmd_infos->fd[IN] = pipefd[IN];
 		pipefd[IN] = STDIN_FILENO;
 		pipefd[OUT] = STDOUT_FILENO;
@@ -47,11 +33,32 @@ int		parse_buffer(char *buffer)
 	return (0);
 }
 
+int		handle_command(char **buffer, t_lst **command, t_cmd_infos **cmd_infos)
+{
+	skip_spaces(buffer, 0);
+	if (cinstr(";|", **buffer) != -1)
+		++*buffer;
+	if (cinstr(";|", **buffer) != -1 && **buffer)
+	{
+		minishell_error("parse error", "");
+		return (-1);
+	}
+	skip_spaces(buffer, 0);
+	if (!**buffer)
+		return (0);
+	if (!(*cmd_infos = ft_calloc(1, sizeof(*cmd_infos))))
+		error_exit("Malloc fail");
+	if (!(*command = ft_lst_addback(&g_commands, ft_lst_new(*cmd_infos))))
+		error_exit("Malloc fail");
+	fill_args(buffer, &((*cmd_infos)->args));
+	return (0);
+}
+
 void	fill_args(char **buffer, t_lst **args)
 {
 	t_argument		*arg;
 	int				arg_length;
-	
+
 	while (cinstr(";|", **buffer) == -1)
 	{
 		skip_spaces(buffer, 0);
@@ -86,9 +93,10 @@ void	format_arg(char **buffer, char *arg, int arg_length)
 			replace_variable(buffer, arg, &i);
 		else
 			arg[i++] = **buffer;
-		(*buffer)++;
+		if (*buffer)
+			(*buffer)++;
 	}
-	if (quote)
+	if (quote || !arg_length)
 		(*buffer)++;
 	arg[i] = 0;
 }

@@ -6,18 +6,15 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/05/22 15:39:05 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/05/31 13:49:41 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-//LINUX
-#include <sys/types.h>
-#include <sys/wait.h>
-//LINUX
-
+# include <sys/types.h>
+# include <sys/wait.h>
 # include <stdio.h>
 # include <errno.h>
 # include <stdlib.h>
@@ -46,8 +43,8 @@
 # define GREEN "\033[0;32m"
 # define YELLOW "\033[0;33m"
 
-#define IN 0
-#define OUT 1
+# define IN 0
+# define OUT 1
 
 enum {FALSE, TRUE};
 
@@ -72,16 +69,16 @@ typedef struct		s_builtin
 	t_function		function;
 }					t_builtin;
 
-extern char					**environ;
-extern char					**env;
-extern int					status;
-extern t_lst*				commands;
+extern char					**g_environ;
+extern char					**g_env;
+extern int					g_status;
+extern t_lst*				g_commands;
 
 void				error_exit(char *error_msg);
 void				minishell_error(char *error_msg, char *command);
 
 void				initialize_builtins(t_builtin builtins[]);
-void				initialize_env(void);
+void				initialize_env(char **envp);
 
 void				builtin_echo(t_lst *args);
 void				builtin_exit(t_lst *args);
@@ -99,8 +96,10 @@ void				run_command(t_cmd_infos *cmd_infos, t_builtin builtins[],
 									int fd_save[]);
 char				*get_cmd_name(t_cmd_infos *cmd_infos);
 void				destroy_arg(void *arg);
-									
+
 int					parse_buffer(char *buffer);
+int					handle_command(char **buffer, t_lst **command,
+									t_cmd_infos **cmd_infos);
 void				fill_args(char **buffer, t_lst **args);
 void				format_arg(char **buffer, char *arg, int arg_length);
 
@@ -109,7 +108,7 @@ void				purge_cmd(void *cmd_infos);
 int					arg_len(char *buffer);
 void				replace_variable(char **buffer, char *arg, int *i);
 
-void				copy_environment(void);
+void				copy_environment(char **envp);
 void				free_env(void);
 
 void				del_variable(char *variable_name);
