@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 19:13:16 by aalleman          #+#    #+#             */
-/*   Updated: 2020/05/31 16:31:18 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/01 14:11:00 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int		handle_command(char **buffer, t_lst **command, t_cmd_infos **cmd_infos)
 	skip_spaces(buffer, 0);
 	if (!**buffer)
 		return (0);
-	if (!(*cmd_infos = ft_calloc(1, sizeof(*cmd_infos))))
+	if (!(*cmd_infos = ft_calloc(1, sizeof(**cmd_infos))))
 		error_exit("Malloc fail");
 	if (!(*command = ft_lst_addback(&g_commands, ft_lst_new(*cmd_infos))))
 		error_exit("Malloc fail");
@@ -62,28 +62,38 @@ void	fill_args(char **buffer, t_lst **args)
 	while (cinstr(";|", **buffer) == -1)
 	{
 		skip_spaces(buffer, 0);
-		if (!(arg = ft_calloc(1, sizeof(*arg))))
-			error_exit("Malloc fail");
 		arg_length = arg_len(*buffer);
-		if (!(arg->s = ft_calloc(arg_length, sizeof(*(arg->s)))))
-			error_exit("Malloc fail");
-		if (**buffer == '\'' || **buffer == '"')
-			arg->quoted = TRUE;
-		format_arg(buffer, arg->s, arg_length);
-		if (!ft_lst_addback(args, ft_lst_new(arg)))
-			error_exit("Malloc fail");
+		if (arg_length == 0 && **buffer == '$')
+			*buffer += variable_name_len(*buffer + 1) + 1;
+		else
+		{
+			calloc_arg(&arg, arg_length);
+			if (**buffer == '\'' || **buffer == '"')
+				arg->quoted = TRUE;
+			format_arg(buffer, arg->s);
+			if (!ft_lst_addback(args, ft_lst_new(arg)))
+				error_exit("Malloc fail");
+		}
 		skip_spaces(buffer, 0);
 	}
 }
 
-void	format_arg(char **buffer, char *arg, int arg_length)
+void	calloc_arg(t_argument **arg, int arg_length)
+{
+	if (!(*arg = ft_calloc(1, sizeof(**arg))))
+		error_exit("Malloc fail");
+	if (!((*arg)->s = ft_calloc(arg_length + 1, sizeof(char))))
+		error_exit("Malloc fail");
+}
+
+void	format_arg(char **buffer, char *arg)
 {
 	int		quote;
 	int		i;
 
 	quote = 0;
 	i = 0;
-	while (i < arg_length)
+	while (**buffer && (quote || cinstr(" ;|", **buffer) == -1))
 	{
 		if (**buffer == quote)
 			quote = 0;
@@ -93,10 +103,9 @@ void	format_arg(char **buffer, char *arg, int arg_length)
 			replace_variable(buffer, arg, &i);
 		else
 			arg[i++] = **buffer;
-		if (*buffer)
-			(*buffer)++;
+		(*buffer)++;
 	}
-	if (quote || !arg_length)
+	if (quote)
 		(*buffer)++;
 	arg[i] = 0;
 }
