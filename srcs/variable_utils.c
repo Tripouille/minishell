@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 23:50:09 by jgambard          #+#    #+#             */
-/*   Updated: 2020/05/31 16:34:27 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/01 14:55:39 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int			is_identifier(char *str)
 		return (0);
 	while (ft_isalphanum(*str) || *str == '_')
 		str++;
-	if (*str == '=')
+	if (*str == '=' || !*str)
 		return (1);
 	return (0);
 }
