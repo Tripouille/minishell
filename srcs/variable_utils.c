@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 23:50:09 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/01 14:55:39 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/01 15:03:31 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int			is_identifier(char *str)
 {
+	if (!*str)
+		return (0);
 	if (ft_isdigit(*str))
 		return (0);
 	while (ft_isalphanum(*str) || *str == '_')
