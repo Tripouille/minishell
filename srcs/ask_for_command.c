@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 19:09:51 by aalleman          #+#    #+#             */
-/*   Updated: 2020/05/31 14:05:01 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/01 14:32:48 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ask_for_command(char *prompt_name, char *buffer, int pos)
 {
 	int					read_ret;
 
-	ft_printf("%s%s%s", get_variable_value("PROMPT_COLOR"),
+	ft_printf("%s%s%s", "\033[0;31m",
 				get_variable_value(prompt_name), RESET);
 	if ((read_ret = read(0, buffer + pos, BUFFER_SIZE - pos - 1)) == -1)
 		error_exit("Read error");
