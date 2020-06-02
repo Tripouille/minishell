@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 01:06:39 by jgambard          #+#    #+#             */
-/*   Updated: 2020/05/31 13:10:16 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/02 16:29:23 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void		builtin_env(t_lst *args)
 {
 	char		**variable;
 
+	g_status = SUCCESS_STATUS;
 	if (args->next)
 	{
 		ft_dprintf(2, "%s: %s: %s\n", get_arg_value(args, 0),
@@ -26,5 +27,4 @@ void		builtin_env(t_lst *args)
 	variable = g_env;
 	while (*variable)
 		ft_printf("%s\n", *variable++);
-	g_status = SUCCESS_STATUS;
 }

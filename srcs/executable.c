@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 04:40:57 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/02 15:10:35 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/02 15:46:15 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	launch_executable(t_lst *args)
 		waitpid(child_pid, &status, 0);
 	if (!child_pid && execve(get_arg_value(args, 0), args_tab, g_env) == -1)
 	{
-		minishell_error(strerror(errno), get_arg_value(args, 0));
+		minishell_error(strerror(errno), get_arg_value(args, 0), 1);
 		exit(EX_USAGE);
 	}
 	free(args_tab);

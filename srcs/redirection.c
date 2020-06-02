@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 05:41:57 by aalleman          #+#    #+#             */
-/*   Updated: 2020/06/02 13:37:16 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/02 16:22:56 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		set_file_name_and_move_arg(char *file_name, t_lst **arg,
 	}
 	else
 	{
-		minishell_error("parse error", "missing file name");
+		minishell_error("parse error", "missing file name", 2);
 		return (-1);
 	}
 	next = (*arg)->next;
@@ -44,7 +44,7 @@ int		append_redirection(t_cmd_infos *cmd_infos, t_lst **arg)
 		return (-1);
 	if ((fd = open(file_name, O_WRONLY | O_CREAT | O_APPEND, 0664)) == -1)
 	{
-		minishell_error("Couldn't open file", file_name);
+		minishell_error("Couldn't open file", file_name, 1);
 		return (-1);
 	}
 	else
@@ -64,7 +64,7 @@ int		replace_redirection(t_cmd_infos *cmd_infos, t_lst **arg)
 		return (-1);
 	if ((fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0664)) == -1)
 	{
-		minishell_error("Couldn't open file", file_name);
+		minishell_error("Couldn't open file", file_name, 1);
 		return (-1);
 	}
 	else
@@ -84,7 +84,7 @@ int		read_redirection(t_cmd_infos *cmd_infos, t_lst **arg)
 		return (-1);
 	if ((fd = open(file_name, O_RDONLY)) == -1)
 	{
-		minishell_error("Couldn't open file", file_name);
+		minishell_error("Couldn't open file", file_name, 1);
 		return (-1);
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:41:59 by jgambard          #+#    #+#             */
-/*   Updated: 2020/05/31 13:40:22 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/02 16:29:04 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void		builtin_echo(t_lst *args)
 {
 	int		newline;
 
+	g_status = SUCCESS_STATUS;
 	args = args->next;
 	newline = 1;
 	if (args)
@@ -36,5 +37,4 @@ void		builtin_echo(t_lst *args)
 	}
 	if (newline)
 		write(1, "\n", 1);
-	g_status = SUCCESS_STATUS;
 }

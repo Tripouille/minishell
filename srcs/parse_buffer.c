@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 19:13:16 by aalleman          #+#    #+#             */
-/*   Updated: 2020/06/01 14:11:00 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/02 15:47:13 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		handle_command(char **buffer, t_lst **command, t_cmd_infos **cmd_infos)
 		++*buffer;
 	if (cinstr(";|", **buffer) != -1 && **buffer)
 	{
-		minishell_error("parse error", "");
+		minishell_error("parse error", "", 1);
 		return (-1);
 	}
 	skip_spaces(buffer, 0);

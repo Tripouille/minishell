@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:12:36 by jgambard          #+#    #+#             */
-/*   Updated: 2020/05/31 13:04:23 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/02 15:44:03 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void		error_exit(char *error_msg)
 	exit(EXIT_FAILURE);
 }
 
-void		minishell_error(char *error_msg, char *command)
+void		minishell_error(char *error_msg, char *command, int error)
 {
 	write(2, "Minishell: ", ft_strlen("Minishell: "));
 	write(2, error_msg, ft_strlen(error_msg));
@@ -42,12 +42,14 @@ void		minishell_error(char *error_msg, char *command)
 		write(2, command, ft_strlen(command));
 	}
 	write(2, "\n", 1);
+	g_status = error;
 }
 
-void		usage_error(char *command, char *error_msg, char *input)
+void		usage_error(char *command, char *error_msg, char *input, int error)
 {
 	ft_dprintf(2, "%s: %s", command, error_msg);
 	if (*input)
 		ft_dprintf(2, ": %s\n", input);
 	write(2, "\n", 1);
+	g_status = error;
 }
