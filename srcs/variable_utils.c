@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 23:50:09 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/01 15:03:31 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/02 13:44:17 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int			variable_name_len(char *variable_name)
 {
 	int		len;
 
+	if (*variable_name == '?')
+		return (1);
 	len = 0;
 	while (ft_isalphanum(variable_name[len]) || variable_name[len] == '_')
 		len++;

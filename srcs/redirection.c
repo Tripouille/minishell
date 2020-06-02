@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 05:41:57 by aalleman          #+#    #+#             */
-/*   Updated: 2020/05/31 13:08:56 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/02 13:37:16 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,10 @@ int		append_redirection(t_cmd_infos *cmd_infos, t_lst **arg)
 		return (-1);
 	}
 	else
+	{
+		close(cmd_infos->fd[OUT]);
 		cmd_infos->fd[OUT] = fd;
+	}
 	return (0);
 }
 
@@ -59,13 +62,16 @@ int		replace_redirection(t_cmd_infos *cmd_infos, t_lst **arg)
 
 	if (set_file_name_and_move_arg(file_name, arg, &cmd_infos->args, 1) == -1)
 		return (-1);
-	if ((fd = open(file_name, O_WRONLY | O_CREAT, 0664)) == -1)
+	if ((fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0664)) == -1)
 	{
 		minishell_error("Couldn't open file", file_name);
 		return (-1);
 	}
 	else
+	{
+		close(cmd_infos->fd[OUT]);
 		cmd_infos->fd[OUT] = fd;
+	}
 	return (0);
 }
 
@@ -82,7 +88,10 @@ int		read_redirection(t_cmd_infos *cmd_infos, t_lst **arg)
 		return (-1);
 	}
 	else
+	{
+		close(cmd_infos->fd[IN]);
 		cmd_infos->fd[IN] = fd;
+	}
 	return (0);
 }
 
