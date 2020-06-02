@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:52:41 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/02 14:27:18 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/02 16:39:56 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int		main(int argc __attribute__((unused)),
 			{
 				if (handle_redirections(tmp_cmd->content) != -1)
 					run_command(tmp_cmd->content, builtins, fd_save);
+				else
+					restore_fd(tmp_cmd->content, fd_save);
 				tmp_cmd = tmp_cmd->next;
 			}
 		}
