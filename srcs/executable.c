@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 04:40:57 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/02 14:23:08 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/02 15:10:35 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,7 @@ int		launch_executable_in_path(t_lst *args)
 	fill_args_tab(&args_tab, args);
 	child_pid = fork();
 	if (child_pid)
-	{
-		dprintf(2, "waiting for execution from path\n");
 		waitpid(child_pid, &status, 0);
-		dprintf(2, "after waitpid\n");
-	}
 	if (!child_pid && execve(path, args_tab, g_env) == -1)
 		exit(EX_USAGE);
 	free(path);
