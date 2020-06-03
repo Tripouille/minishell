@@ -19,10 +19,6 @@ else
 CFLAGS				= -g3 -Wall -Wextra -I includes/ -I libft/
 endif
 
-test:				all
-					./${NAME}
-					make fclean
-
 all:				${NAME}
 
 .c.o:

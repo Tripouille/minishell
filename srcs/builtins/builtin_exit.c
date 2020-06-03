@@ -6,16 +6,38 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 21:49:09 by jgambard          #+#    #+#             */
-/*   Updated: 2020/05/31 13:40:31 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/03 13:17:11 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int			is_number(char *str)
+{
+	if (!*str)
+		return (0);
+	while (ft_isdigit(*str))
+		str++;
+	return (*str ? 0 : 1);
+}
+
 void		builtin_exit(t_lst *args)
 {
-	(void)args;
+	int		r;
+
+	if (args->next)
+	{
+		if (is_number(get_arg_value(args, 1)))
+			r = ft_atoi(get_arg_value(args, 1));
+		else
+		{
+			minishell_error("exit", "argument must be numeric", 2);
+			r = 2;
+		}
+	}
+	else
+		r = EXIT_SUCCESS;
 	ft_lst_purge(&g_commands, purge_cmd);
 	free_env();
-	exit(EXIT_SUCCESS);
+	exit(r);
 }
