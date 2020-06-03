@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 23:50:09 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/02 13:44:17 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/03 13:49:42 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char		*get_variable_value(char *variable_name)
 	int				pos;
 	static char		buffer[11];
 
-	if (cinstr(" ;|$", *variable_name) != -1)
+	if (cinstr(" ;|$\"", *variable_name) != -1)
 		return ("$");
 	else if (variable_name[0] == '?')
 		return (ft_itoa_copy(buffer, g_status));
