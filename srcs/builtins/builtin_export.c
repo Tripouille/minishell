@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 01:26:25 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/02 16:28:18 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/03 13:24:16 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 
 void	builtin_export(t_lst *args)
 {
-	char		buffer[100];
+	char		buffer[1000];
 
 	g_status = SUCCESS_STATUS;
 	if (!args->next)
 		return (builtin_env(args));
-	args = args->next;
-	while (args)
+	while ((args = args->next))
 	{
 		if (get_arg_value(args, 0)[0] == '=')
 			minishell_error("bad assignment", "", 1);
@@ -31,6 +30,5 @@ void	builtin_export(t_lst *args)
 		}
 		else
 			set_variable(get_arg_value(args, 0));
-		args = args->next;
 	}
 }

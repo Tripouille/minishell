@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 04:21:42 by jgambard          #+#    #+#             */
-/*   Updated: 2020/05/31 13:34:31 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/03 13:27:01 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void		set_variable(char *variable)
 {
 	int		pos;
 
+	if (cinstr(variable, '=') == -1)
+		return ;
 	if ((pos = get_variable_pos(variable)) == -1)
 		add_variable(ft_strdup(variable));
 	else
