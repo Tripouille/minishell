@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:52:41 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/02 16:39:56 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 18:29:51 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,16 @@
 char				**g_env;
 int					g_status;
 t_lst				*g_commands;
+int					g_child_pid;
+
+void	sigint_handler(void)
+{
+	if (g_child_pid)
+	{
+		kill(g_child_pid, SIGINT);
+		write(1, "\n", 1);
+	}
+}
 
 void	initialize(t_builtin builtins[], int fd_save[], char **envp)
 {
@@ -25,20 +35,18 @@ void	initialize(t_builtin builtins[], int fd_save[], char **envp)
 	initialize_builtins(builtins);
 	fd_save[IN] = dup(STDIN_FILENO);
 	fd_save[OUT] = dup(STDOUT_FILENO);
+	signal(SIGINT, sigint_handler);
 }
 
-int		main(int argc __attribute__((unused)),
-				char **argv __attribute__((unused)), char **envp)
+void	minishell(t_builtin builtins[], int fd_save[])
 {
 	char				buffer[BUFFER_SIZE];
-	t_builtin			builtins[10];
 	t_lst				*tmp_cmd;
-	int					fd_save[2];
 
-	initialize(builtins, fd_save, envp);
 	while (1)
 	{
-		ask_for_command("PROMPT", buffer, 0);
+		if (ask_for_command("PROMPT", buffer, 0) == EOF)
+			builtin_exit(0);
 		if (parse_buffer(buffer) == 0)
 		{
 			tmp_cmd = g_commands;
@@ -52,6 +60,29 @@ int		main(int argc __attribute__((unused)),
 			}
 		}
 		ft_lst_purge(&g_commands, purge_cmd);
+	}
+}
+
+int		main(int argc __attribute__((unused)),
+				char **argv __attribute__((unused)), char **envp)
+{
+	t_builtin			builtins[10];
+	int					fd_save[2];
+	int					status;
+
+	initialize(builtins, fd_save, envp);
+	while (1)
+	{
+		g_child_pid = fork();
+		if (g_child_pid)
+			waitpid(g_child_pid, &status, 0);
+		if (!g_child_pid)
+		{
+			signal(SIGINT, SIG_DFL);
+			minishell(builtins, fd_save);
+		}
+		if (WIFEXITED(status))
+			exit(WEXITSTATUS(status));
 	}
 	return (0);
 }

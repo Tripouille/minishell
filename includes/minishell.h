@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/02 16:26:38 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 17:26:00 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ extern char					**g_environ;
 extern char					**g_env;
 extern int					g_status;
 extern t_lst*				g_commands;
+extern int					g_child_pid;
 
 void				error_exit(char *error_msg);
 void				minishell_error(char *error_msg, char *command, int error);
@@ -90,7 +91,7 @@ void				builtin_unset(t_lst *args);
 void				builtin_pwd(t_lst *args);
 void				builtin_cd(t_lst *args);
 
-void				ask_for_command(char *prompt_name, char *buffer, int pos);
+int					ask_for_command(char *prompt_name, char *buffer, int pos);
 void				check_buffer(char *buffer);
 
 t_function			get_builtins_fct(t_builtin builtins[], char *cmd_name);

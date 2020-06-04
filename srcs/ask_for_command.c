@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 19:09:51 by aalleman          #+#    #+#             */
-/*   Updated: 2020/06/02 15:34:54 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 18:18:56 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,32 @@
 ** Ends the command with a \0 and removes the \n if necessary.
 */
 
-void	ask_for_command(char *prompt_name, char *buffer, int pos)
+int		ask_for_command(char *prompt_name, char *buffer, int pos)
 {
 	int					read_ret;
+	int					continue_reading;
 
 	ft_printf("%s%s%s", "\033[0;31m",
 				get_variable_value(prompt_name), RESET);
-	if ((read_ret = read(0, buffer + pos, BUFFER_SIZE - pos - 1)) == -1)
-		error_exit("Read error");
-	if (read_ret && buffer[pos + read_ret - 1] == '\n')
-		read_ret--;
+	continue_reading = 1;
+	ft_bzero(buffer + pos, BUFFER_SIZE - pos);
+	while (continue_reading)
+	{
+		if ((read_ret = read(0, buffer + pos, BUFFER_SIZE - pos - 1)) == -1)
+			error_exit("Read error");
+		if (!read_ret && !ft_strlen(buffer))
+			return (EOF);
+		if (buffer[pos + read_ret - 1] == '\n')
+		{
+			read_ret--;
+			continue_reading = 0;
+		}
+		else
+			pos = ft_strlen(buffer);
+	}
 	buffer[pos + read_ret] = 0;
 	check_buffer(buffer);
+	return (0);
 }
 
 /*
@@ -53,7 +67,7 @@ void	check_buffer(char *buffer)
 		if (buffer[i] == '|' && last_char == '|' && !quote)
 		{
 			minishell_error("parse error", "", 2);
-			return (ask_for_command("PROMPT", buffer, 0));
+			return ((void)ask_for_command("PROMPT", buffer, 0));
 		}
 		if (!ft_isspace(buffer[i]) && buffer[i] != ';')
 			last_char = buffer[i];

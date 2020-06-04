@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 04:40:57 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/02 15:46:15 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 16:13:38 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ char	*get_valid_path(char *command)
 
 int		launch_executable_in_path(t_lst *args)
 {
-	int		child_pid;
 	int		status;
+	int		child_pid;
 	char	*path;
 	char	**args_tab;
 
@@ -83,8 +83,8 @@ int		launch_executable_in_path(t_lst *args)
 
 void	launch_executable(t_lst *args)
 {
-	int		child_pid;
 	int		status;
+	int		child_pid;
 	char	**args_tab;
 
 	fill_args_tab(&args_tab, args);

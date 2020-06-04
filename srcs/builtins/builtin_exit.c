@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 21:49:09 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/03 13:17:11 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/04 17:19:17 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void		builtin_exit(t_lst *args)
 {
 	int		r;
 
-	if (args->next)
+	if (args && args->next)
 	{
 		if (is_number(get_arg_value(args, 1)))
 			r = ft_atoi(get_arg_value(args, 1));
@@ -39,5 +39,6 @@ void		builtin_exit(t_lst *args)
 		r = EXIT_SUCCESS;
 	ft_lst_purge(&g_commands, purge_cmd);
 	free_env();
+	ft_printf("exit\n");
 	exit(r);
 }
