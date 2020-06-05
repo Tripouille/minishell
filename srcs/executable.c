@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 04:40:57 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/04 16:13:38 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/05 14:08:02 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,21 @@ char	*get_valid_path(char *command)
 int		launch_executable_in_path(t_lst *args)
 {
 	int		status;
-	int		child_pid;
 	char	*path;
 	char	**args_tab;
 
 	if (!(path = get_valid_path(get_arg_value(args, 0))))
 		return (0);
 	fill_args_tab(&args_tab, args);
-	child_pid = fork();
-	if (child_pid)
-		waitpid(child_pid, &status, 0);
-	if (!child_pid && execve(path, args_tab, g_env) == -1)
-		exit(EX_USAGE);
+	g_child_pid = fork();
+	if (!g_child_pid)
+	{
+		signal(SIGQUIT, SIG_DFL);
+		if (execve(path, args_tab, g_env) == -1)
+			exit(EX_USAGE);
+	}
+	waitpid(g_child_pid, &status, 0);
+	g_child_pid = -1;
 	free(path);
 	free(args_tab);
 	g_status = WEXITSTATUS(status);
@@ -84,14 +87,14 @@ int		launch_executable_in_path(t_lst *args)
 void	launch_executable(t_lst *args)
 {
 	int		status;
-	int		child_pid;
+	int		old_child_pid;
 	char	**args_tab;
 
 	fill_args_tab(&args_tab, args);
-	child_pid = fork();
-	if (child_pid)
-		waitpid(child_pid, &status, 0);
-	if (!child_pid && execve(get_arg_value(args, 0), args_tab, g_env) == -1)
+	old_child_pid = fork();
+	if (old_child_pid)
+		waitpid(old_child_pid, &status, 0);
+	if (!old_child_pid && execve(get_arg_value(args, 0), args_tab, g_env) == -1)
 	{
 		minishell_error(strerror(errno), get_arg_value(args, 0), 1);
 		exit(EX_USAGE);

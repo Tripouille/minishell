@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:52:41 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/04 18:29:51 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/05 14:14:06 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,21 @@
 char				**g_env;
 int					g_status;
 t_lst				*g_commands;
+int					g_minishell_pid;
 int					g_child_pid;
-
-void	sigint_handler(void)
-{
-	if (g_child_pid)
-	{
-		kill(g_child_pid, SIGINT);
-		write(1, "\n", 1);
-	}
-}
 
 void	initialize(t_builtin builtins[], int fd_save[], char **envp)
 {
 	errno = 0;
 	g_status = 0;
+	g_child_pid = -1;
 	g_commands = 0;
 	initialize_env(envp);
 	initialize_builtins(builtins);
 	fd_save[IN] = dup(STDIN_FILENO);
 	fd_save[OUT] = dup(STDOUT_FILENO);
 	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, sigquit_handler);
 }
 
 void	minishell(t_builtin builtins[], int fd_save[])
@@ -52,6 +46,7 @@ void	minishell(t_builtin builtins[], int fd_save[])
 			tmp_cmd = g_commands;
 			while (tmp_cmd)
 			{
+				g_child_pid = -1;
 				if (handle_redirections(tmp_cmd->content) != -1)
 					run_command(tmp_cmd->content, builtins, fd_save);
 				else
@@ -73,10 +68,10 @@ int		main(int argc __attribute__((unused)),
 	initialize(builtins, fd_save, envp);
 	while (1)
 	{
-		g_child_pid = fork();
-		if (g_child_pid)
-			waitpid(g_child_pid, &status, 0);
-		if (!g_child_pid)
+		g_minishell_pid = fork();
+		if (g_minishell_pid)
+			waitpid(g_minishell_pid, &status, 0);
+		if (!g_minishell_pid)
 		{
 			signal(SIGINT, SIG_DFL);
 			minishell(builtins, fd_save);

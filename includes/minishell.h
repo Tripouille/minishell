@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/04 17:26:00 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/05 13:51:29 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ extern char					**g_environ;
 extern char					**g_env;
 extern int					g_status;
 extern t_lst*				g_commands;
+extern int					g_minishell_pid;
 extern int					g_child_pid;
 
 void				error_exit(char *error_msg);
@@ -134,4 +135,8 @@ void				synchronize_fd(t_cmd_infos *cmd_infos);
 void				restore_fd(t_cmd_infos *cmd_infos, int fd_save[]);
 
 int					handle_redirections(t_cmd_infos *cmd_infos);
+
+void				sigint_handler(int signal);
+void				sigquit_handler(int signal);
+
 #endif
