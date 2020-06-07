@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/05 13:51:29 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/07 16:09:25 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # define TOO_MANY_ARGUMENTS "too many arguments"
 # define MISSING_ARGUMENT "missing argument"
 # define BUFFER_SIZE 10000
+# define SPECIAL_CHARACTERS "\"$\\"
 
 # define RESET "\033[0m"
 # define RED "\033[0;31m"
@@ -94,6 +95,8 @@ void				builtin_cd(t_lst *args);
 
 int					ask_for_command(char *prompt_name, char *buffer, int pos);
 void				check_buffer(char *buffer);
+int					check_buffer2(char *buffer, int *i, char *quote,
+									char *last_char);
 
 t_function			get_builtins_fct(t_builtin builtins[], char *cmd_name);
 void				run_command(t_cmd_infos *cmd_infos, t_builtin builtins[],
@@ -107,6 +110,10 @@ int					handle_command(char **buffer, t_lst **command,
 void				fill_args(char **buffer, t_lst **args);
 void				calloc_arg(t_argument **arg, int arg_length);
 void				format_arg(char **buffer, char *arg);
+
+void				handle_backslash(char **buffer, char *arg, int *i,
+										char quote);
+int					get_backslash_len(char **buffer, char quote);
 
 char				*get_arg_value(t_lst *args, int pos);
 void				purge_cmd(void *cmd_infos);

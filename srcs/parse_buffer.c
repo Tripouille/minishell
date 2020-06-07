@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 19:13:16 by aalleman          #+#    #+#             */
-/*   Updated: 2020/06/02 15:47:13 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/07 16:08:17 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,16 @@ void	calloc_arg(t_argument **arg, int arg_length)
 
 void	format_arg(char **buffer, char *arg)
 {
-	int		quote;
+	char	quote;
 	int		i;
 
 	quote = 0;
 	i = 0;
-	while (**buffer && (quote || cinstr(" ;|", **buffer) == -1))
+	while (**buffer && (quote || cinstr(";| ", **buffer) == -1))
 	{
-		if (**buffer == quote)
+		if (quote != '\'' && **buffer == '\\')
+			handle_backslash(buffer, arg, &i, quote);
+		else if (**buffer == quote)
 			quote = 0;
 		else if (!quote && (**buffer == '\'' || **buffer == '"'))
 			quote = **buffer;
