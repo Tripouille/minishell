@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 04:40:57 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/05 14:08:02 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/08 11:20:29 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ char	*get_valid_path(char *command)
 
 	if (!(split = ft_split(get_variable_value("PATH"), ':')))
 		error_exit("Malloc fail");
-	i = 0;
-	while (split[i])
+	i = -1;
+	while (split[++i])
 	{
 		if (!(path = ft_strjoin(3, split[i], "/", command)))
 		{
@@ -49,7 +49,6 @@ char	*get_valid_path(char *command)
 			return (path);
 		}
 		free(path);
-		i++;
 	}
 	free_str_array(split);
 	return (0);
@@ -62,11 +61,14 @@ char	*get_valid_path(char *command)
 
 int		launch_executable_in_path(t_lst *args)
 {
-	int		status;
-	char	*path;
-	char	**args_tab;
+	int			status;
+	char		*path;
+	char		**args_tab;
+	struct stat	sb;
 
-	if (!(path = get_valid_path(get_arg_value(args, 0))))
+	if (stat(get_arg_value(args, 0), &sb) == 0 && sb.st_mode & S_IXUSR)
+		path = ft_strdup(get_arg_value(args, 0));
+	else if (!(path = get_valid_path(get_arg_value(args, 0))))
 		return (0);
 	fill_args_tab(&args_tab, args);
 	g_child_pid = fork();
