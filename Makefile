@@ -5,7 +5,7 @@ SRCS				= $(addprefix srcs/, main.c error.c initializer.c \
 						run_command.c manage_fd.c variable.c \
 						command_utils.c env.c variable_utils.c \
 						executable.c parse_buffer.c ask_for_command.c \
-						redirection.c signal.c escape.c)
+						redirection.c signal.c escape.c split_redirections.c)
 SRCS				+= $(addprefix srcs/builtins/, builtin_echo.c \
 						builtin_exit.c builtin_env.c builtin_export.c \
 						builtin_unset.c builtin_pwd.c builtin_cd.c)

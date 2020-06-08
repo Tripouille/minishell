@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:52:41 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/05 14:14:06 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/08 10:32:34 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	minishell(t_builtin builtins[], int fd_save[])
 	{
 		if (ask_for_command("PROMPT", buffer, 0) == EOF)
 			builtin_exit(0);
+		split_redirections(buffer);
 		if (parse_buffer(buffer) == 0)
 		{
 			tmp_cmd = g_commands;

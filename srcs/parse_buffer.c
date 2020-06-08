@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 19:13:16 by aalleman          #+#    #+#             */
-/*   Updated: 2020/06/07 16:08:17 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/08 10:52:57 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,9 @@ void	fill_args(char **buffer, t_lst **args)
 		else
 		{
 			calloc_arg(&arg, arg_length);
-			if (**buffer == '\'' || **buffer == '"')
+			if (**buffer == '\'' || **buffer == '"'
+			|| !ft_strncmp("\\>", *buffer, 2)
+			|| !ft_strncmp("\\<", *buffer, 2))
 				arg->quoted = TRUE;
 			format_arg(buffer, arg->s);
 			if (!ft_lst_addback(args, ft_lst_new(arg)))
