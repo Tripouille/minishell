@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 05:41:57 by aalleman          #+#    #+#             */
-/*   Updated: 2020/06/02 16:22:56 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/09 19:41:15 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int		append_redirection(t_cmd_infos *cmd_infos, t_lst **arg)
 	}
 	else
 	{
-		close(cmd_infos->fd[OUT]);
+		if (cmd_infos->fd[OUT] != STDOUT_FILENO)
+			close(cmd_infos->fd[OUT]);
 		cmd_infos->fd[OUT] = fd;
 	}
 	return (0);
@@ -69,7 +70,8 @@ int		replace_redirection(t_cmd_infos *cmd_infos, t_lst **arg)
 	}
 	else
 	{
-		close(cmd_infos->fd[OUT]);
+		if (cmd_infos->fd[OUT] != STDOUT_FILENO)
+			close(cmd_infos->fd[OUT]);
 		cmd_infos->fd[OUT] = fd;
 	}
 	return (0);
@@ -89,7 +91,8 @@ int		read_redirection(t_cmd_infos *cmd_infos, t_lst **arg)
 	}
 	else
 	{
-		close(cmd_infos->fd[IN]);
+		if (cmd_infos->fd[IN] != STDIN_FILENO)
+			close(cmd_infos->fd[IN]);
 		cmd_infos->fd[IN] = fd;
 	}
 	return (0);
