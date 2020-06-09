@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 19:09:51 by aalleman          #+#    #+#             */
-/*   Updated: 2020/06/08 10:31:28 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/09 21:02:13 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 ** Ends the command with a \0 and removes the \n if necessary.
 */
 
-int		ask_for_command(char *prompt_name, char *buffer, int pos)
+int		ask_for_command(char *prompt_name, char *buffer, int pos,
+						int first_call)
 {
 	int					read_ret;
 	int					continue_reading;
@@ -31,13 +32,12 @@ int		ask_for_command(char *prompt_name, char *buffer, int pos)
 	{
 		if ((read_ret = read(0, buffer + pos, BUFFER_SIZE - pos - 1)) == -1)
 			error_exit("Read error");
-		if (!read_ret && !ft_strlen(buffer + pos))
-			return (EOF);
-		if (buffer[pos + read_ret - 1] == '\n')
-		{
-			read_ret--;
+		if (!read_ret && !ft_strlen(buffer) && first_call)
+			builtin_exit(0);
+		else if (!read_ret && !first_call && ft_printf("\n"))
+			return (ask_for_command("PROMPT", buffer, 0, 1));
+		if (buffer[pos + read_ret - 1] == '\n' && read_ret-- > -1)
 			continue_reading = 0;
-		}
 		else
 			pos = ft_strlen(buffer);
 	}
@@ -62,13 +62,13 @@ void	check_buffer(char *buffer)
 	if (check_buffer2(buffer, &i, &quote, &last_char) == -1)
 	{
 		minishell_error("parse error", "", 2);
-		return ((void)ask_for_command("PROMPT", buffer, 0));
+		return ((void)ask_for_command("PROMPT", buffer, 0, 1));
 	}
 	if (quote)
 		ask_for_command(quote == '\'' ? "PROMPT_QUOTE" : "PROMPT_DQUOTE",
-						buffer, i);
+						buffer, i, 0);
 	else if (((i > 1 && buffer[i - 2] != '\\') || i == 1) && last_char == '|')
-		ask_for_command("PROMPT_PIPE", buffer, i);
+		ask_for_command("PROMPT_PIPE", buffer, i, 0);
 }
 
 int		check_buffer2(char *buffer, int *i, char *quote, char *last_char)
@@ -79,18 +79,16 @@ int		check_buffer2(char *buffer, int *i, char *quote, char *last_char)
 	while (buffer[*i])
 	{
 		escaped = !escaped && buffer[*i] == '\\' && *quote != '\'' ? 1 : 0;
-		if (escaped)
-		{
+		if (escaped && ++*i)
 			*last_char = '\\';
-			++*i;
-		}
 		if (!escaped && buffer[*i] == *quote)
 			*quote = 0;
 		else if (!escaped && !*quote
 					&& (buffer[*i] == '\'' || buffer[*i] == '"'))
 			*quote = buffer[*i];
-		if (buffer[*i] == '|' && (*last_char == '|' || *last_char == ';')
-			&& !*quote)
+		if (((buffer[*i] == '|' && (*last_char == '|' || *last_char == ';'))
+		|| !ft_strncmp(buffer + *i, ">>>", 3)
+		|| !ft_strncmp(buffer + *i, "<<", 2)) && !*quote)
 			return (-1);
 		if (!ft_isspace(buffer[*i]))
 			*last_char = buffer[*i];

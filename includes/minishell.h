@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/08 10:42:29 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/09 20:44:24 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,8 @@ void				builtin_unset(t_lst *args);
 void				builtin_pwd(t_lst *args);
 void				builtin_cd(t_lst *args);
 
-int					ask_for_command(char *prompt_name, char *buffer, int pos);
+int					ask_for_command(char *prompt_name, char *buffer, int pos,
+										int first_call);
 void				check_buffer(char *buffer);
 int					check_buffer2(char *buffer, int *i, char *quote,
 									char *last_char);
