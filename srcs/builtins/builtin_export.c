@@ -6,11 +6,34 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 01:26:25 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/03 13:24:16 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/12 21:15:37 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	show_variables(void)
+{
+	char		**variable;
+	char		var_name[1000];
+	int			i;
+
+	g_status = SUCCESS_STATUS;
+	variable = g_env;
+	while (*variable)
+	{
+		i = 0;
+		while ((*variable)[i] && (*variable)[i] != '=')
+		{
+			var_name[i] = (*variable)[i];
+			i++;
+		}
+		var_name[i] = 0;
+		ft_printf("declare -x %s=\"%s\"\n", var_name,
+					get_variable_value(var_name));
+		variable++;
+	}
+}
 
 void	builtin_export(t_lst *args)
 {
@@ -18,7 +41,7 @@ void	builtin_export(t_lst *args)
 
 	g_status = SUCCESS_STATUS;
 	if (!args->next)
-		return (builtin_env(args));
+		return (show_variables());
 	while ((args = args->next))
 	{
 		if (get_arg_value(args, 0)[0] == '=')

@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 19:09:51 by aalleman          #+#    #+#             */
-/*   Updated: 2020/06/09 21:02:13 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/12 20:46:20 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,9 @@ int		check_buffer2(char *buffer, int *i, char *quote, char *last_char)
 	escaped = 0;
 	while (buffer[*i])
 	{
-		escaped = !escaped && buffer[*i] == '\\' && *quote != '\'' ? 1 : 0;
+		while (!ft_strncmp(buffer + *i, "\\\\", 2))
+			*i += 2;
+		escaped = buffer[*i] == '\\' && *quote != '\'' ? 1 : 0;
 		if (escaped && ++*i)
 			*last_char = '\\';
 		if (!escaped && buffer[*i] == *quote)
