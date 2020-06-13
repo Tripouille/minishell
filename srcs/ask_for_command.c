@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 19:09:51 by aalleman          #+#    #+#             */
-/*   Updated: 2020/06/12 20:46:20 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/13 18:20:52 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		ask_for_command(char *prompt_name, char *buffer, int pos,
 		if ((read_ret = read(0, buffer + pos, BUFFER_SIZE - pos - 1)) == -1)
 			error_exit("Read error");
 		if (!read_ret && !ft_strlen(buffer) && first_call)
-			builtin_exit(0);
+			ft_exit(130);
 		else if (!read_ret && !first_call && ft_printf("\n"))
 			return (ask_for_command("PROMPT", buffer, 0, 1));
 		if (buffer[pos + read_ret - 1] == '\n' && read_ret-- > -1)

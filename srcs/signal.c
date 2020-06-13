@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:52:41 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/05 14:23:16 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/13 18:23:22 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	sigint_handler(int signal)
 {
 	if (g_minishell_pid)
 	{
+		g_status = 130;
 		kill(g_minishell_pid, signal);
 		write(1, "\n", 1);
 	}

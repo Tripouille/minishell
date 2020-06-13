@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 21:49:09 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/08 11:35:01 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/13 18:20:32 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,14 @@ int			is_number(char *str)
 	return (*str ? 0 : 1);
 }
 
+void		ft_exit(int ret)
+{
+	ft_lst_purge(&g_commands, purge_cmd);
+	free_env();
+	ft_printf("exit\n");
+	exit(ret);
+}
+
 void		builtin_exit(t_lst *args)
 {
 	int		r;
@@ -41,8 +49,5 @@ void		builtin_exit(t_lst *args)
 	}
 	else
 		r = EXIT_SUCCESS;
-	ft_lst_purge(&g_commands, purge_cmd);
-	free_env();
-	ft_printf("exit\n");
-	exit(r);
+	ft_exit(r);
 }
