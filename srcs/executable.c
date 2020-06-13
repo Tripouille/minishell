@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 04:40:57 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/08 11:20:29 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/13 18:42:09 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int		launch_executable_in_path(t_lst *args)
 	g_child_pid = -1;
 	free(path);
 	free(args_tab);
-	g_status = WEXITSTATUS(status);
+	g_status = WIFEXITED(status) ? WEXITSTATUS(status) : g_status;
 	return (WEXITSTATUS(status) == EX_USAGE ? 0 : 1);
 }
 
