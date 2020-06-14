@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:52:41 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/14 17:08:29 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/14 17:54:59 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int		main(int argc __attribute__((unused)),
 			minishell(builtins, fd_save);
 		}
 		if (WIFEXITED(status))
-			exit(WEXITSTATUS(status));
+			ft_exit(WEXITSTATUS(status));
 	}
 	return (0);
 }
