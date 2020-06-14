@@ -15,8 +15,7 @@ OBJS				= ${SRCS:.c=.o}
 ifdef san
 CFLAGS				= -g3 -Wall -Wextra -Werror -I includes/ -I libft/ -fsanitize=thread
 else
-#CFLAGS				= -g3 -Wall -Wextra -Werror -I includes/ -I libft/
-CFLAGS				= -g3 -Wall -Wextra -I includes/ -I libft/
+CFLAGS				= -g3 -Wall -Wextra -Werror -I includes/ -I libft/
 endif
 
 all:				${NAME}

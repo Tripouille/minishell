@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:52:41 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/13 18:42:16 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/14 17:11:27 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,10 @@ void	sigquit_handler(int signal)
 		g_status = 131;
 		kill(g_child_pid, signal);
 		ft_printf("Quit (Core Dumped)\n");
+	}
+	else if (g_minishell_pid)
+	{
+		ft_printf("\r");
+		kill(g_minishell_pid, SIGINT);
 	}
 }
