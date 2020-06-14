@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 19:13:16 by aalleman          #+#    #+#             */
-/*   Updated: 2020/06/08 10:52:57 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/13 18:53:34 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ void	format_arg(char **buffer, char *arg)
 			quote = 0;
 		else if (!quote && (**buffer == '\'' || **buffer == '"'))
 			quote = **buffer;
+		else if (!quote && **buffer == '$' && (*buffer)[1] == '\"')
+			;
 		else if (quote != '\'' && **buffer == '$')
 			replace_variable(buffer, arg, &i);
 		else

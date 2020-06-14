@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 02:52:18 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/07 16:09:53 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/14 15:03:50 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int		arg_len(char *buffer)
 	{
 		if (quote != '\'' && *buffer == '\\')
 			len += get_backslash_len(&buffer, quote);
-		if (*buffer == quote)
+		else if (*buffer == quote)
 			quote = 0;
 		else if (!quote && (*buffer == '\'' || *buffer == '"'))
 			quote = *buffer;
