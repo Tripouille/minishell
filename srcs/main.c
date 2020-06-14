@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:52:41 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/14 17:54:59 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/14 19:43:47 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	initialize(t_builtin builtins[], int fd_save[], char **envp)
 	initialize_builtins(builtins);
 	fd_save[IN] = dup(STDIN_FILENO);
 	fd_save[OUT] = dup(STDOUT_FILENO);
-	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, sigquit_handler);
 }
 
@@ -68,16 +67,17 @@ int		main(int argc __attribute__((unused)),
 	initialize(builtins, fd_save, envp);
 	while (1)
 	{
+		signal(SIGINT, sigint_handler);
 		g_minishell_pid = fork();
 		if (g_minishell_pid)
 			waitpid(g_minishell_pid, &status, 0);
 		if (!g_minishell_pid)
 		{
-			signal(SIGINT, SIG_DFL);
+			signal(SIGINT, sigint_handler);
 			minishell(builtins, fd_save);
 		}
 		if (WIFEXITED(status))
-			ft_exit(WEXITSTATUS(status));
+			ft_exit(WEXITSTATUS(status), 0);
 	}
 	return (0);
 }
