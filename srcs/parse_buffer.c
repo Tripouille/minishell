@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 19:13:16 by aalleman          #+#    #+#             */
-/*   Updated: 2020/06/14 16:45:12 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/17 15:25:21 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ int		parse_buffer(char *buffer)
 	{
 		if (handle_command(&buffer, &command, &cmd_infos) == -1)
 			return (-1);
+		if (!cmd_infos->args)
+		{
+			minishell_error("parse error", "", 1);
+			return (-1);
+		}
 		cmd_infos->fd[IN] = pipefd[IN];
 		pipefd[IN] = STDIN_FILENO;
 		pipefd[OUT] = STDOUT_FILENO;
@@ -36,14 +41,6 @@ int		parse_buffer(char *buffer)
 int		handle_command(char **buffer, t_lst **command, t_cmd_infos **cmd_infos)
 {
 	skip_spaces(buffer, 0);
-	if (cinstr(";|", **buffer) != -1)
-		++*buffer;
-	if (cinstr(";|", **buffer) != -1 && **buffer)
-	{
-		minishell_error("parse error", "", 1);
-		return (-1);
-	}
-	skip_spaces(buffer, 0);
 	if (!**buffer)
 		return (0);
 	if (!(*cmd_infos = ft_calloc(1, sizeof(**cmd_infos))))
@@ -51,6 +48,8 @@ int		handle_command(char **buffer, t_lst **command, t_cmd_infos **cmd_infos)
 	if (!(*command = ft_lst_addback(&g_commands, ft_lst_new(*cmd_infos))))
 		error_exit("Malloc fail");
 	fill_args(buffer, &((*cmd_infos)->args));
+	if (**buffer && cinstr(";|", **buffer) != -1)
+		++*buffer;
 	return (0);
 }
 
