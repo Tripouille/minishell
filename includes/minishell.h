@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/14 18:34:05 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/17 17:11:21 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ extern int					g_status;
 extern t_lst*				g_commands;
 extern int					g_minishell_pid;
 extern int					g_child_pid;
+extern int					g_fd_save[2];
 
 void				error_exit(char *error_msg);
 void				minishell_error(char *error_msg, char *command, int error);
@@ -96,13 +97,12 @@ void				builtin_cd(t_lst *args);
 
 int					ask_for_command(char *prompt_name, char *buffer, int pos,
 										int first_call);
-void				check_buffer(char *buffer);
+int					check_buffer(char *buffer);
 int					check_buffer2(char *buffer, int *i, char *quote,
 									char *last_char);
 
 t_function			get_builtins_fct(t_builtin builtins[], char *cmd_name);
-void				run_command(t_cmd_infos *cmd_infos, t_builtin builtins[],
-									int fd_save[]);
+void				run_command(t_cmd_infos *cmd_infos, t_builtin builtins[]);
 char				*get_cmd_name(t_cmd_infos *cmd_infos);
 void				destroy_arg(void *arg);
 
@@ -141,7 +141,7 @@ void				launch_executable(t_lst *args);
 int					launch_executable_in_path(t_lst *args);
 
 void				synchronize_fd(t_cmd_infos *cmd_infos);
-void				restore_fd(t_cmd_infos *cmd_infos, int fd_save[]);
+void				restore_fd(t_cmd_infos *cmd_infos);
 
 int					handle_redirections(t_cmd_infos *cmd_infos);
 

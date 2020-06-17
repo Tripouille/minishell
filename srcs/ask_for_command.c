@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 19:09:51 by aalleman          #+#    #+#             */
-/*   Updated: 2020/06/14 18:23:15 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/17 17:11:57 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		ask_for_command(char *prompt_name, char *buffer, int pos,
 	while (continue_reading)
 	{
 		if ((read_ret = read(0, buffer + pos, BUFFER_SIZE - pos - 1)) == -1)
-			error_exit("Read error");
+			return (dup2(g_fd_save[IN], STDIN_FILENO) - 1);
 		if (!read_ret && !ft_strlen(buffer) && first_call)
 			ft_exit(0, 1);
 		else if (!read_ret && !first_call && ft_printf("\n"))
@@ -42,15 +42,14 @@ int		ask_for_command(char *prompt_name, char *buffer, int pos,
 			pos = ft_strlen(buffer);
 	}
 	buffer[pos + read_ret] = 0;
-	check_buffer(buffer);
-	return (0);
+	return (check_buffer(buffer));
 }
 
 /*
 ** If there's an odd number of quotes, ask for the missing one.
 */
 
-void	check_buffer(char *buffer)
+int		check_buffer(char *buffer)
 {
 	int		i;
 	char	quote;
@@ -62,13 +61,14 @@ void	check_buffer(char *buffer)
 	if (check_buffer2(buffer, &i, &quote, &last_char) == -1)
 	{
 		minishell_error("parse error", "", 2);
-		return ((void)ask_for_command("PROMPT", buffer, 0, 1));
+		return (ask_for_command("PROMPT", buffer, 0, 1));
 	}
 	if (quote)
-		ask_for_command(quote == '\'' ? "PROMPT_QUOTE" : "PROMPT_DQUOTE",
-						buffer, i, 0);
+		return (ask_for_command(quote == '\'' ?
+				"PROMPT_QUOTE" : "PROMPT_DQUOTE", buffer, i, 0));
 	else if (((i > 1 && buffer[i - 2] != '\\') || i == 1) && last_char == '|')
-		ask_for_command("PROMPT_PIPE", buffer, i, 0);
+		return (ask_for_command("PROMPT_PIPE", buffer, i, 0));
+	return (0);
 }
 
 int		check_buffer2(char *buffer, int *i, char *quote, char *last_char)
