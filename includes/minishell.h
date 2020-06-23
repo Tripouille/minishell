@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/17 17:11:21 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/23 20:22:04 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,8 @@ void				restore_fd(t_cmd_infos *cmd_infos);
 int					handle_redirections(t_cmd_infos *cmd_infos);
 
 void				split_redirections(char *buffer);
+
+t_bool				invalid_redirection(void);
 
 void				sigint_handler(int signal);
 void				sigquit_handler(int signal);
