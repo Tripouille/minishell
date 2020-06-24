@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 21:49:09 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/24 16:58:16 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/24 19:52:13 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ void		builtin_exit(t_lst *args)
 			r = 2;
 		}
 		else
+		{
+			dprintf(2, "r = ft_atoi\n");
 			r = ft_atoi(get_arg_value(args, 1));
+		}
 	}
 	else
 		r = g_status;
