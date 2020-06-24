@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 01:26:25 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/24 18:43:25 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/24 19:02:33 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,5 @@ void	builtin_export(t_lst *args)
 			ft_strccpy(buffer, get_arg_value(args, 0), '=');
 			usage_error("export", "not an identifier", buffer, 1);
 		}
-		else
-			set_variable(get_arg_value(args, 0), 0);
 	}
 }
