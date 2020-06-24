@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:52:41 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/24 13:51:19 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/24 17:41:33 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	minishell(t_builtin builtins[])
 
 	while (1)
 	{
-		if (ask_for_command("PROMPT", buffer, 0, 1) == -1)
+		if (ask_for_command(PROMPT, buffer, 0, 1) == -1)
 			continue ;
 		split_redirections(buffer);
 		if (parse_buffer(buffer) == 0 && invalid_redirection() == 0)

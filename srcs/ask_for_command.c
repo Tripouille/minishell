@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 19:09:51 by aalleman          #+#    #+#             */
-/*   Updated: 2020/06/24 13:28:24 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/24 17:44:07 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,12 @@
 ** Ends the command with a \0 and removes the \n if necessary.
 */
 
-int		ask_for_command(char *prompt_name, char *buffer, int pos,
-						int first_call)
+int		ask_for_command(char *prompt, char *buffer, int pos, int first_call)
 {
 	int					read_ret;
 	int					continue_reading;
 
-	ft_dprintf(2, "%s%s%s", "\033[0;31m",
-				get_variable_value(prompt_name), RESET);
+	ft_dprintf(2, "%s%s%s", "\033[0;31m", prompt, RESET);
 	continue_reading = 1;
 	ft_bzero(buffer + pos, BUFFER_SIZE - pos);
 	while (continue_reading)
@@ -35,7 +33,7 @@ int		ask_for_command(char *prompt_name, char *buffer, int pos,
 		if (!read_ret && !ft_strlen(buffer) && first_call)
 			ft_exit(0, 1);
 		else if (!read_ret && !first_call && ft_dprintf(2, "\n"))
-			return (ask_for_command("PROMPT", buffer, 0, 1));
+			return (ask_for_command(PROMPT, buffer, 0, 1));
 		if (buffer[pos + read_ret - 1] == '\n' && read_ret-- > -1)
 			continue_reading = 0;
 		else
@@ -61,13 +59,13 @@ int		check_buffer(char *buffer)
 	if (check_buffer2(buffer, &i, &quote, &last_char) == -1)
 	{
 		minishell_error("parse error", "", 2);
-		return (ask_for_command("PROMPT", buffer, 0, 1));
+		return (ask_for_command(PROMPT, buffer, 0, 1));
 	}
 	if (quote)
 		return (ask_for_command(quote == '\'' ?
-				"PROMPT_QUOTE" : "PROMPT_DQUOTE", buffer, i, 0));
+				PROMPT_QUOTE : PROMPT_DQUOTE, buffer, i, 0));
 	else if (((i > 1 && buffer[i - 2] != '\\') || i == 1) && last_char == '|')
-		return (ask_for_command("PROMPT_PIPE", buffer, i, 0));
+		return (ask_for_command(PROMPT_PIPE, buffer, i, 0));
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/24 16:42:12 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/24 17:42:48 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@
 # include <fcntl.h>
 # include "libft.h"
 
-# define PROMPT "Minishell: "
+# define PROMPT "Minishell "
+# define PROMPT_QUOTE ">quote "
+# define PROMPT_DQUOTE ">dquote "
+# define PROMPT_PIPE ">pipe "
 # define NOT_EXPORTED 0
 # define EXPORTED 1
 # define SUCCESS_STATUS 0
