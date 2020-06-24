@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 21:49:09 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/14 18:23:09 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/24 13:27:23 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void		ft_exit(int ret, int display)
 	ft_lst_purge(&g_commands, purge_cmd);
 	free_env();
 	if (display)
-		ft_printf("exit\n");
+		ft_dprintf(2, "exit\n");
 	exit(ret);
 }
 
