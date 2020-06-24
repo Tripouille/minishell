@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:52:41 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/24 18:11:28 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/24 19:27:01 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	minishell(void)
 			while (tmp_cmd)
 			{
 				g_child_pid = -1;
-				if (handle_redirections(tmp_cmd->content) != -1)
+				if (((t_cmd_infos*)tmp_cmd->content)->args
+				&& handle_redirections(tmp_cmd->content) != -1)
 					run_command(tmp_cmd->content);
 				else
 					restore_fd(tmp_cmd->content);

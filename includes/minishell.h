@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/24 18:43:17 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/24 19:37:18 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,10 @@ void				destroy_arg(void *arg);
 int					parse_buffer(char *buffer);
 int					handle_command(char **buffer, t_lst **command,
 									t_cmd_infos **cmd_infos);
-void				fill_args(char **buffer, t_lst **args);
+int					fill_args(char **buffer, t_lst **args);
+
+void				handle_argument(char **buffer, int arg_length,
+									t_lst **args);
 void				calloc_arg(t_argument **arg, int arg_length);
 void				format_arg(char **buffer, char *arg);
 
