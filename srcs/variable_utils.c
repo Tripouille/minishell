@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 23:50:09 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/03 13:49:42 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/24 16:55:27 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int			variable_name_len(char *variable_name)
 {
 	int		len;
 
-	if (*variable_name == '?')
+	if (*variable_name == '?' || ft_isdigit(*variable_name))
 		return (1);
 	len = 0;
 	while (ft_isalphanum(variable_name[len]) || variable_name[len] == '_')
@@ -70,7 +70,7 @@ char		*get_variable_value(char *variable_name)
 	int				pos;
 	static char		buffer[11];
 
-	if (cinstr(" ;|$\"", *variable_name) != -1)
+	if (cinstr(" ;|$\"=", *variable_name) != -1)
 		return ("$");
 	else if (variable_name[0] == '?')
 		return (ft_itoa_copy(buffer, g_status));
