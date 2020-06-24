@@ -6,11 +6,26 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 04:31:23 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/24 14:21:01 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/24 16:24:11 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void		set_pwd_for_cd(t_lst *args)
+{
+	char		pwd[PATH_MAX];
+
+	g_status = SUCCESS_STATUS;
+	if (getcwd(pwd, PATH_MAX))
+		set_variable(ft_strjoin(2, "PWD=", pwd));
+	else
+	{
+		usage_error("cd", "bad path", strerror(errno), SUCCESS_STATUS);
+		set_variable(ft_strjoin(4, "PWD=", get_variable_value("PWD"),
+							"/", get_arg_value(args, 1)));
+	}
+}
 
 void		builtin_cd(t_lst *args)
 {
@@ -23,7 +38,10 @@ void		builtin_cd(t_lst *args)
 			usage_error("cd", strerror(errno),
 					get_variable_value("HOME"), ERROR_STATUS);
 		else
+		{
 			g_status = SUCCESS_STATUS;
+			set_variable(ft_strjoin(2, "PWD=", get_variable_value("HOME")));
+		}
 	}
 	else if (args->next && args->next->next)
 		usage_error("cd", TOO_MANY_ARGUMENTS, "", ERROR_STATUS);
@@ -31,5 +49,5 @@ void		builtin_cd(t_lst *args)
 		usage_error("cd", strerror(errno), get_arg_value(args, 1),
 						ERROR_STATUS);
 	else
-		g_status = SUCCESS_STATUS;
+		set_pwd_for_cd(args);
 }
