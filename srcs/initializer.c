@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:26:08 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/24 17:42:56 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/24 18:11:45 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,22 @@ void		initialize_env(char **envp)
 ** Initialize array of builtin names and functions.
 */
 
-void		initialize_builtins(t_builtin builtins[])
+void		initialize_builtins(void)
 {
-	builtins[0].name = "echo";
-	builtins[0].function = builtin_echo;
-	builtins[1].name = "exit";
-	builtins[1].function = builtin_exit;
-	builtins[2].name = "env";
-	builtins[2].function = builtin_env;
-	builtins[3].name = "export";
-	builtins[3].function = builtin_export;
-	builtins[4].name = "unset";
-	builtins[4].function = builtin_unset;
-	builtins[5].name = "pwd";
-	builtins[5].function = builtin_pwd;
-	builtins[6].name = "cd";
-	builtins[6].function = builtin_cd;
-	builtins[7].name = 0;
-	builtins[7].function = 0;
+	g_builtins[0].name = "echo";
+	g_builtins[0].function = builtin_echo;
+	g_builtins[1].name = "exit";
+	g_builtins[1].function = builtin_exit;
+	g_builtins[2].name = "env";
+	g_builtins[2].function = builtin_env;
+	g_builtins[3].name = "export";
+	g_builtins[3].function = builtin_export;
+	g_builtins[4].name = "unset";
+	g_builtins[4].function = builtin_unset;
+	g_builtins[5].name = "pwd";
+	g_builtins[5].function = builtin_pwd;
+	g_builtins[6].name = "cd";
+	g_builtins[6].function = builtin_cd;
+	g_builtins[7].name = 0;
+	g_builtins[7].function = 0;
 }

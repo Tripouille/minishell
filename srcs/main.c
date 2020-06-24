@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:52:41 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/24 17:41:33 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/24 18:11:28 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,23 @@ int					g_status;
 t_lst				*g_commands;
 int					g_child_pid;
 int					g_fd_save[2];
+t_builtin			g_builtins[10];
 
-void	initialize(t_builtin builtins[], char **envp)
+void	initialize(char **envp)
 {
 	errno = 0;
 	g_status = 0;
 	g_child_pid = -1;
 	g_commands = 0;
 	initialize_env(envp);
-	initialize_builtins(builtins);
+	initialize_builtins();
 	g_fd_save[IN] = dup(STDIN_FILENO);
 	g_fd_save[OUT] = dup(STDOUT_FILENO);
 	signal(SIGQUIT, sigquit_handler);
 	signal(SIGINT, sigint_handler);
 }
 
-void	minishell(t_builtin builtins[])
+void	minishell(void)
 {
 	char				buffer[BUFFER_SIZE];
 	t_lst				*tmp_cmd;
@@ -49,7 +50,7 @@ void	minishell(t_builtin builtins[])
 			{
 				g_child_pid = -1;
 				if (handle_redirections(tmp_cmd->content) != -1)
-					run_command(tmp_cmd->content, builtins);
+					run_command(tmp_cmd->content);
 				else
 					restore_fd(tmp_cmd->content);
 				tmp_cmd = tmp_cmd->next;
@@ -62,9 +63,7 @@ void	minishell(t_builtin builtins[])
 int		main(int argc __attribute__((unused)),
 				char **argv __attribute__((unused)), char **envp)
 {
-	t_builtin			builtins[10];
-
-	initialize(builtins, envp);
-	minishell(builtins);
+	initialize(envp);
+	minishell();
 	return (0);
 }

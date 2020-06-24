@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 19:13:16 by aalleman          #+#    #+#             */
-/*   Updated: 2020/06/24 12:50:24 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/24 18:16:14 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int		parse_buffer(char *buffer)
 
 int		handle_command(char **buffer, t_lst **command, t_cmd_infos **cmd_infos)
 {
+	t_lst	*args;
+
 	skip_spaces(buffer, 0);
 	if (!**buffer)
 		return (0);
@@ -50,6 +52,12 @@ int		handle_command(char **buffer, t_lst **command, t_cmd_infos **cmd_infos)
 	if (!(*command = ft_lst_addback(&g_commands, ft_lst_new(*cmd_infos))))
 		error_exit("Malloc fail");
 	fill_args(buffer, &((*cmd_infos)->args));
+	args = (*cmd_infos)->args;
+	if (ft_strcmp(get_arg_value((*cmd_infos)->args, 0), "export") == 0)
+		while ((args = args->next))
+			if (get_arg_value(args, 0)[0] != '='
+			&& is_identifier(get_arg_value(args, 0)))
+				set_variable(get_arg_value(args, 0));
 	return (0);
 }
 

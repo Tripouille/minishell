@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/24 17:42:48 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/24 18:11:38 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,14 @@ extern t_lst*				g_commands;
 extern int					g_minishell_pid;
 extern int					g_child_pid;
 extern int					g_fd_save[2];
+t_builtin					g_builtins[10];
 
 void				error_exit(char *error_msg);
 void				minishell_error(char *error_msg, char *command, int error);
 void				usage_error(char *command, char *error_msg, char *input,
 									int error);
 
-void				initialize_builtins(t_builtin builtins[]);
+void				initialize_builtins(void);
 void				initialize_env(char **envp);
 
 void				builtin_echo(t_lst *args);
@@ -104,8 +105,8 @@ int					check_buffer(char *buffer);
 int					check_buffer2(char *buffer, int *i, char *quote,
 									char *last_char);
 
-t_function			get_builtins_fct(t_builtin builtins[], char *cmd_name);
-void				run_command(t_cmd_infos *cmd_infos, t_builtin builtins[]);
+t_function			get_builtins_fct(char *cmd_name);
+void				run_command(t_cmd_infos *cmd_infos);
 char				*get_cmd_name(t_cmd_infos *cmd_infos);
 void				destroy_arg(void *arg);
 

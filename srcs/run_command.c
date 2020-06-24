@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:58:16 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/17 16:51:36 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/24 18:04:17 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@
 ** Search for the command in the list of builtins or write error message.
 */
 
-void			run_command(t_cmd_infos *cmd_infos, t_builtin builtins[])
+void			run_command(t_cmd_infos *cmd_infos)
 {
 	t_function		builtin;
 	char			*cmd_name;
 
 	synchronize_fd(cmd_infos);
 	cmd_name = get_cmd_name(cmd_infos);
-	builtin = get_builtins_fct(builtins, cmd_name);
+	builtin = get_builtins_fct(cmd_name);
 	if (builtin)
 		builtin(cmd_infos->args);
 	else if (cmd_name[0] == '.')
@@ -38,12 +38,12 @@ char			*get_cmd_name(t_cmd_infos *cmd_infos)
 	return (((t_argument*)cmd_infos->args->content)->s);
 }
 
-t_function		get_builtins_fct(t_builtin builtins[], char *cmd_name)
+t_function		get_builtins_fct(char *cmd_name)
 {
 	int				i;
 
 	i = 0;
-	while (builtins[i].name && ft_strcmp(builtins[i].name, cmd_name))
+	while (g_builtins[i].name && ft_strcmp(g_builtins[i].name, cmd_name))
 		i++;
-	return (builtins[i].function);
+	return (g_builtins[i].function);
 }
