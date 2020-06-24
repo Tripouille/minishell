@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 04:31:23 by jgambard          #+#    #+#             */
-/*   Updated: 2020/05/31 13:41:05 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/24 14:21:01 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,20 @@ void		builtin_cd(t_lst *args)
 {
 	if (!args->next)
 	{
-		ft_dprintf(2, "%s: %s\n", get_arg_value(args, 0), MISSING_ARGUMENT);
-		g_status = ERROR_STATUS;
+		if (get_variable_pos("HOME") == -1)
+			minishell_error("cd", "« HOME » undefined",
+								ERROR_STATUS);
+		else if (chdir(get_variable_value("HOME")) == -1)
+			usage_error("cd", strerror(errno),
+					get_variable_value("HOME"), ERROR_STATUS);
+		else
+			g_status = SUCCESS_STATUS;
 	}
+	else if (args->next && args->next->next)
+		usage_error("cd", TOO_MANY_ARGUMENTS, "", ERROR_STATUS);
 	else if (chdir(get_arg_value(args, 1)) == -1)
-	{
-		ft_dprintf(2, "%s: %s: %s\n", get_arg_value(args, 0), strerror(errno),
-					get_arg_value(args, 1));
-		g_status = ERROR_STATUS;
-	}
+		usage_error("cd", strerror(errno), get_arg_value(args, 1),
+						ERROR_STATUS);
 	else
 		g_status = SUCCESS_STATUS;
 }

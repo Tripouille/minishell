@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:12:36 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/02 15:44:03 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/24 14:25:16 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void		usage_error(char *command, char *error_msg, char *input, int error)
 {
 	ft_dprintf(2, "%s: %s", command, error_msg);
 	if (*input)
-		ft_dprintf(2, ": %s\n", input);
+		ft_dprintf(2, ": %s", input);
 	write(2, "\n", 1);
 	g_status = error;
 }
