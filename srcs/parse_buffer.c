@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 19:13:16 by aalleman          #+#    #+#             */
-/*   Updated: 2020/06/24 19:36:35 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/24 19:41:11 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		parse_buffer(char *buffer)
 	{
 		if (handle_command(&buffer, &command, &cmd_infos) == -1)
 		{
-			minishell_error("parse error", "", 1);
+			minishell_error("parse error", "", 2);
 			return (-1);
 		}
 		cmd_infos->fd[IN] = pipefd[IN];
