@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 19:46:44 by aalleman          #+#    #+#             */
-/*   Updated: 2020/06/23 20:32:26 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/24 12:52:46 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ t_bool		cmd_is_invalid(t_cmd_infos *cmd_infos)
 	{
 		actual = get_arg_value(arg, 0);
 		next = get_arg_value(arg, 1);
-		if (cinstr("><", actual[ft_strlen(actual) - 1]) != -1
+		if (!((t_argument*)arg->content)->quoted
+		&& cinstr("><", actual[ft_strlen(actual) - 1]) != -1
+		&& !is_escaped(actual, ft_strlen(actual) - 1)
+		&& !((t_argument*)arg->next->content)->quoted
 		&& cinstr("><", next[0]) != -1)
 		{
 			minishell_error("parse error", "", 1);
