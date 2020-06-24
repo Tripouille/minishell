@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 19:13:16 by aalleman          #+#    #+#             */
-/*   Updated: 2020/06/24 18:16:14 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/24 18:43:01 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int		handle_command(char **buffer, t_lst **command, t_cmd_infos **cmd_infos)
 		while ((args = args->next))
 			if (get_arg_value(args, 0)[0] != '='
 			&& is_identifier(get_arg_value(args, 0)))
-				set_variable(get_arg_value(args, 0));
+				set_variable(get_arg_value(args, 0), 1);
 	return (0);
 }
 

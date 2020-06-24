@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 04:21:42 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/24 17:34:21 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/24 18:55:43 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,28 @@ void		del_variable(char *variable_name)
 ** Search for the variable in env if found replace it, in other case create it.
 */
 
-void		set_variable(char *variable)
+void		set_variable(char *variable, int concatenate)
 {
 	int		pos;
+	char	*join;
 
 	if ((pos = get_variable_pos(variable)) == -1)
 		add_variable(ft_strdup(variable));
 	else if (cinstr(variable, '=') != -1)
 	{
-		free(g_env[pos]);
-		if (!(g_env[pos] = ft_strdup(variable)))
-			error_exit("Malloc fail");
+		if (concatenate && variable[cinstr(variable, '=') - 1] == '+')
+		{
+			join = ft_strjoin(2, g_env[pos],
+									variable + cinstr(variable, '=') + 1);
+			free(g_env[pos]);
+			g_env[pos] = join;
+		}
+		else if (variable[cinstr(variable, '=') - 1] != '+')
+		{
+			free(g_env[pos]);
+			if (!(g_env[pos] = ft_strdup(variable)))
+				error_exit("Malloc fail");
+		}
 	}
 }
 

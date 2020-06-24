@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 04:31:23 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/24 16:24:11 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/24 18:44:18 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ void		set_pwd_for_cd(t_lst *args)
 
 	g_status = SUCCESS_STATUS;
 	if (getcwd(pwd, PATH_MAX))
-		set_variable(ft_strjoin(2, "PWD=", pwd));
+		set_variable(ft_strjoin(2, "PWD=", pwd), 0);
 	else
 	{
 		usage_error("cd", "bad path", strerror(errno), SUCCESS_STATUS);
 		set_variable(ft_strjoin(4, "PWD=", get_variable_value("PWD"),
-							"/", get_arg_value(args, 1)));
+							"/", get_arg_value(args, 1)), 0);
 	}
 }
 
@@ -40,7 +40,7 @@ void		builtin_cd(t_lst *args)
 		else
 		{
 			g_status = SUCCESS_STATUS;
-			set_variable(ft_strjoin(2, "PWD=", get_variable_value("HOME")));
+			set_variable(ft_strjoin(2, "PWD=", get_variable_value("HOME")), 0);
 		}
 	}
 	else if (args->next && args->next->next)

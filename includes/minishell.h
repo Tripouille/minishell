@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/24 18:11:38 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/24 18:43:17 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ void				free_env(void);
 
 void				del_variable(char *variable_name);
 void				add_variable(char *variable);
-void				set_variable(char *variable);
+void				set_variable(char *variable, int concatenate);
 
 int					is_identifier(char *str);
 char				*get_variable_value(char *variable_name);
