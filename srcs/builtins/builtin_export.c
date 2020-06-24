@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 01:26:25 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/13 18:13:35 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/24 17:28:56 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,11 @@ void	show_variables(void)
 			i++;
 		}
 		var_name[i] = 0;
-		ft_printf("declare -x %s=\"%s\"\n", var_name,
-					get_variable_value(var_name));
+		if ((*variable)[i] == '=')
+			ft_printf("declare -x %s=\"%s\"\n", var_name,
+						get_variable_value(var_name));
+		else
+			ft_printf("declare -x %s\n", var_name);
 		variable++;
 	}
 	free(sorted_env);

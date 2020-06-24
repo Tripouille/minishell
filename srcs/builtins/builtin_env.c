@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 01:06:39 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/17 15:57:22 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/24 17:23:45 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,9 @@ void		builtin_env(t_lst *args)
 	}
 	variable = g_env;
 	while (*variable)
-		ft_printf("%s\n", *variable++);
+	{
+		if (cinstr(*variable, '=') != -1)
+			ft_printf("%s\n", *variable);
+		variable++;
+	}
 }
