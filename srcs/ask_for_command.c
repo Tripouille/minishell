@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 19:09:51 by aalleman          #+#    #+#             */
-/*   Updated: 2020/06/23 19:26:18 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/24 13:06:24 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		ask_for_command(char *prompt_name, char *buffer, int pos,
 	int					read_ret;
 	int					continue_reading;
 
-	ft_printf("%s%s%s", "\033[0;31m",
+	ft_dprintf(2, "%s%s%s", "\033[0;31m",
 				get_variable_value(prompt_name), RESET);
 	continue_reading = 1;
 	ft_bzero(buffer + pos, BUFFER_SIZE - pos);
