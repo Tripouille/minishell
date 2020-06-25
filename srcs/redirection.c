@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 05:41:57 by aalleman          #+#    #+#             */
-/*   Updated: 2020/06/09 19:41:15 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/25 16:23:11 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		set_file_name_and_move_arg(char *file_name, t_lst **arg,
 	else if ((*arg)->next)
 	{
 		ft_strlcpy(file_name, get_arg_value(*arg, 1), PATH_MAX + 1);
-		ft_lst_remove(head, (*arg)->next, free);
+		ft_lst_remove(head, (*arg)->next, destroy_arg);
 	}
 	else
 	{
