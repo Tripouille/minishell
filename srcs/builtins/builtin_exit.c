@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 21:49:09 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/25 15:27:17 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/25 15:34:29 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,12 @@ void					builtin_exit(t_lst *args)
 	if (args && args->next)
 	{
 		r = convert_number(get_arg_value(args, 1), &minus);
-		if (r > __LONG_MAX__ || !is_number(get_arg_value(args, 1)))
+		if ((r > __LONG_MAX__ && !minus)
+		|| (r > (unsigned long)(__LONG_MAX__) + 1 && minus)
+		|| !is_number(get_arg_value(args, 1)))
 		{
 			minishell_error("exit", "argument must be numeric", 2);
-			r = 2;
+			ft_exit(2, 1);
 		}
 		ft_exit(r * (minus ? -1 : 1), 1);
 	}
