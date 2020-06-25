@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:52:41 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/24 13:28:37 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/25 17:44:00 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	sigint_handler(int s)
 {
 	(void)s;
 	g_status = 130;
-	write(1, "\n", 1);
+	write(2, "\n", 1);
 	close(STDIN_FILENO);
 }
 
