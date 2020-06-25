@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 18:48:55 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/24 19:37:18 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/24 20:08:38 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void				initialize_builtins(void);
 void				initialize_env(char **envp);
 
 void				builtin_echo(t_lst *args);
-void				ft_exit(int ret, int display);
+void				ft_exit(long ret, int display);
 void				builtin_exit(t_lst *args);
 void				builtin_env(t_lst *args);
 void				builtin_export(t_lst *args);
