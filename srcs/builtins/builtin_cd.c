@@ -6,7 +6,7 @@
 /*   By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 04:31:23 by jgambard          #+#    #+#             */
-/*   Updated: 2020/06/24 18:44:18 by aalleman         ###   ########lyon.fr   */
+/*   Updated: 2020/06/25 15:56:02 by aalleman         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,21 @@
 void		set_pwd_for_cd(t_lst *args)
 {
 	char		pwd[PATH_MAX];
+	char		*join;
+	char		new_variable[PATH_MAX];
 
 	g_status = SUCCESS_STATUS;
 	if (getcwd(pwd, PATH_MAX))
-		set_variable(ft_strjoin(2, "PWD=", pwd), 0);
+		join = ft_strjoin(2, "PWD=", pwd);
 	else
 	{
 		usage_error("cd", "bad path", strerror(errno), SUCCESS_STATUS);
-		set_variable(ft_strjoin(4, "PWD=", get_variable_value("PWD"),
-							"/", get_arg_value(args, 1)), 0);
+		join = ft_strjoin(4, "PWD=", get_variable_value("PWD"),
+							"/", get_arg_value(args, 1));
 	}
+	ft_strlcpy(new_variable, join, ft_strlen(join) + 1);
+	free(join);
+	set_variable(new_variable, 0);
 }
 
 void		builtin_cd(t_lst *args)
